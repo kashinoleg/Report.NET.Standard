@@ -1,18 +1,5 @@
 ﻿using System;
 
-// Creation date: 05.11.2002
-// Checked: 08.07.2003
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.02
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Definition of the column properties</summary>
@@ -250,38 +237,5 @@ namespace Root.Reports
 
         /// <summary>Header font properties</summary>
         public FontProp fontProp_Header;
-
-        //----------------------------------------------------------------------------------------------------
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-
-    [Obsolete("use 'penProp_BorderTop'")]
-    public PenProp pp_BorderTop {
-      get { return _penProp_BorderTop; }
-      set { _penProp_BorderTop = value; }
-    }
-
-    [Obsolete("use 'penProp_BorderBottom'")]
-    public PenProp pp_BorderBottom {
-      get { return _penProp_BorderBottom; }
-      set { _penProp_BorderBottom = value; }
-    }
-
-    [Obsolete("use 'penProp_BorderH'")]
-    public PenProp pp_BorderH {
-      set { penProp_BorderTop = penProp_BorderBottom = value; }
-    }
-
-    [Obsolete("use 'tlmCellDef_Header'")]
-    public TlmCellDef headerCellDef {
-      get { return tlmCellDef_Header; }
-    }
-
-    [Obsolete("use 'fontProp_Header'")]
-    public FontProp fp_Header {
-      get { return fontProp_Header; }
-      set { fontProp_Header = value; }
-    }
-#endif
     }
 }

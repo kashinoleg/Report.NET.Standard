@@ -2,19 +2,6 @@
 using System.Drawing;
 using System.Globalization;
 
-// Creation date: 24.04.2002
-// Checked: 26.09.2006
-// Author: Otto Mayer (mot@root.ch)
-// Version: 2.01
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Defines the properties (i.e. format and style attributes) of a font.</summary>
@@ -206,13 +193,7 @@ namespace Root.Reports
                       + _color.R + "-" + _color.G + "-" + _color.B + "-" + _color.A + ";"
                       + fontStyle.ToString("d") + ";" + _rAngle.ToString("0.###", CultureInfo.InvariantCulture) + ";"
                       + rLineFeed.ToString("0.###", CultureInfo.InvariantCulture);  // _rLineFeed could be NaN
-#if Framework2
           if (!report.dict_FontProp.TryGetValue(sKey, out _fontProp_Registered)) {
-#else
-                    _fontProp_Registered = (FontProp)report.dict_FontProp[sKey];
-                    if (_fontProp_Registered == null)
-                    {
-#endif
                         _fontProp_Registered = new FontPropPoint(_fontDef, rSizePoint, _color);
                         _fontProp_Registered.fontStyle = fontStyle;
                         _fontProp_Registered._rAngle = _rAngle;
@@ -632,53 +613,6 @@ namespace Root.Reports
             return fontProp_GetBestFit(sText, RT.rPointFromMM(rWidthMaxMM), RT.rPointFromMM(rHeightMaxMM), RT.rPointFromMM(rFontSizeMinMM));
         }
         #endregion
-
-        //------------------------------------------------------------------------------------------28.07.2006
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-
-    //------------------------------------------------------------------------------------------02.05.2006
-    /// <summary>Returns the height of the font in points (1/72 inch).</summary>
-    /// <returns>Height of the font in points (1/72 inch)</returns>
-    /// <example><see cref="FontProp.rGetTextWidth">Width/Height sample</see></example>
-    /// <remarks>This method returns the height of the letter "H".</remarks>
-    [Obsolete("use property [rSize]")]
-    public Double rHeight() {
-      return fontData.rHeight(fontProp_Registered);
-    }
-
-    //------------------------------------------------------------------------------------------02.05.2006
-    /// <summary>Returns the height of the font in millimeters.</summary>
-    /// <returns>Height of the font in millimeters</returns>
-    /// <example><see cref="FontProp.rGetTextWidth">Width/Height sample</see></example>
-    /// <remarks>This method returns the height of the letter "H".</remarks>
-    [Obsolete("use property [rSizeMM]")]
-    public Double rHeightMM() {
-      return RT.rMMFromPoint(rHeight());
-    }
-
-    //------------------------------------------------------------------------------------------02.05.2006
-    /// <summary>Returns the width of the specified text in points (1/72 inch).</summary>
-    /// <param name="sText">Text</param>
-    /// <returns>Width of the text in points (1/72 inch)</returns>
-    /// <remarks>This method calculates the width of the specified text.</remarks>
-    /// <example><see cref="FontProp.rGetTextWidth">Width/Height sample</see></example>
-    [Obsolete("use method [rGetTextWidth]")]
-    public Double rWidth(String sText) {
-      return fontData.rWidth(this, sText);
-    }
-
-    //------------------------------------------------------------------------------------------02.05.2006
-    /// <summary>Returns the width of the specified text in millimeters.</summary>
-    /// <param name="sText">Text</param>
-    /// <returns>Width of the text in millimeters</returns>
-    /// <remarks>This method calculates the width of the specified text.</remarks>
-    /// <example><see cref="FontProp.rGetTextWidth">Width/Height sample</see></example>
-    [Obsolete("use method [rGetTextWidthMM]")]
-    public Double rWidthMM(String sText) {
-      return RT.rMMFromPoint(rWidth(sText));
-    }
-#endif
     }
 
     //------------------------------------------------------------------------------------------28.07.2006

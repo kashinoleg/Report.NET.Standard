@@ -1,9 +1,4 @@
 ﻿using System;
-#if Framework2
-using System.Collections.Generic;
-#else
-using System.Collections;
-#endif
 using System.Diagnostics;
 
 // Creation date: 15.03.2003
@@ -89,21 +84,11 @@ namespace Root.Reports
         {
             get
             {
-#if (Checked)
-          Debug.Assert(tlmBase.aTlmRow.al_TlmRow.IndexOf(this) == _iIndex);
-#endif
                 return _iIndex;
             }
             set
             {
                 _iIndex = value;
-#if (Checked)
-          DebugTools.CheckMethodCall(new DebugTools.Method[] {
-            new DebugTools.Method(typeof(TlmBase), "InsertRow"),
-            new DebugTools.Method(typeof(TlmBase), "RemoveCommittedRowsAndRepObjs")
-          });
-          Debug.Assert(tlmBase.aTlmRow.al_TlmRow.IndexOf(this) == _iIndex);
-#endif
             }
         }
 
@@ -508,16 +493,5 @@ namespace Root.Reports
         internal readonly TlmCellEnumerator tlmCellEnumerator;
 
         #endregion
-
-        //----------------------------------------------------------------------------------------------------
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-
-    //----------------------------------------------------------------------------------------------------
-    [Obsolete("use 'penProp_LineH'")]
-    public PenProp pp_LineH {
-      set { penProp_LineH = value; }
-    }
-#endif
     }
 }

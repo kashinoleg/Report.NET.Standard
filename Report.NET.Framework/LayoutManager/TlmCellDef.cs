@@ -1,19 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 
-// Creation date: 01.05.2003
-// Checked: 11.06.2003
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.02
-
-// Report.NET copyright 2003-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Definition of the cell properties</summary>
@@ -329,75 +316,5 @@ namespace Root.Reports
         /// <summary>Order of the bottom line</summary>
         public Int32 iOrderLineBottom = Int32.MinValue;
         #endregion
-
-        //------------------------------------------------------------------------------------------03.11.2006
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    public TlmBase.TextMode textMode {
-      get {
-        switch (tlmTextMode) {
-          case TlmTextMode.EllipsisCharacter: { return TlmBase.TextMode.EllipsisCharacter; }
-          case TlmTextMode.FallBack: { return TlmBase.TextMode.FallBack; }
-          case TlmTextMode.MultiLine: { return TlmBase.TextMode.MultiLine; }
-        }
-        return TlmBase.TextMode.SingleMultiLine;
-      }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'brushProp_Back'")]
-    public BrushProp bp_Back {
-      get { return brushProp_Back; }
-      set { brushProp_Back = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_LineLeft'")]
-    public PenProp pp_LineLeft {
-      get { return penProp_LineLeft; }
-      set { penProp_LineLeft = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_LineRight'")]
-    public PenProp pp_LineRight {
-      get { return penProp_LineRight; }
-      set { penProp_LineRight = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_LineTop'")]
-    public PenProp pp_LineTop {
-      get { return penProp_LineTop; }
-      set { penProp_LineTop = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_LineBottom'")]
-    public PenProp pp_LineBottom {
-      get { return penProp_LineBottom; }
-      set { penProp_LineBottom = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_LineV'")]
-    public PenProp pp_LineV {
-      set { penProp_LineV = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_LineH'")]
-    public PenProp pp_LineH {
-      set { penProp_LineH = value; }
-    }
-
-    //------------------------------------------------------------------------------------------03.11.2006
-    [Obsolete("use 'penProp_Line'")]
-    public PenProp pp_Line {
-      set { penProp_Line = value; }
-    }
-#endif
     }
 }

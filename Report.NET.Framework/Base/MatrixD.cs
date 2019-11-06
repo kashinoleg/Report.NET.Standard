@@ -1,18 +1,5 @@
 ﻿using System;
 
-// Creation date: 30.07.2002
-// Checked: xx.07.2002
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.01 
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>The MatrixDOrder enumeration specifies the order of multiplication when a new matrix is multiplied by an existing matrix.</summary>
@@ -133,9 +120,9 @@ namespace Root.Reports
         /// <param name="rDXp"></param>
         /// <param name="rDYp"></param>
         /// <param name="matrixDOrder"></param>
-        internal void Multiply(Double rSXp, Double rRYp, Double rRXp, Double rSYp, Double rDXp, Double rDYp, MatrixDOrder matrixDOrder)
+        internal void Multiply(double rSXp, double rRYp, double rRXp, double rSYp, double rDXp, double rDYp, MatrixDOrder matrixDOrder)
         {
-            Double rSXn, rRYn, rRXn, rSYn, rDXn, rDYn;
+            double rSXn, rRYn, rRXn, rSYn, rDXn, rDYn;
             if (matrixDOrder == MatrixDOrder.Prepend)
             {
                 rSXn = rSXp * _rSX + rRYp * _rRX;
@@ -173,7 +160,7 @@ namespace Root.Reports
         /// <param name="rSYp"></param>
         /// <param name="rDXp"></param>
         /// <param name="rDYp"></param>
-        internal void Multiply(Double rSXp, Double rRYp, Double rRXp, Double rSYp, Double rDXp, Double rDYp)
+        internal void Multiply(double rSXp, double rRYp, double rRXp, double rSYp, double rDXp, double rDYp)
         {
             Multiply(rSXp, rRYp, rRXp, rSYp, rDXp, rDYp, MatrixDOrder.Prepend);
         }
@@ -198,7 +185,7 @@ namespace Root.Reports
         //----------------------------------------------------------------------------------------------------x
         /// <summary>Applies the specified rotation to the transformation matrix of this report object.</summary>
         /// <param name="rAngle">Angle of rotation in degrees</param>
-        internal void Rotate(Double rAngle)
+        internal void Rotate(double rAngle)
         {
             //System.Drawing.Drawing2D.Matrix m1 = new System.Drawing.Drawing2D.Matrix((Single)_rSX, (Single)_rRY, (Single)_rRX, (Single)_rSY, (Single)_rDX, (Single)_rDY);
             //m1.Rotate((float)rAngle);
@@ -211,7 +198,7 @@ namespace Root.Reports
         /// <param name="rX"></param>
         /// <param name="rY"></param>
         /// <returns></returns>
-        internal Double rTransformX(Double rX, Double rY)
+        internal double rTransformX(double rX, double rY)
         {
             return rX * _rSX + rY * _rRX + _rDX;
         }
@@ -221,7 +208,7 @@ namespace Root.Reports
         /// <param name="rX"></param>
         /// <param name="rY"></param>
         /// <returns></returns>
-        internal Double rTransformY(Double rX, Double rY)
+        internal double rTransformY(double rX, double rY)
         {
             return rX * _rRY + rY * _rSY + _rDY;
         }
@@ -230,10 +217,9 @@ namespace Root.Reports
         /// <summary>Scales this report object.</summary>
         /// <param name="rScaleX">The value by which to scale this Matrix in the x-axis direction.</param>
         /// <param name="rScaleY">The value by which to scale this Matrix in the y-axis direction.</param>
-        internal void Scale(Double rScaleX, Double rScaleY)
+        internal void Scale(double rScaleX, double rScaleY)
         {
             Multiply(rScaleX, 0, 0, rScaleY, 0, 0, MatrixDOrder.Prepend);
         }
-
     }
 }

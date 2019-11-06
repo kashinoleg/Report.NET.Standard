@@ -1,19 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-
-// Creation date: 05.11.2002
-// Checked: 30.05.2003
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.01
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
@@ -67,14 +53,6 @@ namespace Root.Reports
         }
 
         //----------------------------------------------------------------------------------------------------x
-        /// <summary>Adds a column definition to the table layout manager</summary>
-        [Obsolete("set 'tableHeight = TableHeight...' instead of calling 'AdjustHeight()'")]
-        public void AdjustHeight()
-        {
-            tlmHeightMode = TlmHeightMode.AdjustLast;
-        }
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         public CellCreateType[] aCellCreateType = null;
 
@@ -125,14 +103,6 @@ namespace Root.Reports
                     cell.Add(new RepString(col.fontProp_Header, col.sHeader));
                 }
             }
-        }
-
-        //----------------------------------------------------------------------------------------------------x
-        /// <summary>The layout manager will be closed.</summary>
-        [Obsolete("use 'Close()' or 'using (...)' instead of 'Done()'")]
-        public void Done()
-        {
-            Close();
         }
 
         //----------------------------------------------------------------------------------------------------x
@@ -198,116 +168,5 @@ namespace Root.Reports
                 }
             }
         }
-
-#if Compatible_0_8x
-    //====================================================================================================x
-    /// <summary>Column definition.</summary>
-    public class Column : TlmColumn {
-      /// <summary>Horizontal alignment</summary>
-      [Obsolete("use 'cellDef.rAlignH = ...'")]
-      public Double rAlignH {
-        set { tlmCellDef_Default.rAlignH = value; }
-      }
-
-      /// <summary>Vertical alignment</summary>
-      [Obsolete("use 'cellDef.rAlignV = ...'")]
-      public Double rAlignV {
-        set { tlmCellDef_Default.rAlignV = value; }
-      }
-
-      /// <summary>Left margin within the column</summary>
-      [Obsolete("use 'cellDef.rMarginLeft = ...'")]
-      public Double rMarginLeft {
-        set { tlmCellDef_Default.rMarginLeft = value; }
-      }
-
-      /// <summary>Right margin within the column</summary>
-      [Obsolete("use 'cellDef.rMarginRight = ...'")]
-      public Double rMarginRight {
-        set { tlmCellDef_Default.rMarginRight = value; }
-      }
-
-      /// <summary>Multiline mode: true if the column supports automatic multiline text mode; otherwise, false.</summary>
-      [Obsolete("use 'col.cellDef.textMode = TableLayoutManager.TextMode.MultiLine'")]
-      public Boolean bMultiline {
-        set { tlmCellDef_Default.tlmTextMode = (value ? TlmTextMode.MultiLine : TlmTextMode.EllipsisCharacter); }
-      }
-
-      //----------------------------------------------------------------------------------------------------x
-      /// <summary>Creates a column definition object.</summary>
-      /// <param name="tlm">Table layout manager of this column</param>
-      /// <param name="sHeader">Header of the column</param>
-      /// <param name="rWidth">Width of the column</param>
-      public Column(TableLayoutManager tlm, String sHeader, Double rWidth) : base(tlm, sHeader, rWidth) {
-      }
-    }
-
-    //====================================================================================================x
-    /// <summary>Column definition with metric values.</summary>
-    public class ColumnMM : Column {
-      /// <summary>Creates a column definition object with metric values.</summary>
-      /// <param name="tlm">Table layout manager of this column</param>
-      /// <param name="sHeader">Header of the column</param>
-      /// <param name="rWidthMM">Width of the column</param>
-      public ColumnMM(TableLayoutManager tlm, String sHeader, Double rWidthMM)
-        : base(tlm, sHeader, RT.rPointFromMM(rWidthMM)) {
-      }
-    }
-
-    [Obsolete("use 'tlmCellDef_Header'")]
-    public TlmCellDef headerCellDef {
-      get { return tlmCellDef_Header; }
-    }
-
-    [Obsolete("use 'tlmCellDef_Header'")]
-    public TlmCellDef _headerCellDef {
-      get { return tlmCellDef_Header; }
-    }
-
-    [Obsolete("use 'tlmRowDef_Header'")]
-    public TlmRowDef headerRowDef {
-      get { return tlmRowDef_Header; }
-    }
-
-    [Obsolete("use 'tlmRowDef_Header'")]
-    public TlmRowDef _headerRowDef {
-      get { return tlmRowDef_Header; }
-    }
-
-    [Obsolete("use 'ScaleWidth(rWidth)'")]
-    public Boolean bAutoColWidth {
-      set {
-        if (value) {
-          ScaleWidth(rWidth);
-        }
-      }
-    }
-
-    [Obsolete("use 'tlmHeaderCellDef.pp_Line = ...'")]
-    public PenProp pp_HeaderGrid {
-      set { tlmCellDef_Header.penProp_Line = value; }
-    }
-
-    [Obsolete("use 'tlmHeaderCellDef.bp_Back = ...'")]
-    public BrushProp bp_HeaderBack {
-      set { tlmCellDef_Header.brushProp_Back = value; }
-    }
-
-    [Obsolete("use 'tlmHeaderCellDef.pp_LineV = ...' and 'cellDef.pp_LineV = ...'")]
-    public PenProp pp_LineV {
-      set { tlmCellDef_Header.penProp_LineV = value; tlmCellDef_Default.penProp_LineV = value; }
-    }
-
-    [Obsolete("use 'tlmHeaderCellDef.pp_LineH = ...' and 'columnDef.pp_BorderH = ...'")]
-    public PenProp pp_LineH {
-      set { tlmCellDef_Header.penProp_LineH = value; tlmColumnDef_Default.penProp_BorderH = value; }
-    }
-
-    [Obsolete("use 'cellDef.rMarginBottom = ...'")]
-    public Double rRowBottomMargin {
-      set { tlmCellDef_Default.rMarginBottom = value; }
-    }
-#endif
     }
 }
-

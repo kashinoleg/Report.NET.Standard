@@ -1,19 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 
-// Creation date: 17.10.2002
-// Checked: xx.05.2002
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.01
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Flow Layout Manager</summary>
@@ -174,18 +161,6 @@ namespace Root.Reports
         }
 
         //----------------------------------------------------------------------------------------------------x
-        /// <summary>Creates a new container.</summary>
-        //    public void NewContainer() {
-        //      OnNewContainer(new NewContainerEventArgs(this));
-        //    }
-
-        //----------------------------------------------------------------------------------------------------x
-        /// <summary>Sets variable _container to the next container.</summary>
-        //    protected override void NextContainer() {
-        //      NewContainer();
-        //    }
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line.</summary>
         /// <param name="rLineFeed">Line feed</param>
         public void NewLine(Double rLineFeed)
@@ -206,16 +181,6 @@ namespace Root.Reports
         {
             NewLine(RT.rPointFromMM(rLineFeedMM));
         }
-
-        //----------------------------------------------------------------------------------------------------x
-        /// <summary>Sets a new current container for the layout manager.</summary>
-        /// <param name="container">New container</param>
-        /// <remarks>The current position will be set to the upper left corner (0, 0).</remarks>
-        //    public void SetContainer(Container container) {
-        //      _container = container;
-        //      rX_Cur = 0;
-        //      rY_Cur = 0;
-        //    }
 
         //----------------------------------------------------------------------------------------------------x
         #region Container
@@ -266,16 +231,6 @@ namespace Root.Reports
                 this.flowLayoutManager = flowLayoutManager;
                 this.container = container;
             }
-
-            //----------------------------------------------------------------------------------------------------
-#if Compatible_0_8
-      //----------------------------------------------------------------------------------------------------
-
-      [Obsolete("use 'flowLayoutManager'")]
-      public FlowLayoutManager flm {
-        get { return flowLayoutManager; }
-      }
-#endif
         }
 
         /// <summary>Represents the method that will handle the NewContainer event.</summary>

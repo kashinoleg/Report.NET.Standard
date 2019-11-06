@@ -3,19 +3,6 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-// Creation date: 22.04.2002
-// Checked: xx.05.2002
-// Author: Otto Mayer, mot@root.ch
-// Version 0.00.00
-
-// copyright (C) 2002 root-software ag  -  Bьrglen Switzerland  -  www.root.ch; Otto Mayer, Stefan Spirig, Roger Gartenmann
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>
@@ -184,16 +171,6 @@ namespace Root.Reports
         public void AddCB_MM(Double rY, RepObj repObj)
         {
             AddCB(RT.rPointFromMM(rY), repObj);
-        }
-
-        //----------------------------------------------------------------------------------------------------x
-        /// <summary>Adds a report object to the container, horizontally centered (metric version).</summary>
-        /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        [Obsolete("use 'AddCB_MM(...)'")]
-        public void AddCenteredMM(Double rY, RepObj repObj)
-        {
-            AddCentered(RT.rMM(rY), repObj);
         }
 
         //----------------------------------------------------------------------------------------------------x

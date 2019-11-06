@@ -1,28 +1,6 @@
-﻿//#define Test
-
-using System;
-#if Framework2
+﻿using System;
 using System.Collections.Generic;
-#else
-using System.Collections;
-#endif
 using System.Diagnostics;
-#if Test
-using System.Drawing;
-#endif
-
-// Creation date: 24.04.2002
-// Checked: 27.10.2006
-// Author: Otto Mayer (mot@root.ch)
-// Version: 2.01
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
@@ -72,9 +50,6 @@ namespace Root.Reports
 
             tlmColumnDef_Default = new TlmColumnDef();
             tlmRowDef_Default = new TlmRowDef();
-#if (Test)
-      pp_Test = new PenPropMM(report, 0.1, Color.Orange);
-#endif
         }
 
         //----------------------------------------------------------------------------------------------------x
@@ -123,12 +98,7 @@ namespace Root.Reports
         /// <summary>Header font properties</summary>
         public FontProp fontProp_Header;
 
-#if (Test)
-    private const Double rTest = 3;
-    private PenProp pp_Test;
-#else
         private const Double rTest = 0;
-#endif
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         /// <summary>Status of the layout manager</summary>
@@ -151,30 +121,9 @@ namespace Root.Reports
         #region Initialization / Definition
         //----------------------------------------------------------------------------------------------------x
 
-#if !Framework2
-        /// <summary>Array of Column Definition Objects</summary>
-        internal class List_TlmColumn : ArrayList
-        {
-            /// <summary>Creates the array of column definition objects.</summary>
-            internal List_TlmColumn(Int32 iCapacity) : base(iCapacity)
-            {
-            }
-
-            /// <summary>Gets the column definition with the specified index.</summary>
-            internal new TlmColumn this[Int32 iIndex]
-            {
-                get { return (TlmColumn)base[iIndex]; }
-            }
-        }
-#endif
-
         /// <summary>Column definition</summary>
 #warning must be changed for framework 2
-#if Framework2
     internal List<TlmColumn> list_TlmColumn = new List<TlmColumn>(20);
-#else
-        internal List_TlmColumn list_TlmColumn = new List_TlmColumn();
-#endif
 
         //----------------------------------------------------------------------------------------------------x
         /// <summary>Scales the current width of the columns to the specified width.</summary>
@@ -304,21 +253,6 @@ namespace Root.Reports
         #region List_TlmRow
         //----------------------------------------------------------------------------------------------------x
 
-#if !Framework2
-        /// <summary>Array of TlmRows</summary>
-        internal class List_TlmRow : ArrayList
-        {
-            internal List_TlmRow(Int32 iCapacity) : base(iCapacity)
-            {
-            }
-
-            internal new TlmRow this[Int32 iIndex]
-            {
-                get { return (TlmRow)this[iIndex]; }
-            }
-        }
-#endif
-
         /// <summary>Lines will be shortened by this value.</summary>
         /// <remarks>Lines in PDF are sometimes too long.</remarks>
         public Double rMarginTop = RT.rPointFromMM(1);
@@ -341,11 +275,7 @@ namespace Root.Reports
         //----------------------------------------------------------------------------------------------------x
 
         /// <summary>Array of all rows of the table</summary>
-#if Framework2
     internal List<TlmRow> list_TlmRow = new List<TlmRow>(100);
-#else
-        internal List_TlmRow list_TlmRow = new List_TlmRow(100);
-#endif
 
         /// <summary>Default cell creation definition</summary>
         internal CellCreateType[] aCellCreateType_New;
@@ -805,12 +735,8 @@ namespace Root.Reports
                     TlmCell cell_End = row_End.aTlmCell[iColEnd];
                     Double rPosX2 = (iColEnd == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX + col_End.rWidth);
                     Double rPosY2 = (iRowEnd == row_End.iIndex ? cell_End.rPosMarginBottom : row_End.rPosBottom);
-#if (Test)
-            container_Cur.AddLT(rPosX1, rPosY1, new RepLine(pp_Test, rPosX2 - rPosX1, rPosY2 - rPosY1));
-#else
                     RepRect repRect = new RepRect(tlmCell.brushProp_Back, rPosX2 - rPosX1, rPosY2 - rPosY1);
                     container_Cur.AddLT(rPosX1, rPosY1, repRect);
-#endif
                 }
             }
 
@@ -836,14 +762,6 @@ namespace Root.Reports
                         repObj.matrixD.rDY += tlmCell.rPosMarginTop + rOfsY;
                         container_Cur.Add(repObj);
                     }
-
-#if (Test)
-          Double rX1 = tlmCell.rPosMarginLeft + tlmCell.rIndentLeft;
-          Double rY1 = tlmCell.rPosMarginTop + tlmCell.rIndentTop;
-          Double rX2 = tlmCell.rPosMarginRight - tlmCell.rIndentRight;
-          Double rY2 = tlmCell.rPosMarginBottom - tlmCell.rIndentBottom;
-          container_Cur.AddLT(rX1, rY1, new RepRect(pp_Test, rX2 - rX1, rY2 - rY1));
-#endif
                 }
             }
 
@@ -1200,115 +1118,6 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2006
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-
-    public enum TextMode {
-      /// <summary>Single line text mode, text is trimmed to the nearest character and an ellipsis is inserted at the end of the line.</summary>
-      EllipsisCharacter,
-      /// <summary>Multiline text mode</summary>
-      MultiLine,
-      /// <summary>Multiline text mode, each line committed</summary>
-      SingleMultiLine,
-      /// <summary>Fallback: text mode of the fallback cell definition</summary>
-      FallBack
-    }
-
-    [Obsolete("use 'TlmHeightMode'")]
-    public enum TableHeight {
-      /// <summary>Adjust height of last container</summary>
-      AdjustLast,
-      /// <summary>Adjust height of each container</summary>
-      Adjust,
-      /// <summary>No adjustment</summary>
-      Static
-    }
-
-    /// <summary>Table height mode</summary>
-    [Obsolete("use 'tlmHeightMode'")]
-    public TableHeight tableHeight {
-      get {
-        switch (tlmHeightMode) {
-          case TlmHeightMode.Adjust: { return TableHeight.Adjust; }
-          case TlmHeightMode.AdjustLast: { return TableHeight.AdjustLast; }
-        }
-        return TableHeight.Static;
-      }
-      set {
-        switch (value) {
-          case TableHeight.Adjust: { tlmHeightMode = TlmHeightMode.Adjust; break; }
-          case TableHeight.AdjustLast: { tlmHeightMode = TlmHeightMode.AdjustLast; break; }
-          default: { tlmHeightMode = TlmHeightMode.Static; break; }
-        }
-      }
-    }
-    /// <summary>Table height mode (VB version)</summary>
-    [Obsolete("use 'tlmHeightMode'")]
-    public TableHeight _tableHeight {
-      get { return tableHeight; }
-      set { tableHeight = value; }
-    }
-
-    //------------------------------------------------------------------------------------------06.01.2004
-    /// <summary>Definition of the default properties of a column of this table.</summary>
-    public class ColumnDef : TlmColumnDef {
-      //------------------------------------------------------------------------------------------06.01.2004
-      /// <summary>Creates a definition structure for the default values of a column of this table.</summary>
-      internal ColumnDef() {
-      }
-    }
-
-    //------------------------------------------------------------------------------------------06.01.2004
-    /// <summary>Definition of the default properties of a row of this table.</summary>
-    public class RowDef : TlmRowDef {
-      //------------------------------------------------------------------------------------------06.01.2004
-      /// <summary>Creates a definition structure for the default values of a row of this table.</summary>
-      internal RowDef() {
-      }
-    }
-
-    /// <summary>Definition of the default properties of a cell of this table.</summary>
-    [Obsolete("use 'tlmCellDef_Default'")]
-    public TlmCellDef cellDef {
-      get { return tlmCellDef_Default; }
-    }
-    /// <summary>Definition of the default properties of a cell of this table (VB version)</summary>
-    [Obsolete("use 'tlmCellDef_Default'")]
-    public TlmCellDef _cellDef {
-      get { return tlmCellDef_Default; }
-    }
-
-    /// <summary>Definition of the default properties of a column of this table (VB version)</summary>
-    [Obsolete("use 'tlmColumnDef_Default'")]
-    public TlmColumnDef columnDef {
-      get { return tlmColumnDef_Default; }
-    }
-
-    /// <summary>Definition of the default properties of a column of this table (VB version)</summary>
-    [Obsolete("use 'tlmColumnDef_Default'")]
-    public TlmColumnDef _columnDef {
-      get { return tlmColumnDef_Default; }
-    }
-
-    /// <summary>Definition of the default properties of a row of this table (VB version)</summary>
-    [Obsolete("use 'tlmRowDef_Default'")]
-    public TlmRowDef rowDef {
-      get { return tlmRowDef_Default; }
-    }
-
-    /// <summary>Definition of the default properties of a row of this table (VB version)</summary>
-    [Obsolete("use 'tlmRowDef_Default'")]
-    public TlmRowDef _rowDef {
-      get { return tlmRowDef_Default; }
-    }
-
-    [Obsolete("use 'fontProp_Header'")]
-    public FontProp fp_Header {
-      get { return fontProp_Header; }
-      set { fontProp_Header = value; }
-    }
-#endif
     }
 
     //------------------------------------------------------------------------------------------06.01.2004

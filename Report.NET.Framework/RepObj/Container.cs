@@ -1,49 +1,20 @@
 ﻿using System;
-#if Framework2
 using System.Collections.Generic;
-#else
-using System.Collections;
-#endif
 using System.Diagnostics;
-
-// Creation date: 22.04.2002
-// Checked: 17.05.2002
-// Author: Otto Mayer, mot@root.ch
-// Version: 1.05
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
     /// <summary>Container for report objects</summary>
-#if Framework2
-  public abstract class Container : RepObj, System.Collections.Generic.IEnumerable<RepObj> {
-#else
-    public abstract class Container : RepObj, IEnumerable
+    public abstract class Container : RepObj, System.Collections.Generic.IEnumerable<RepObj>
     {
-#endif
         /// <summary>Array that contains all report objects of this container</summary>
-#if Framework2
-    private readonly List<RepObj> list_RepObj;
-#else
-        private readonly ArrayList list_RepObj;
-#endif
+        private readonly List<RepObj> list_RepObj;
 
         //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new container.</summary>
         protected Container()
         {
-#if Framework2
-      list_RepObj = new List<RepObj>(20);
-#else
-            list_RepObj = new ArrayList(20);
-#endif
+            list_RepObj = new List<RepObj>(20);
         }
 
         //----------------------------------------------------------------------------------------------------x
@@ -289,14 +260,13 @@ namespace Root.Reports
         #region IEnumerable Members
         //----------------------------------------------------------------------------------------------------
 
-#if Framework2
-    //----------------------------------------------------------------------------------------------------x
-    /// <summary>Returns an enumerator that can iterate through the report objects.</summary>
-    /// <returns>An enumerator that can be used to iterate through the report objects</returns>
-    public System.Collections.Generic.IEnumerator<RepObj> GetEnumerator() {
-      return list_RepObj.GetEnumerator();
-    }
-#endif
+        //----------------------------------------------------------------------------------------------------x
+        /// <summary>Returns an enumerator that can iterate through the report objects.</summary>
+        /// <returns>An enumerator that can be used to iterate through the report objects</returns>
+        public System.Collections.Generic.IEnumerator<RepObj> GetEnumerator()
+        {
+            return list_RepObj.GetEnumerator();
+        }
 
         //----------------------------------------------------------------------------------------------------x
         /// <summary>Returns an enumerator that can iterate through the report objects.</summary>

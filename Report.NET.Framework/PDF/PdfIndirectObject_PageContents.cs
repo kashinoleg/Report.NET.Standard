@@ -111,44 +111,6 @@ namespace Root.Reports
                 e.matrixD.Multiply(repObj.matrixD);
                 e.bComplex = e.matrixD.bComplex;
                 pdfRepObjX.Write(e);
-
-#if xy
-        else if (repObj is RepPoly) {  /* poly line */
-          RepPoly repPoly = (RepPoly)repObj;
-          Double minX, maxX, minY, maxY;
-          minX = maxX = m.rDX;
-          minY = maxY = m.rDY;
-          for(int i = 0; i < repPoly.rXPoints.Length; i++) {
-            if(repPoly.rXPoints[i] < minX) minX = repPoly.rXPoints[i];
-            else if(repPoly.rXPoints[i] > maxX) maxX = repPoly.rXPoints[i];
-            if(repPoly.rYPoints[i] < minY) minY = repPoly.rYPoints[i];
-            else if(repPoly.rYPoints[i] > maxY) maxY = repPoly.rYPoints[i];
-          }
-          Double rOfsX = (maxX - minX) * repObj.rAlignH;
-          Double rOfsY = (maxY - minY) * repObj.rAlignV;
-          m.Multiply(1, 0, 0, 1, -rOfsX, -rOfsY);
-          Write_GraphicsState(repObj.graphicsState);
-          if (repPoly.graphicsState.penProp != null) {
-            if (repPoly.graphicsState.penProp.rWidth > 0f) {
-              Write_Pen(repPoly.graphicsState.penProp);
-            }
-            else {
-              repPoly.graphicsState.penProp = null;
-            }
-          }
-          if (repPoly.graphicsState.brushProp != null) {
-            Write_Brush(repPoly.graphicsState.brushProp);
-          }
-
-          WriteLine("q");
-          BuildClipPath(repObj.ClipPath, container);
-          WriteLine(sPoint(page, m.rDX, m.rDY) + " m");
-          for(int i = 0; i < repPoly.rXPoints.Length; i++)
-            WriteLine(sPoint(page, m, repPoly.rXPoints[i], repPoly.rYPoints[i]) + " l");
-          WriteLine(repPoly.graphicsState.penProp == null ? "f" : (repPoly.graphicsState.brushProp == null ? "S" : "B"));
-          WriteLine("Q");
-        }
-#endif
             }
         }
 

@@ -1,19 +1,6 @@
 ﻿using System;
 using System.Drawing;
 
-// Creation date: 02.05.2002
-// Checked: 20.08.2002
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.01
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Structure that defines the properties of a brush.</summary>
@@ -48,11 +35,6 @@ namespace Root.Reports
         {
             get
             {
-#if DEVELOPER  // bs
-        if (report == null) {
-          return BrushProp.bp_Null;
-        }
-#endif
                 if (_brushProp_Registered == null)
                 {
                     String sKey = _color.R + "-" + _color.G + "-" + _color.B + "-" + _color.A;
@@ -102,6 +84,5 @@ namespace Root.Reports
         {
             return _color.GetHashCode();
         }
-
     }
 }

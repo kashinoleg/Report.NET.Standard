@@ -1,18 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-
-// Creation date: 22.04.2002
-// Checked: 31.07.2002
-// Author: Otto Mayer, mot@root.ch
-// Version 1.00.01 
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
@@ -31,11 +17,6 @@ namespace Root.Reports
         /// <summary>Width of the report object.</summary>
         private Double _rWidth;
 
-#if DEVELOPER  // bs
-    /// <summary>Path used for clipping.</summary>
-    private RepObj _clipPath;
-#endif
-
         /// <summary>Horizontal alignment of the report object relative to [pointF_Pos].</summary>
         public Double rAlignH = 0;
 
@@ -52,11 +33,6 @@ namespace Root.Reports
         public const Double rAlignRight = 1;
         /// <summary>Vertical alignment: bottom</summary>
         public const Double rAlignBottom = 1;
-
-#if DEVELOPER  // bs
-    /// <summary>Pen and Brush states</summary>
-    private GraphicsState _graphicsState;
-#endif
 
         internal Object oRepObjX;
 
@@ -202,9 +178,6 @@ namespace Root.Reports
         public Double rY
         {
             get { return matrixD.rDY; }
-#if DEVELOPER  // bs
-      set { matrixD.rDY = value; }
-#endif
         }
 
         //----------------------------------------------------------------------------------------------------x
@@ -212,29 +185,7 @@ namespace Root.Reports
         public Double rY_MM
         {
             get { return RT.rMMFromPoint(matrixD.rDY); }
-#if DEVELOPER  // bs
-      set { matrixD.rDY = RT.rPointFromMM(value); }
-#endif
         }
-
-        //----------------------------------------------------------------------------------------------------x
-#if DEVELOPER  // bs
-    /// <summary>Gets the clipping rectangle.</summary>
-    public RepObj ClipPath {
-      get { return this._clipPath; }
-    }
-
-    //----------------------------------------------------------------------------------------------------x
-    /// <summary>Gets the graphics state.</summary>
-    internal GraphicsState graphicsState {
-      get {
-        if (_graphicsState == null) {
-          _graphicsState = new GraphicsState(this, null, null);
-        }
-        return _graphicsState;
-      }
-    }
-#endif
 
         //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will be called after the report object has been added to the container.</summary>
@@ -256,33 +207,5 @@ namespace Root.Reports
         {
             matrixD.Rotate(rAngle);
         }
-
-#if DEVELOPER  // bs
-    //----------------------------------------------------------------------------------------------------x
-    /// <summary>Applies the specified clipping path to this report object.</summary>
-    /// <param name="rX">X-coordinate of the clip path.</param>
-    /// <param name="rAlignH">Horizontal alignment of the report object relative to [X].</param>
-    /// <param name="rY">Y-coordinate of the clip path.</param>
-    /// <param name="rAlignV">Vertical alignment of the report object relative to [Y].</param>
-    /// <param name="repObj">The clipping path.</param>
-    public void SetClip(Double rX, Double rAlignH, Double rY, Double rAlignV, RepObj repObj) {
-      this._clipPath = repObj; 
-      this._clipPath.matrixD.rDX = rX;
-      this._clipPath.rAlignH = rAlignH;
-      this._clipPath.matrixD.rDY = rY;
-      this._clipPath.rAlignV = rAlignV;
-    }
-
-    //----------------------------------------------------------------------------------------------------x
-    /// <summary>Applies the specified clipping path to this report object.</summary>
-    /// <param name="rX">X-coordinate of the clip path, in millimetres.</param>
-    /// <param name="rAlignH">Horizontal alignment of the report object relative to [X].</param>
-    /// <param name="rY">Y-coordinate of the clip path, in millimetres.</param>
-    /// <param name="rAlignV">Vertical alignment of the report object relative to [Y].</param>
-    /// <param name="repObj">The clipping path.</param>
-    public void SetClip_MM(Double rX, Double rAlignH, Double rY, Double rAlignV, RepObj repObj) {
-      SetClip(RT.rPointFromMM(rX), rAlignH, RT.rPointFromMM(rY), rAlignV, repObj);
-    }
-#endif
     }
 }

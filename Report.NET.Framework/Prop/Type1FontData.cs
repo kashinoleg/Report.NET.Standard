@@ -5,19 +5,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 
-// Creation date: 11.10.2002
-// Checked: xx.02.2005
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.03
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Type 1 Font Data</summary>
@@ -476,9 +463,6 @@ namespace Root.Reports
                 }
             }
             //From the assembly where this code lives!
-            var names = this.GetType().Assembly.GetManifestResourceNames();
-            //Report.NET.Framework.PDF.afm.Courier-Bold.afm
-            //"Root.Reports.PDF.afm." + sFontName + ".afm"
             Stream stream = GetType().Assembly.GetManifestResourceStream($"Report.NET.Framework.PDF.afm.{sFontName}.afm");
 
             StreamReader streamReader = new StreamReader(stream);
@@ -498,11 +482,7 @@ namespace Root.Reports
                     {
                         goto NextLine;
                     }
-#if WindowsCE
-          String[] asToken = sLine.Split(acDelimiterToken);
-#else
                     String[] asToken = sLine.Split(acDelimiterToken, 5);
-#endif
                     if (asToken.Length == 0)
                     {
                         goto NextLine;
@@ -784,11 +764,7 @@ namespace Root.Reports
             /// <param name="sLine">Line with the character metrics information</param>
             internal CharMetrics(Type1FontData type1FontData, String sLine)
             {
-#if WindowsCE
-        String[] asLineToken = sLine.Split(acDelimiterSemicolon);
-#else
                 String[] asLineToken = sLine.Split(acDelimiterSemicolon, 10);
-#endif
                 if (asLineToken.Length <= 2)
                 {
                     throw new ReportException("Invalid character metrics definition in AFM file: " + type1FontData.sFontName);
@@ -799,11 +775,7 @@ namespace Root.Reports
                     {
                         continue;
                     }
-#if WindowsCE
-          String[] asToken = asLineToken[iExpr].Trim().Split(acDelimiterToken);
-#else
                     String[] asToken = asLineToken[iExpr].Trim().Split(acDelimiterToken, 5);
-#endif
                     switch (asToken[0])
                     {
                         case "C": { iCharacterCode = Int32.Parse(asToken[1], CultureInfo.InvariantCulture); break; }

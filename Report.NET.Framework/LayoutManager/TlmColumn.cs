@@ -1,18 +1,5 @@
 ﻿using System;
 
-// Creation date: 05.11.2002
-// Checked: 11.06.2003
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.02
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Definition of a column for the table layout manager</summary>
@@ -196,23 +183,6 @@ namespace Root.Reports
             set { rWidth = RT.rPointFromMM(value); }
         }
         #endregion
-
-        //----------------------------------------------------------------------------------------------------
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-
-    //----------------------------------------------------------------------------------------------------
-    [Obsolete("use 'tlmCellDef_Default'")]
-    public TlmCellDef cellDef {
-      get { return tlmCellDef_Default; }
-    }
-
-    //----------------------------------------------------------------------------------------------------
-    [Obsolete("use 'tlmCellDef_Default'")]
-    public TlmCellDef _cellDef {
-      get { return tlmCellDef_Default; }
-    }
-#endif
     }
 
     /// <summary>Column definition with metric values.</summary>

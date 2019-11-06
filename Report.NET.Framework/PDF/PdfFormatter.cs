@@ -1,27 +1,10 @@
 ﻿using System;
-#if Framework2
 using System.Collections.Generic;
-#else
-using System.Collections;
-#endif
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Drawing.Imaging;
-
-// Creation date: 22.04.2002
-// Checked: xx.05.2002
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.05
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
@@ -438,11 +421,7 @@ namespace Root.Reports
         //----------------------------------------------------------------------------------------------------
 
         //----------------------------------------------------------------------------------------------------x
-#if Framework2
     internal List<PdfIndirectObject> list_PdfIndirectObject = new List<PdfIndirectObject>(50);
-#else
-        internal ArrayList list_PdfIndirectObject = new ArrayList(50);
-#endif
 
         internal PdfIndirectObject_Catalog pdfIndirectObject_Catalog;
         internal PdfIndirectObject_Info pdfIndirectObject_Info;
@@ -587,11 +566,7 @@ namespace Root.Reports
         internal Int32 iBytesWrittenToStream;
 
         /// <summary>PDF output stream for ASCII text</summary>
-#if !WindowsCE
         internal BufferedStream bufferedStream;
-#else
-    private Stream bufferedStream;
-#endif
 
         /// <summary>output buffer</summary>
         internal StringBuilder sb;
@@ -643,11 +618,8 @@ namespace Root.Reports
             //this.stream = stream;
             iBytesWrittenToStream = 0;
 
-#if WindowsCE
-      bufferedStream = stream;
-#else
             bufferedStream = new BufferedStream(stream);
-#endif
+
             // Wichtig: Es muss die Standardeinstellung fьr die Codierung verwendet werden !!!
             try
             {

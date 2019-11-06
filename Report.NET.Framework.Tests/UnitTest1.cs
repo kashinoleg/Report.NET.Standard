@@ -17,6 +17,9 @@ namespace Report.NET.Framework.Tests
 
             page.AddCB_MM(80, new RepString(fp, "Hello World!"));
 
+            PenProp pp = new PenProp(report, 10);
+            page.AddCB_MM(100, new RepLineMM(pp, 0, 30));
+
             report.Save("HelloWorld.pdf");
 
         }

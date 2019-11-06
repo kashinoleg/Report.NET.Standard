@@ -1,26 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-#if Framework2
 using System.Collections.Generic;
-#else
 using System.Collections;
-#endif
-using System.Collections;
-using System.Diagnostics;
-
-// Creation date: 24.04.2002
-// Checked: xx.05.2002
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.01
-
-// Report.NET copyright 2002-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
@@ -31,23 +12,10 @@ namespace Root.Reports
         private Formatter _formatter;
 
         /// <summary>List of all font definitions that are defined for the report</summary>
-#if Framework2
-    private readonly Dictionary<String, FontDef> _dict_FontDef = new Dictionary<String, FontDef>(20);
-#else
-        private readonly Hashtable _dict_FontDef = new Hashtable(20);
-#endif
+        private readonly Dictionary<String, FontDef> _dict_FontDef = new Dictionary<String, FontDef>(20);
 
         /// <summary>List of all font properties objects that are defined for the report</summary>
-#if Framework2
-    internal readonly Dictionary<String, FontProp> dict_FontProp = new Dictionary<String, FontProp>(100);
-#else
-        internal readonly Hashtable dict_FontProp = new Hashtable(100);
-#endif
-
-#if DEVELOPER  // bs
-    /// <summary>List of all graphics state objects that are defined for the report</summary>
-    internal readonly Hashtable ht_GraphicState = new Hashtable(100);
-#endif
+        internal readonly Dictionary<String, FontProp> dict_FontProp = new Dictionary<String, FontProp>(100);
 
         /// <summary>List of all line properties objects that are defined for the report</summary>
         internal readonly Hashtable ht_PenProp = new Hashtable(100);
@@ -88,17 +56,10 @@ namespace Root.Reports
 
         //----------------------------------------------------------------------------------------------------
         /// <summary>Gets the font definition hash table.</summary>
-#if Framework2
-    internal Dictionary<String, FontDef> dict_FontDef {
-      get { return _dict_FontDef; }
-    }
-#else
-        internal Hashtable dict_FontDef
+        internal Dictionary<String, FontDef> dict_FontDef
         {
             get { return _dict_FontDef; }
         }
-#endif
-
         //----------------------------------------------------------------------------------------------------
         /// <summary>Returns an enumeration of all fonts definitions.</summary>
         internal IEnumerable enum_FontDef

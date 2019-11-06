@@ -1,32 +1,13 @@
 ﻿using System;
-using Microsoft.Win32;
-using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Resources;
 using System.Text;
-
-// Creation date: 02.12.2002
-// Checked: 08.03.2005
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.03
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
 
 namespace Root.Reports
 {
     /// <summary>Report Tools Class</summary>
     /// <remarks>This class provides general tools for the Report.NET library.</remarks>
-#if Framework2
-  static
-#endif
-    public class RT
+    static public class RT
     {
         //------------------------------------------------------------------------------------------07.03.2005
         #region Static
@@ -96,20 +77,7 @@ namespace Root.Reports
         static RT()
         {
             cultureInfo_PDF.NumberFormat.NumberDecimalSeparator = ".";
-#if (DEBUG)
-            Double r = 1.2345;
-            Debug.Assert(r.ToString(sPdfNumberFormat, cultureInfo_PDF) == "1.235");
-            r = 0.5;
-            Debug.Assert(r.ToString(sPdfNumberFormat, cultureInfo_PDF) == "0.5");
-#endif
         }
-
-        //------------------------------------------------------------------------------------------07.03.2005
-#if Framework
-    /// <summary>Instances of this class are not allowed.</summary>
-    private RT() {
-    }
-#endif
 
         //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Determines whether the specified numbers are considered equal.</summary>
@@ -190,9 +158,6 @@ namespace Root.Reports
         /// <summary>Number format string for PDF dimensions</summary>
         private const String sPdfNumberFormat = "0.###";
 
-        /// <summary>Registry key of the acrobat reader version 5, 6 and 7.</summary>
-        private const String sRegKey_AcrobatReader = @"Software\Adobe\Acrobat\Exe";
-
         //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Converts a dimension value to the PDF value format.</summary>
         /// <param name="rDim">Dimension value</param>
@@ -233,196 +198,7 @@ namespace Root.Reports
                 return sb.ToString();
             }
         }
-
-        //------------------------------------------------------------------------------------------07.03.2005
-        /// <summary>Starts the acrobat reader.</summary>
-        /// <param name="sFileName">File name of the PDF document</param>
-        /// <param name="sArguments">Arguments</param>
-        /// <param name="processWindowStyle">Windows style</param>
-        /// <exception cref="ReportException">
-        /// The acrobat reader has not been installed, the registry entry is invalid or the reader cannot be started.
-        /// </exception>
-#if !WindowsCE
-        private static void StartAcro(String sFileName, String sArguments, ProcessWindowStyle processWindowStyle)
-        {
-            RegistryKey registryKey_Acro = null;
-            try
-            {
-                registryKey_Acro = Registry.ClassesRoot.OpenSubKey(sRegKey_AcrobatReader, false);
-            }
-            catch (SystemException ex)
-            {
-                throw new ReportException(rm.GetString("e_AcroRegistryInvalid"), ex);
-            }
-            if (registryKey_Acro == null)
-            {
-                throw new ReportException(rm.GetString("e_AcroNotInstalled"));
-            }
-            String sAcroPath = (String)registryKey_Acro.GetValue("");
-            if (sAcroPath == null || sAcroPath == "")
-            {
-                throw new ReportException(rm.GetString("e_AcroRegistryInvalid"));
-            }
-            sAcroPath = sAcroPath.Replace("\"", "");
-
-            try
-            {
-                Process process = new Process();
-                process.StartInfo.FileName = sAcroPath;
-                if (sArguments == null)
-                {
-                    process.StartInfo.Arguments = sFileName;
-                }
-                else
-                {
-                    process.StartInfo.Arguments = sArguments + " " + sFileName;
-                }
-                process.StartInfo.WindowStyle = processWindowStyle;
-                process.Start();
-            }
-            catch (Exception ex)
-            {
-                throw new ReportException(String.Format(rm.GetString("e_AcroStartProcess"), sFileName, sAcroPath), ex);
-            }
-        }
-#endif
-
-        //------------------------------------------------------------------------------------------07.03.2005
-        /// <overloads>
-        /// <summary>Shows the PDF document in the acrobat reader.</summary>
-        /// <remarks>These methods will show the specified PDF document.</remarks>
-        /// </overloads>
-        /// 
-        /// <summary>Shows the specified PDF document in the acrobat reader in a maximized window.</summary>
-        /// <param name="sFileName">File name of the PDF document</param>
-        /// <exception cref="ReportException">
-        /// The acrobat reader has not been installed, the registry entry is invalid or the reader cannot be started.
-        /// </exception>
-        /// <remarks>This method will show the specified PDF document in the acrobat reader in a maximized window.</remarks>
-        /// <example>
-        /// <code>
-        /// RT.ViewPDF("DetailReport.pdf");
-        /// </code>
-        /// </example>
-#if !WindowsCE
-        public static void ViewPDF(String sFileName)
-        {
-            StartAcro(sFileName, null, ProcessWindowStyle.Maximized);
-        }
-#endif
-
-        //------------------------------------------------------------------------------------------07.03.2005
-#if !WindowsCE
-        /// <summary>Shows the specified PDF document in a maximized window after that it has been created.</summary>
-        /// <param name="report">Report object that creates the PDF document</param>
-        /// <param name="sFileName">File name of the new PDF document</param>
-        /// <exception cref="ReportException">
-        /// The acrobat reader has not been installed, the registry entry is invalid or the reader cannot be started.
-        /// </exception>
-        /// <remarks>
-        /// This method will create the specified PDF document.
-        /// If the file name is relative, the file will be created in the current user's temporary folder.
-        /// If it exists, the name of the file will be made unique with a time stamp.
-        /// If the specified file name is absolute, it will be overwritten if it exists.
-        /// After that the document will be displayed in the acrobat reader in a maximized window.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// RT.ViewPDF(new DetailReport(), "DetailReport.pdf");
-        /// </code>
-        /// </example>
-        public static void ViewPDF(ReportBase report, String sFileName)
-        {
-            if (!Path.IsPathRooted(sFileName))
-            {
-                sFileName = Path.Combine(Path.GetTempPath(), sFileName);
-            }
-            if (File.Exists(sFileName))
-            {
-                String sDateTime = DateTime.Now.ToString("yyyyMMdd\\_HHmmss");
-                String s = Path.GetFileNameWithoutExtension(sFileName) + "_" + sDateTime + Path.GetExtension(sFileName);
-                sFileName = Path.Combine(Path.GetDirectoryName(sFileName), s);
-            }
-            else
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(sFileName));
-            }
-            report.Save(sFileName);
-            ViewPDF(sFileName);
-        }
-#endif
-
-        //------------------------------------------------------------------------------------------07.03.2005
-#if !WindowsCE
-        /// <overloads>
-        /// <summary>Prints the specified PDF document.</summary>
-        /// <remarks>These methods will print the specified PDF document.</remarks>
-        /// </overloads>
-        /// 
-        /// <summary>Prints the specified PDF document.</summary>
-        /// <param name="sFileName">File name of the PDF document</param>
-        /// <exception cref="ReportException">
-        /// The acrobat reader has not been installed, the registry entry is invalid or the reader cannot be started.
-        /// </exception>
-        /// <remarks>This method will print the specified PDF document with the acrobat reader.</remarks>
-        /// <example>
-        /// <code>
-        /// RT.PrintPDF("DetailReport.pdf");
-        /// </code>
-        /// </example>
-        public static void PrintPDF(String sFileName)
-        {
-            StartAcro(sFileName, "/p /h", ProcessWindowStyle.Hidden);
-        }
-#endif
-
-        //------------------------------------------------------------------------------------------07.03.2005
-#if !WindowsCE
-        /// <summary>Prints the specified PDF document after that it has been created.</summary>
-        /// <param name="report">Report object that creates the PDF document</param>
-        /// <exception cref="ReportException">
-        /// The acrobat reader has not been installed, the registry entry is invalid or the reader cannot be started.
-        /// </exception>
-        /// <remarks>
-        /// This method will create the specified PDF document.
-        /// The resulting file will be stored in the current user's temporary folder.
-        /// After that the document will be printed with the acrobat reader.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// RT.PrintPDF(new DetailReport());
-        /// </code>
-        /// </example>
-        public static void PrintPDF(ReportBase report)
-        {
-            String sFileName = Path.GetTempFileName();
-            report.Save(sFileName);
-            PrintPDF(sFileName);
-        }
-#endif
         #endregion
-
         //------------------------------------------------------------------------------------------07.03.2005
-        #region Obsolete
-        //----------------------------------------------------------------------------------------------------
-
-        /// <summary>Conversion factor: millimeter to point</summary>
-        [Obsolete("use method: Double rPointFromMM(Double rMM)")]
-        public const Double rMM_To_I72 = 1.0 / 25.4 * 72.0;
-
-        /// <summary>Conversion factor: point to millimeter</summary>
-        [Obsolete("use method: Double rMMFromPoint(Double rPoint)")]
-        public const Double rI72_To_MM = 1.0 / 72.0 * 25.4;
-
-        //------------------------------------------------------------------------------------------28.06.2004
-        /// <summary>Converts millimeters to points (1/72 inch).</summary>
-        /// <param name="rMM">value in millimeters</param>
-        /// <returns>value in points (1/72 inch)</returns>
-        [Obsolete("use method: Double rPointFromMM(Double rMM)")]
-        public static Double rMM(Double rMM)
-        {
-            return rMM * rMM_To_I72;
-        }
-        #endregion
     }
 }

@@ -1,19 +1,6 @@
 ﻿using System;
 using System.Drawing;
 
-// Creation date: 02.05.2002
-// Checked: 06.05.2006
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.05
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     #region
@@ -149,11 +136,6 @@ namespace Root.Reports
         {
             get
             {
-#if DEVELOPER  // bs
-        if (_report == null) {
-          return PenProp.pp_Null;
-        }
-#endif
                 if (_penProp_Registered == null)
                 {
                     String sKey = _rWidth.ToString("F3") + ";" + _color.R + "-" + _color.G + "-" + _color.B + ";" + _rPatternOn + "-" + _rPatternOff;
@@ -211,13 +193,6 @@ namespace Root.Reports
         {
             return _rWidth.GetHashCode() ^ _color.GetHashCode() ^ _rPatternOn.GetHashCode() ^ _rPatternOff.GetHashCode();
         }
-
-        //----------------------------------------------------------------------------------------------------
-#if Compatible_0_8
-    //----------------------------------------------------------------------------------------------------
-    /// <summary>Null value</summary>
-    public static readonly PenProp pp_Null = penProp_Null;
-#endif
     }
 
 

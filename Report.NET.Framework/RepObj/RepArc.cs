@@ -27,13 +27,11 @@ namespace Root.Reports
     /// <include file='D:\Programs\DotNet03\Root\Reports\Docu\RepObj.xml' path='doc/sample[@name="RepArcBase"]/*'/>
     public abstract class RepArcBase : RepObj
     {
-#if !DEVELOPER  // bs
         /// <summary>Pen properties of the border line</summary>
         internal PenProp _penProp;
 
         /// <summary>Brush properties of the pie or circle</summary>
         internal BrushProp _brushProp;
-#endif
 
         /// <summary>Angle in degrees measured clockwise from the x-axis to the first side of the pie section</summary>
         internal Double _rStartAngle;
@@ -62,19 +60,11 @@ namespace Root.Reports
         {
             if (penProp != null)
             {
-#if DEVELOPER  // bs
-        this.graphicsState.penProp = penProp.penProp_Registered;
-#else
                 this._penProp = penProp.penProp_Registered;
-#endif
             }
             if (brushProp != null)
             {
-#if DEVELOPER  // bs
-        this.graphicsState.brushProp = brushProp.brushProp_Registered;
-#else
                 this._brushProp = brushProp.brushProp_Registered;
-#endif
             }
             this.rWidth = rWidth;
             this.rHeight = rHeight;

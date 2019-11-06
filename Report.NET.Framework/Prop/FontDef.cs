@@ -2,19 +2,6 @@
 using System.Diagnostics;
 using System.Drawing;
 
-// Creation date: 24.04.2002
-// Checked: 06.03.2005
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.03
-
-// Report.NET copyright © 2002-2006 root-software ag, Bьrglen Switzerland - Otto Mayer, Stefan Spirig, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     #region Class Documentation
@@ -118,7 +105,6 @@ namespace Root.Reports
             {
                 throw new ArgumentNullException("sFontName", "font name must be specified");
             }
-#if Framework2
       FontDef fontDef;
       if (report.dict_FontDef.TryGetValue(sFontName, out fontDef)) {
         if (fontDef.fontType != fontType) {
@@ -126,17 +112,6 @@ namespace Root.Reports
         }
         return fontDef;
       }
-#else
-            FontDef fontDef = (FontDef)report.dict_FontDef[sFontName];
-            if (fontDef != null)
-            {
-                if (fontDef.fontType != fontType)
-                {
-                    throw new ReportException(String.Format("Font '{0}' has been defined as '{1}' font.", sFontName, fontDef.fontType.ToString("G")));
-                }
-                return fontDef;
-            }
-#endif
             return null;
         }
 
