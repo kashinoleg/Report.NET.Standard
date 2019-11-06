@@ -1,0 +1,8 @@
+.vs/
+Report.NET.Standart/obj/
+Report.NET.Framework/obj/
+packages/
+Report.NET.Framework.Tests/bin/
+Report.NET.Framework.Tests/obj/
+Report.NET.Standart/bin/
+Report.NET.Framework/bin/
