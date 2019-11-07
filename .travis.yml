@@ -2,7 +2,6 @@ language: csharp
 sudo: required
 dist: trusty
 mono: none
-dotnet: 3.0
 
 addons:
   sonarcloud:
@@ -18,6 +17,9 @@ install:
   - dotnet restore
 
 before_script:
+  - sudo dpkg --purge packages-microsoft-prod && sudo dpkg -i packages-microsoft-prod.deb
+  - sudo apt-get -qq update
+  - sudo apt-get install -qq dotnet-sdk-3.0
   - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
