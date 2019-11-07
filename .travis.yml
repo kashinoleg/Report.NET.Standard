@@ -1,6 +1,6 @@
 language: csharp
 sudo: required
-dist: trusty
+dist: xenial
 mono: none
 
 addons:
@@ -8,16 +8,21 @@ addons:
     organization: "kashinoleg"
     token:
       secure: $SONAR_TOKEN
+  snaps:
+  - name: dotnet-sdk
+    classic: true
+    channel: latest/beta
 
 git:
   depth: false
 
-before_script:
-  - sudo dpkg --purge packages-microsoft-prod && sudo dpkg -i packages-microsoft-prod.deb
-  - sudo apt-get -qq update
-  - sudo apt-get install -qq dotnet-sdk-3.0
+install:
+  - sudo snap alias dotnet-sdk.dotnet dotnet
+  - dotnet --version
   - dotnet tool install --global dotnet-sonarscanner
   - dotnet restore
+
+before_script:
   - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
