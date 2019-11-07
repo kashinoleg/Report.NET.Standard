@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Company>SilverHorn</Company>
+    <PackageId>SilverHorn.Report.NET</PackageId>
+    <Authors>SilverHorn</Authors>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/kashinoleg/Report.NET.Standard</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kashinoleg/Report.NET.Standard</RepositoryUrl>
+    <PackageTags>PDF Report.NET Core Writer Builder</PackageTags>
+    <Description>Report.NET.Standard is an free library to dynamically generate PDF documents for various .NET platforms, including .NET Standard.</Description>
+    <PackageReleaseNotes>Release library for .NET Standard.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

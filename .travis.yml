@@ -1,0 +1,36 @@
+language: csharp
+sudo: required
+dist: trusty
+mono: none
+dotnet: 2.1
+
+addons:
+  sonarcloud:
+    organization: "kashinoleg"
+    token:
+      secure: $SONAR_TOKEN
+
+git:
+  depth: false
+
+install:
+  - dotnet tool install --global dotnet-sonarscanner
+  - dotnet restore
+
+before_script:
+  - export PATH="$PATH:$HOME/.dotnet/tools"
+
+script:
+  - dotnet sonarscanner begin /d:sonar.login="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /k:"kashinoleg_Report.NET.Standard" /o:"kashinoleg" /n:"Report.NET.Standard" /v:"1.0.0.$TRAVIS_BUILD_NUMBER" /d:sonar.links.homepage="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.ci="https://travis-ci.org/kashinoleg/Report.NET.Standard" /d:sonar.links.scm="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.issue="https://github.com/kashinoleg/Report.NET.Standard/issues" /d:sonar.c.file.suffixes="-" /d:sonar.cpp.file.suffixes="-" /d:sonar.objc.file.suffixes="-" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" || true
+  
+  - dotnet Report.NET.sln -c Release
+# /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+#  - dotnet test silver-horn-cloo-tests/silver-horn-cloo-tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+  - dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN" || true
+
+cache:
+  directories:
+    - '$HOME/.nuget/packages'
+    - '$HOME/.local/share/NuGet/Cache'
+    - '$HOME/.sonar/cache'
+
