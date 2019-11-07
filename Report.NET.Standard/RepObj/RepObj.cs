@@ -75,7 +75,7 @@ namespace Root.Reports
         }
 
         /// <summary>Gets the position of the left side of this report object (points, 1/72 inch).</summary>
-        public double rPosLeft => matrixD.rDX - rWidth* rAlignH;
+        public double rPosLeft => matrixD.rDX - rWidth * rAlignH;
 
         /// <summary>Gets the position of the left side of this report object (mm).</summary>
         public double rPosLeftMM => RT.rMMFromPoint(rPosLeft);

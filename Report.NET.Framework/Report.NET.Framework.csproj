@@ -102,7 +102,7 @@
     <EmbeddedResource Include="PDF\afm\Helvetica.afm" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PDF\afm\Helvetica-Oblique.xml" />
+    <None Include="PDF\afm\Helvetica-Oblique.afm" />
     <None Include="PDF\afm\MustRead.html" />
   </ItemGroup>
   <ItemGroup>
