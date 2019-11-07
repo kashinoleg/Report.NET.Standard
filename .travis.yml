@@ -12,14 +12,12 @@ addons:
 git:
   depth: false
 
-install:
-  - dotnet tool install --global dotnet-sonarscanner
-  - dotnet restore
-
 before_script:
   - sudo dpkg --purge packages-microsoft-prod && sudo dpkg -i packages-microsoft-prod.deb
   - sudo apt-get -qq update
   - sudo apt-get install -qq dotnet-sdk-3.0
+  - dotnet tool install --global dotnet-sonarscanner
+  - dotnet restore
   - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
