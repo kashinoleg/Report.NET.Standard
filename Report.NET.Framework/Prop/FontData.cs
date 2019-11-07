@@ -59,7 +59,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------06.03.2005
         /// <summary></summary>
         /// <param name="fontDef">Font definition</param>
         /// <param name="fontStyle">Font style</param>
@@ -72,26 +71,22 @@ namespace Root.Reports
             this.bEmbed = false;
         }
 
-        //------------------------------------------------------------------------------------------06.03.2005
         /// <summary>Gets the height of the font in points (1/72 inch).</summary>
         /// <param name="fontProp">Font properties</param>
         /// <returns>Height of the font in points (1/72 inch)</returns>
         internal protected abstract Double rHeight(FontProp fontProp);
 
-        //------------------------------------------------------------------------------------------06.03.2005
         /// <summary>Gets the width of the specified text in points (1/72 inch).</summary>
         /// <param name="fontProp">Font properties</param>
         /// <param name="sText">Text</param>
         /// <returns>Width of the text in points (1/72 inch)</returns>
         internal protected abstract Double rWidth(FontProp fontProp, String sText);
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
         internal abstract Double rGetRawWidth(Char c);
 
-        //------------------------------------------------------------------------------------------03.02.2005
         /// <summary>Gets the report to which this font property belongs.</summary>
         /// <remarks>A font property is only valid for one report.</remarks>
         public ReportBase report
@@ -99,13 +94,11 @@ namespace Root.Reports
             get { return fontDef.report; }
         }
 
-        //------------------------------------------------------------------------------------------17.07.2006
         /// <summary>Gets the factor from the "EM"-size to the "H"-size.</summary>
         /// <returns>Factor from the "EM"-size to the "H"-size</returns>
         /// <remarks>"EM"-size * rGetFactor_EM_To_H() =  "H"-size</remarks>
         internal abstract Double rGetFactor_EM_To_H();
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Last Character</summary>
         private enum LastChar
         {
@@ -297,9 +290,7 @@ namespace Root.Reports
             return sb.ToString(0, iResultLength);
         }
 
-        //------------------------------------------------------------------------------------------06.03.2005
         #region
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Font encoding</summary>
         internal enum Encoding
         {

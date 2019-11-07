@@ -27,13 +27,11 @@ namespace Root.Reports
         /// <summary>Status of the layout manager</summary>
         private Status status = Status.Init;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new flow layout manager.</summary>
         public FlowLayoutManager() : base(null)
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new flow layout manager.</summary>
         /// <param name="container">Container that must be bound to this layout manager</param>
         public FlowLayoutManager(Container container) : this()
@@ -41,7 +39,6 @@ namespace Root.Reports
             this._container_Cur = container;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the current horizontal position in millimeters.</summary>
         public Double rX_CurMM
         {
@@ -49,7 +46,6 @@ namespace Root.Reports
             set { rX_Cur = RT.rPointFromMM(value); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the current vertical position in millimeters.</summary>
         public Double rY_CurMM
         {
@@ -57,7 +53,6 @@ namespace Root.Reports
             set { rY_Cur = RT.rPointFromMM(value); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current container at the current position.</summary>
         /// <param name="repObj">Report object to add to the container</param>
         public void Add(RepObj repObj)
@@ -151,7 +146,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current container on a new line.</summary>
         /// <param name="repString">Report object to add to the container</param>
         public void AddNew(RepString repString)
@@ -160,7 +154,6 @@ namespace Root.Reports
             Add(repString);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line.</summary>
         /// <param name="rLineFeed">Line feed</param>
         public void NewLine(Double rLineFeed)
@@ -174,7 +167,6 @@ namespace Root.Reports
             rY_Cur += rLineFeed;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line (metric version).</summary>
         /// <param name="rLineFeedMM">Line feed in millimeters</param>
         public void NewLineMM(Double rLineFeedMM)
@@ -182,10 +174,7 @@ namespace Root.Reports
             NewLine(RT.rPointFromMM(rLineFeedMM));
         }
 
-        //----------------------------------------------------------------------------------------------------x
         #region Container
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Default height of the container (points, 1/72 inch)</summary>
         public Double rContainerHeight = Double.NaN;
 
@@ -213,7 +202,6 @@ namespace Root.Reports
             get { return _container_Cur; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Provides data for the NewContainer event</summary>
         public class NewContainerEventArgs : EventArgs
         {
@@ -239,7 +227,6 @@ namespace Root.Reports
         /// <summary>Occurs when a new container must be created.</summary>
         public event NewContainerEventHandler eNewContainer;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Raises the NewContainer event.</summary>
         /// <param name="ea">Event argument</param>
         internal protected virtual void OnNewContainer(NewContainerEventArgs ea)
@@ -250,7 +237,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new container.</summary>
         private void CreateNewContainer()
         {
@@ -264,7 +250,6 @@ namespace Root.Reports
             rY_Cur = 0;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will create a new container that will be added to the parent container at the specified position.</summary>
         /// <param name="container_Parent">Parent container</param>
         /// <param name="rX">X-coordinate of the new container (points, 1/72 inch)</param>
@@ -287,7 +272,6 @@ namespace Root.Reports
             return _container_Cur;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will creates a new container that will be added to the parent container at the specified position (metric version).</summary>
         /// <param name="container_Parent">Parent container</param>
         /// <param name="rX_MM">X coordinate of the new container (mm)</param>

@@ -7,14 +7,10 @@ namespace Root.Reports
     /// <remarks>This class is used to build the PDF file structure: body, cross-reference table, trailer.</remarks>
     internal abstract class PdfFileElement
     {
-        //------------------------------------------------------------------------------------------30.01.2006
         #region PdfFileElement
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>PDF formatter</summary>
         protected readonly PdfFormatter pdfFormatter;
 
-        //------------------------------------------------------------------------------------------28.01.2006
         /// <summary>Creates a PDF file element.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfFileElement(PdfFormatter pdfFormatter)
@@ -23,18 +19,15 @@ namespace Root.Reports
             this.sb = pdfFormatter.sb;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         /// <summary>Gets the report object.</summary>
         protected ReportBase report
         {
             get { return pdfFormatter.report; }
         }
 
-        //------------------------------------------------------------------------------------------28.01.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal abstract void Write();
 
-        //------------------------------------------------------------------------------------------30.01.2006
         /// <summary>Writes a string to the buffer.</summary>
         /// <param name="sString">String</param>
         protected void Write(String sString)
@@ -42,7 +35,6 @@ namespace Root.Reports
             sb.Append(sString);
         }
 
-        //------------------------------------------------------------------------------------------30.01.2006
         /// <summary>Writes a string and a new-line-sequence to the buffer.</summary>
         /// <param name="sString">String</param>
         [Obsolete()]
@@ -55,17 +47,13 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------29.01.2006
         #region Buffer
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>String builder</summary>
         protected readonly StringBuilder sb;
 
         /// <summary>true if a space is required before the next token</summary>
         protected Boolean bNeedSpace = false;
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a space to the buffer if a space is required.</summary>
         internal void Space()
         {
@@ -76,7 +64,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a new-line sequence to the buffer if a space is required.</summary>
         internal void NewLine()
         {
@@ -88,11 +75,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------29.01.2006
         #region PDF Standard Objects
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a boolean-object to the buffer.</summary>
         /// <param name="bValue">Boolean value</param>
         internal void Boolean(Boolean bValue)
@@ -102,7 +85,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes an integer number-object to the buffer.</summary>
         /// <param name="iNumber">Integer number</param>
         internal void Number(Int32 iNumber)
@@ -112,7 +94,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------16.02.2006
         /// <summary>Writes an integer number-object to the buffer.</summary>
         /// <param name="iNumber">Integer number</param>
         internal void Number(Int64 lNumber)
@@ -122,7 +103,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a real 64-bit number-object to the buffer.</summary>
         /// <param name="rNumber">Real 64-bit number</param>
         internal void Number(Double rNumber)
@@ -133,7 +113,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a string-object to the buffer.</summary>
         /// <param name="sValue">String value</param>
         internal void String(String sValue)
@@ -144,7 +123,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a name-object to the buffer.</summary>
         /// <param name="sName">Name</param>
         internal void Name(String sName)
@@ -155,7 +133,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes the start sequence for an array-object to the buffer.</summary>
         internal void ArrayStart()
         {
@@ -163,7 +140,6 @@ namespace Root.Reports
             sb.Append('[');
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes the end sequence for an array-object to the buffer.</summary>
         internal void ArrayEnd()
         {
@@ -171,7 +147,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes the start sequence for a dictionary-object to the buffer.</summary>
         internal void Dictionary_Start()
         {
@@ -179,7 +154,6 @@ namespace Root.Reports
             sb.Append("<<");
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes the end sequence for a dictionary-object to the buffer.</summary>
         internal void Dictionary_End()
         {
@@ -188,7 +162,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes the key-value of a dictionary-entry to the buffer.</summary>
         /// <param name="sKey">Key value</param>
         internal void Dictionary_Key(String sKey)
@@ -197,7 +170,6 @@ namespace Root.Reports
             Space();
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes an indirect-reference-object to the buffer.</summary>
         /// <param name="pdfIndirectObject">Referenced indirect object</param>
         internal void IndirectReference(PdfIndirectObject pdfIndirectObject)
@@ -208,7 +180,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a token to the buffer.</summary>
         /// <param name="sToken">Token</param>
         internal void Token(String sToken)
@@ -218,7 +189,6 @@ namespace Root.Reports
             bNeedSpace = true;
         }
 
-        //------------------------------------------------------------------------------------------29.01.2006
         /// <summary>Writes a date-object to the buffer.</summary>
         /// <param name="dt">Date value</param>
         internal void Date(DateTime dt)
@@ -228,21 +198,16 @@ namespace Root.Reports
         #endregion
     }
 
-    //------------------------------------------------------------------------------------------30.01.2006
     #region PdfFileElement_XRef
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF File Element: XRef</summary>
     internal sealed class PdfFileElement_XRef : PdfFileElement
     {
-        //------------------------------------------------------------------------------------------30.01.2006
         /// <summary>Creates the cross-reference table.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfFileElement_XRef(PdfFormatter pdfFormatter) : base(pdfFormatter)
         {
         }
 
-        //------------------------------------------------------------------------------------------30.01.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -258,21 +223,16 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------30.01.2006
     #region PdfFileElement_Trailer
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF File Element: Trailer</summary>
     internal sealed class PdfFileElement_Trailer : PdfFileElement
     {
-        //------------------------------------------------------------------------------------------30.01.2006
         /// <summary>Creates the trailer.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfFileElement_Trailer(PdfFormatter pdfFormatter) : base(pdfFormatter)
         {
         }
 
-        //------------------------------------------------------------------------------------------30.01.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {

@@ -24,7 +24,6 @@ namespace Root.Reports
         /// <summary>Number of committed report objects within the committed row</summary>
         internal Int32 iRepObjCommitted;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a column definition object.</summary>
         /// <param name="tlmBase">Table layout manager of this column</param>
         /// <param name="rWidth">Width of the column (points, 1/72 inch)</param>
@@ -48,7 +47,6 @@ namespace Root.Reports
             penProp_BorderBottom = tlmBase.tlmColumnDef_Default.penProp_BorderBottom;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a column definition object.</summary>
         /// <param name="tlmBase">Table layout manager of this column</param>
         /// <param name="sHeader">Header of the column</param>
@@ -59,11 +57,7 @@ namespace Root.Reports
             fontProp_Header = tlmBase.fontProp_Header;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         #region Add/NewLine
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current cell.</summary>
         /// <remarks>The current cell is the cell that is within the current row (<see cref="TlmBase.tlmRow_Cur">TlmBase.tlmRow_Cur</see>) and this column.</remarks>
         /// <param name="repObj">Report object that will be added to the current cell.</param>
@@ -73,7 +67,6 @@ namespace Root.Reports
             tlmBase.Add(iIndex, repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current cell.</summary>
         /// <remarks>The current cell is the cell that is within the current row (<see cref="TlmBase.tlmRow_Cur">TlmBase.tlmRow_Cur</see>) and this column.</remarks>
         /// <param name="repObj">Report object that will be added to the current cell.</param>
@@ -85,7 +78,6 @@ namespace Root.Reports
             tlmBase.Add(iIndex, repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <overloads>
         ///   <summary>Makes a new line in the current cell.</summary>
         /// </overloads>
@@ -104,7 +96,6 @@ namespace Root.Reports
             tlmBase.NewLine(iIndex, rLineFeed);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line in the current cell with the standard line feed height.</summary>
         /// <remarks>
         /// The current cell is the cell that is within the current row (<see cref="TlmBase.tlmRow_Cur">TlmBase.tlmRow_Cur</see>) and this column.
@@ -117,7 +108,6 @@ namespace Root.Reports
             tlmBase.NewLine(iIndex);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line in the current cell with the specified line feed height.</summary>
         /// <remarks>
         /// The current cell is the cell that is within the current row (<see cref="TlmBase.tlmRow_Cur">TlmBase.tlmRow_Cur</see>) and this column.
@@ -133,10 +123,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Layout
-        //----------------------------------------------------------------------------------------------------x
-
         internal Double _rPosX = 0;
         /// <summary>Gets the horizontal position of the left side of the column.</summary>
         /// <value>The position of the left side of the column in points (1/72 inch).</value>

@@ -10,11 +10,7 @@ namespace Root.Reports
     // </remarks>
     public abstract class TlmBase : LayoutManager, IDisposable
     {
-        //----------------------------------------------------------------------------------------------------x
         #region Constructor
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new table layout manager.</summary>
         /// <param name="report">Report of this table layout manager</param>
         internal TlmBase(ReportBase report) : base(report)
@@ -52,7 +48,6 @@ namespace Root.Reports
             tlmRowDef_Default = new TlmRowDef();
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Checks whether the layout manager status is 'Init'.</summary>
         /// <exception cref="ReportException">The layout manager status is not 'Init'</exception>
         internal void CheckStatus_Init(String sMsg)
@@ -63,7 +58,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Checks whether the layout manager is opened.</summary>
         /// <exception cref="ReportException">The layout manager status is not 'ContainerOpen'</exception>
         internal void CheckStatus_Open(String sMsg)
@@ -75,10 +69,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Properties
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Definition of the default properties of a cell of this table</summary>
         public readonly TlmCellDef tlmCellDef_Default;
 
@@ -117,15 +108,12 @@ namespace Root.Reports
 
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Initialization / Definition
-        //----------------------------------------------------------------------------------------------------x
 
         /// <summary>Column definition</summary>
 #warning must be changed for framework 2
     internal List<TlmColumn> list_TlmColumn = new List<TlmColumn>(20);
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Scales the current width of the columns to the specified width.</summary>
         /// <param name="rWidthNew">New width (points, 1/72 inch)</param>
         /// <exception cref="ReportException">The layout manager status is not 'Init'</exception>
@@ -145,7 +133,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Scales the current width of the columns to the specified width (metric version).</summary>
         /// <param name="rWidthNewMM">New width (mm)</param>
         /// <exception cref="ReportException">The layout manager status is not 'Init'</exception>
@@ -155,10 +142,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Table
-        //----------------------------------------------------------------------------------------------------x
-
         private Double _rWidth = Double.NaN;
         /// <summary>Width of the table (points, 1/72 inch)</summary>
         public Double rWidth
@@ -184,7 +168,6 @@ namespace Root.Reports
             get { return RT.rMMFromPoint(rWidth); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>The layout manager will be opened.</summary>
         public void Open()
         {
@@ -220,7 +203,6 @@ namespace Root.Reports
             report.al_PendingTasks.Add(this);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>The layout manager will be closed.</summary>
         public void Close()
         {
@@ -240,8 +222,6 @@ namespace Root.Reports
             status = Status.Closed;
             report.al_PendingTasks.Remove(this);
         }
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>The layout manager will be closed.</summary>
         public void Dispose()
         {
@@ -249,10 +229,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region List_TlmRow
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Lines will be shortened by this value.</summary>
         /// <remarks>Lines in PDF are sometimes too long.</remarks>
         public Double rMarginTop = RT.rPointFromMM(1);
@@ -270,17 +247,13 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Rows and Report Objects
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Array of all rows of the table</summary>
     internal List<TlmRow> list_TlmRow = new List<TlmRow>(100);
 
         /// <summary>Default cell creation definition</summary>
         internal CellCreateType[] aCellCreateType_New;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the current row.</summary>
         public TlmRow tlmRow_Cur
         {
@@ -294,14 +267,12 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will create a new row (without commit).</summary>
         public TlmRow tlmRow_New()
         {
             return new TlmRow(this, tlmRow_Cur, aCellCreateType_New);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will commit all rows and after that it will create a new row.</summary>
         /// <remarks>The layout manager will be opened if required.</remarks>
         public void NewRow()
@@ -319,7 +290,6 @@ namespace Root.Reports
             new TlmRow(this, tlmRow_Cur, aCellCreateType_New);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new row after the specified row.</summary>
         /// <param name="tlmRow_Prev">The new row will be inserted after this row or at the beginning of list.</param>
         public TlmRow tlmRow_New(TlmRow tlmRow_Prev)
@@ -328,7 +298,6 @@ namespace Root.Reports
             return new TlmRow(this, tlmRow_Prev, aCellCreateType_New);
         }
 
-        //-----------------------------------------------------------------------------------------------------
         /// <summary>This method will create a new row.</summary>
         /// <param name="tlmRow_Prev">The new row will be inserted after this row or at the beginning of list.</param>
         /// <param name="aCellCreateType"></param>
@@ -342,23 +311,18 @@ namespace Root.Reports
             return new TlmRow(this, tlmRow_Prev, aCellCreateType);
         }
 
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will be called after a new row has been created.</summary>
         /// <param name="row">New row</param>
         internal protected virtual void OnNewRow(TlmRow row)
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will be called before the row will be closed.</summary>
         /// <param name="row">Row that will be closed</param>
         internal protected virtual void OnClosingRow(TlmRow row)
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the cell of the current row according to the column index.</summary>
         /// <param name="sMsg">Error message</param>
         /// <param name="iCol">Index of the column</param>
@@ -382,7 +346,6 @@ namespace Root.Reports
             return tlmRow.aTlmCell[iCol];
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the specified cell of the current row.</summary>
         /// <param name="iCol">Index of the column</param>
         /// <param name="repObj">Report object that will be added</param>
@@ -393,7 +356,6 @@ namespace Root.Reports
             tlmCell.Add(repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line within the specified cell of the current row.</summary>
         /// <param name="iCol">Index of the column</param>
         /// <param name="rLineFeed">Height of the line feed (points, 1/72 inch)</param>
@@ -404,7 +366,6 @@ namespace Root.Reports
             tlmCell.NewLine(rLineFeed);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line within the specified cell of the current row (metric version).</summary>
         /// <param name="iCol">Index of the column</param>
         /// <param name="rLineFeedMM">Height of the line feed (mm)</param>
@@ -414,7 +375,6 @@ namespace Root.Reports
             NewLine(iCol, RT.rPointFromMM(rLineFeedMM));
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line within the specified cell of the current row.</summary>
         /// <param name="iCol">Index of the column</param>
         /// <exception cref="ReportException">No row available, row is not open or the column index is out of range.</exception>
@@ -424,7 +384,6 @@ namespace Root.Reports
             tlmCell.NewLine();
         }
 
-        //------------------------------------------------------------------------------------------02.11.2006
         /// <summary>Creates a new container or page.</summary>
         /// <remarks>
         /// After the current contents has been committed and written to the report, a new container or page will be created.
@@ -438,10 +397,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Write Objects to Report
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Break Mode</summary>
         public enum BreakMode
         {
@@ -462,7 +418,6 @@ namespace Root.Reports
         /// <remarks>Line: breaks after any line</remarks>
         public BreakMode breakMode_Overflow = BreakMode.Line;
 
-        //----------------------------------------------------------------------------------------------------x
         private TlmRow _tlmRow_Committed;
         /// <summary>All rows up to this one have been committed</summary>
         internal TlmRow tlmRow_Committed
@@ -485,7 +440,6 @@ namespace Root.Reports
             get { return RT.rMMFromPoint(rCurY); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Writes the committed horizontal lines.</summary>
         /// <param name="bOrderTop">Order</param>
         private void WriteCommittedHorLines(Boolean bOrderTop)
@@ -543,7 +497,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method can be used to optimize the top line.</summary>
         /// <param name="bOrderTop">Order</param>
         /// <param name="cell">Start cell</param>
@@ -552,7 +505,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method can be used to optimize the bottom line.</summary>
         /// <param name="bOrderTop">Order</param>
         /// <param name="tlmCell">Start cell</param>
@@ -561,7 +513,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Writes the committed vertical lines.</summary>
         /// <param name="bOrderTop">Order</param>
         private void WriteCommittedVertLines(Boolean bOrderTop)
@@ -621,7 +572,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method can be used to optimize the left line.</summary>
         /// <param name="bOrderTop">Order</param>
         /// <param name="tlmCell">Start cell</param>
@@ -630,7 +580,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method can be used to optimize the right line.</summary>
         /// <param name="bOrderTop">Order</param>
         /// <param name="tlmCell">Start cell</param>
@@ -639,13 +588,11 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will be called before the report objects will be written to the container.</summary>
         internal virtual void OnBeforeWrite()
         {
         }
 
-        //------------------------------------------------------------------------------------------30.10.2006
         /// <summary>Writes all committed objects to the report.</summary>
         /// <param name="bLastContainer"><b>true</b> if the last container must be processed</param>
         private void WriteCommittedReportObjects(Boolean bLastContainer)
@@ -788,11 +735,7 @@ namespace Root.Reports
             _container_Cur = null;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         #region Optimiation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will optimize the background rectangles.</summary>
         /// <param name="aaiDone">Status of the cells</param>
         /// <param name="iRowEnd">End row</param>
@@ -814,7 +757,6 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------03.10.2006
         /// <summary>Commits as many objects as there can be placed into the current container.</summary>
         /// <remfarks>If not all objects fit into the current container the method stops and returns true.</remarks>
         /// <returns>True if a new container is required</returns>
@@ -963,7 +905,6 @@ namespace Root.Reports
             return true;
         }
 
-        //------------------------------------------------------------------------------------------xx.10.2006
         /// <summary>Commits the current contents of the table layout manager.</summary>
         /// <remarks>
         /// All rows will be closed except the last one.
@@ -979,7 +920,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------02.11.2006
         /// <summary>Writes all objects to the report.</summary>
         private void WriteAll()
         {
@@ -988,10 +928,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Container
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Default height of the table (points, 1/72 inch)</summary>
         public Double rContainerHeight = 72 * 1000;
 
@@ -1009,11 +946,9 @@ namespace Root.Reports
             get { return _container_Cur; }
         }
 
-        //------------------------------------------------------------------------------------------06.01.2004
         /// <summary>Table height mode</summary>
         public TlmHeightMode tlmHeightMode = TlmHeightMode.Adjust;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Provides data for the NewContainer event</summary>
         public class NewContainerEventArgs : EventArgs
         {
@@ -1039,7 +974,6 @@ namespace Root.Reports
         /// <summary>Occurs when a new container must be created.</summary>
         public event NewContainerEventHandler eNewContainer;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Raises the NewContainer event.</summary>
         /// <param name="ea">Event argument</param>
         internal protected virtual void OnNewContainer(NewContainerEventArgs ea)
@@ -1050,7 +984,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new container.</summary>
         private void CreateNewContainer()
         {
@@ -1065,7 +998,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will create a new container that will be added to the parent container at the specified position.</summary>
         /// <param name="container_Parent">Parent container</param>
         /// <param name="rX">X-coordinate of the new container (points, 1/72 inch)</param>
@@ -1089,7 +1021,6 @@ namespace Root.Reports
             return _container_Cur;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will creates a new container that will be added to the parent container at the specified position (metric version).</summary>
         /// <param name="container_Parent">Parent container</param>
         /// <param name="rX_MM">X coordinate of the new container (mm)</param>
@@ -1100,10 +1031,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------06.01.2004
         #region CellCreateType
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Cell creation type</summary>
         public enum CellCreateType
         {
@@ -1120,10 +1048,7 @@ namespace Root.Reports
 
     }
 
-    //------------------------------------------------------------------------------------------06.01.2004
     #region TlmTextMode
-    //----------------------------------------------------------------------------------------------------x
-
     /// <summary>Text mode</summary>
     public enum TlmTextMode
     {
@@ -1138,10 +1063,7 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------06.01.2004
     #region TlmHeightMode
-    //----------------------------------------------------------------------------------------------------x
-
     /// <summary>Table height mode</summary>
     public enum TlmHeightMode
     {

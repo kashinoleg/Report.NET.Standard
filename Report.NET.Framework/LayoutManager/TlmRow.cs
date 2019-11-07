@@ -1,19 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 
-// Creation date: 15.03.2003
-// Checked: 01.07.2003
-// Author: Otto Mayer (mot@root.ch)
-// Version: 1.02
-
-// Report.NET copyright 2003-2004 root-software ag, Bьrglen Switzerland - O. Mayer, S. Spirig, R. Gartenmann, all rights reserved
-// This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
-// as published by the Free Software Foundation, version 2.1 of the License.
-// This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details. You
-// should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA www.opensource.org/licenses/lgpl-license.html
-
 namespace Root.Reports
 {
     /// <summary>Contents of a row of the table layout manager</summary>
@@ -107,7 +94,6 @@ namespace Root.Reports
         /// <summary>Bottom position of the row</summary>
         internal Double rPosBottom = Double.NaN;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Status of the row</summary>
         internal enum Status
         {
@@ -120,7 +106,6 @@ namespace Root.Reports
         /// <summary>Status of the row</summary>
         internal Status status = Status.Open;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a row definition object.</summary>
         /// <param name="tlmBase">Table layout manager of this row</param>
         /// <param name="tlmRow_Prev">The new row will be inserted after <paramref name="tlmRow_Prev"/> or at the beginning if it is <see langword="null"/>.</param>
@@ -135,7 +120,6 @@ namespace Root.Reports
             rPreferredHeight = tlmBase.tlmRowDef_Default.rPreferredHeight;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a row definition object.</summary>
         /// <param name="tlmBase">Table layout manager of this row</param>
         /// <param name="tlmRow_Prev">The new row will be inserted after <paramref name="tlmRow_Prev"/> or at the beginning if it is <see langword="null"/>.</param>
@@ -218,7 +202,6 @@ namespace Root.Reports
             tlmBase.OnNewRow(this);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Closes the row.</summary>
         internal void Close()
         {
@@ -236,7 +219,6 @@ namespace Root.Reports
             status = Status.Closed;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Calculates the bottom position of the row.</summary>
         /// <returns>The bottom position in points (1/72 inch).</returns>
         internal Double rCalculateBottomPos()
@@ -260,7 +242,6 @@ namespace Root.Reports
             return rY;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the horizontal alignment of the cells (default: left)</summary>
         /// <value>Horizontal alignment: value between 0 and 1, 0:left <see cref="RepObj.rAlignLeft"/>, 0.5:centered <see cref="RepObj.rAlignCenter"/>, 1:right <see cref="RepObj.rAlignRight"/></value>
         public Double rAlignH
@@ -286,7 +267,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Sets the pen properties of the horizontal lines of the cell.</summary>
         public PenProp penProp_LineH
         {
@@ -299,7 +279,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the bottom indent of the row (points, 1/72 inch).</summary>
         public Double rIndentBottom
         {
@@ -318,7 +297,6 @@ namespace Root.Reports
             set { rIndentBottom = RT.rPointFromMM(value); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the vertical indents of the row (points, 1/72 inch).</summary>
         public Double rIndentV
         {
@@ -337,10 +315,7 @@ namespace Root.Reports
             set { rIndentV = RT.rPointFromMM(value); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         #region ArrayTlmCell
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Array of all cells of the row</summary>
         /// <remarks>
         /// Eeach row has an instance of this class that holds the cell data.
@@ -352,7 +327,6 @@ namespace Root.Reports
             /// <summary>Array that contains the cells of the row</summary>
             private readonly TlmCell[] aTlmCell;
 
-            //----------------------------------------------------------------------------------------------------x
             /// <summary>Creates the cell array.</summary>
             /// <param name="iSize">Size of the array</param>
             internal ArrayTlmCell(Int32 iSize)
@@ -360,7 +334,6 @@ namespace Root.Reports
                 aTlmCell = new TlmCell[iSize];
             }
 
-            //----------------------------------------------------------------------------------------------------x
             /// <overloads>
             ///   <summary>Gets the specified cell.</summary>
             /// </overloads>
@@ -374,7 +347,6 @@ namespace Root.Reports
                 get { return aTlmCell[iIndex]; }
             }
 
-            //----------------------------------------------------------------------------------------------------x
             /// <summary>Gets the cell of the specified column.</summary>
             /// <param name="col">Column</param>
             /// <value>Cell of the specified column</value>
@@ -384,7 +356,6 @@ namespace Root.Reports
                 get { return aTlmCell[col.iIndex]; }
             }
 
-            //----------------------------------------------------------------------------------------------------x
             /// <summary>Sets the cell with the specified index.</summary>
             /// <param name="iIndex">Index</param>
             /// <param name="cell">Cell</param>
@@ -393,7 +364,6 @@ namespace Root.Reports
                 aTlmCell[iIndex] = cell;
             }
 
-            //----------------------------------------------------------------------------------------------------x
             /// <summary>Returns an enumerator that can iterate through the cell array.</summary>
             /// <returns>IEnumerator for the cell array</returns>
             public System.Collections.IEnumerator GetEnumerator()
@@ -403,16 +373,12 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region TlmCellEnumerator
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Array of all cells of the row</summary>
         public class TlmCellEnumerator : System.Collections.IEnumerable
         {
             private readonly TlmRow tlmRow;
 
-            //----------------------------------------------------------------------------------------------------x
             /// <summary>Creates the cell enumerator.</summary>
             /// <param name="tlmRow">Row</param>
             internal TlmCellEnumerator(TlmRow tlmRow)
@@ -420,7 +386,6 @@ namespace Root.Reports
                 this.tlmRow = tlmRow;
             }
 
-            //----------------------------------------------------------------------------------------------------x
             /// <summary>Returns an enumerator that can iterate through the cell array.</summary>
             /// <returns>IEnumerator for the cell array</returns>
             public System.Collections.IEnumerator GetEnumerator()
@@ -428,14 +393,12 @@ namespace Root.Reports
                 return new Enumerator(tlmRow);
             }
 
-            //----------------------------------------------------------------------------------------------------x
             private class Enumerator : System.Collections.IEnumerator
             {
                 private readonly TlmRow tlmRow;
 
                 private TlmCell tlmCell = null;
 
-                //----------------------------------------------------------------------------------------------------x
                 /// <summary>Creates the enumerator.</summary>
                 /// <param name="tlmRow">Row</param>
                 internal Enumerator(TlmRow tlmRow)
@@ -443,7 +406,6 @@ namespace Root.Reports
                     this.tlmRow = tlmRow;
                 }
 
-                //----------------------------------------------------------------------------------------------------x
                 /// <summary>Gets the current element in the collection.</summary>
                 public Object Current
                 {
@@ -457,7 +419,6 @@ namespace Root.Reports
                     }
                 }
 
-                //----------------------------------------------------------------------------------------------------x
                 /// <summary>Advances the enumerator to the next element of the collection.</summary>
                 /// <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
                 public Boolean MoveNext()
@@ -481,7 +442,6 @@ namespace Root.Reports
                     return true;
                 }
 
-                //----------------------------------------------------------------------------------------------------x
                 /// <summary>Sets the enumerator to its initial position, which is before the first element in the collection.</summary>
                 public void Reset()
                 {

@@ -51,7 +51,6 @@ namespace Root.Reports
         /// If null, it has not yet been used and therefore it is not registered.</summary>
         private PenProp _penProp_Registered;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidth">Width of the pen</param>
@@ -67,7 +66,6 @@ namespace Root.Reports
             _rPatternOff = rPatternOff;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidth">Width of the pen</param>
@@ -75,7 +73,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidth">Width of the pen</param>
@@ -85,7 +82,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidth">Width of the pen</param>
@@ -94,7 +90,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the color of the pen</summary>
         public Color color
         {
@@ -106,7 +101,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the number of 1/72-units of the on-pattern</summary>
         public Double rPatternOff
         {
@@ -118,7 +112,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the number of 1/72-units of the on-pattern</summary>
         public Double rPatternOn
         {
@@ -130,7 +123,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Returns a reference to the same but registered property object.</summary>
         internal PenProp penProp_Registered
         {
@@ -151,7 +143,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the width of the pen</summary>
         public Double rWidth
         {
@@ -163,7 +154,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the width of the pen in millimeter.</summary>
         public Double rWidthMM
         {
@@ -171,7 +161,6 @@ namespace Root.Reports
             set { rWidth = RT.rPointFromMM(value); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
         /// <param name="o">The object to compare with the current object.</param>
         /// <returns>true if the specified Object is equal to the current Object; otherwise, false.</returns>
@@ -186,7 +175,6 @@ namespace Root.Reports
               RT.bEquals(rPatternOn, pp.rPatternOn, 0.1) && RT.bEquals(rPatternOff, pp.rPatternOff, 0.1);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Hash function of this class.</summary>
         /// <returns>Hash code for the current Object.</returns>
         public override Int32 GetHashCode()
@@ -200,7 +188,6 @@ namespace Root.Reports
     /// <summary>Structure that defines the properties of a pen with metric values.</summary>
     public class PenPropMM : PenProp
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidthMM">Width of the pen in millimeter</param>
@@ -211,7 +198,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidthMM">Width of the pen in millimeter</param>
@@ -219,7 +205,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidthMM">Width of the pen in millimeter</param>
@@ -229,7 +214,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new pen properties object</summary>
         /// <param name="report">Report to which this pen belongs</param>
         /// <param name="rWidthMM">Width of the pen in millimeter</param>
@@ -237,6 +221,5 @@ namespace Root.Reports
         public PenPropMM(ReportBase report, Double rWidthMM, Color color) : this(report, rWidthMM, color, 0, 0)
         {
         }
-
     }
 }

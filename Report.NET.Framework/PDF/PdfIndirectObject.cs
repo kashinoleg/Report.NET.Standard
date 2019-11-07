@@ -5,10 +5,7 @@ using System.IO;
 
 namespace Root.Reports
 {
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PdfIndirectObject
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Base Class</summary>
     internal abstract class PdfIndirectObject : PdfFileElement
     {
@@ -18,7 +15,6 @@ namespace Root.Reports
         /// <summary>Position of this object in the PDF file</summary>
         internal Int32 iObjectPosition = 0;
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Creates an indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfIndirectObject(PdfFormatter pdfFormatter) : base(pdfFormatter)
@@ -27,7 +23,6 @@ namespace Root.Reports
             iObjectNumber = pdfFormatter.list_PdfIndirectObject.Count;
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object-start sequence to the buffer.</summary>
         protected void StartObj()
         {
@@ -38,7 +33,6 @@ namespace Root.Reports
             NewLine();
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object-end sequence to the buffer.</summary>
         protected void EndObj()
         {
@@ -46,7 +40,6 @@ namespace Root.Reports
             NewLine();
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Writes the font properties into the buffer.</summary>
         /// <param name="fontProp">New font properties</param>
         internal void Command(String sCommand)
@@ -57,21 +50,16 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PdfIndirectObject_Catalog
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Catalog</summary>
     internal sealed class PdfIndirectObject_Catalog : PdfIndirectObject
     {
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Creates a catalog indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfIndirectObject_Catalog(PdfFormatter pdfFormatter) : base(pdfFormatter)
         {
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -116,21 +104,16 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PdfIndirectObject_Info
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Info</summary>
     internal sealed class PdfIndirectObject_Info : PdfIndirectObject
     {
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Creates an info indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfIndirectObject_Info(PdfFormatter pdfFormatter) : base(pdfFormatter)
         {
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -174,21 +157,16 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PdfIndirectObject_ViewerPreferences
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: viewer-preferences</summary>
     internal sealed class PdfIndirectObject_ViewerPreferences : PdfIndirectObject
     {
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Creates a viewer-preferences indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfIndirectObject_ViewerPreferences(PdfFormatter pdfFormatter) : base(pdfFormatter)
         {
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -228,9 +206,7 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PdfIndirectObject_ImageJpeg
-    //----------------------------------------------------------------------------------------------------
 
     /// <summary>PDF Indirect Object: JPEG Image</summary>
     internal sealed class PdfIndirectObject_ImageJpeg : PdfIndirectObject
@@ -239,7 +215,6 @@ namespace Root.Reports
 #warning ImageData ==> ImageResource
         private ImageData imageResource_Jpeg;
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Creates a JPEG image indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         /// <param name="imageResource_Jpeg">JPEG Image Resource</param>
@@ -248,7 +223,6 @@ namespace Root.Reports
             this.imageResource_Jpeg = imageResource_Jpeg;
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -290,21 +264,16 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PdfIndirectObject_Pages
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Pages</summary>
     internal sealed class PdfIndirectObject_Pages : PdfIndirectObject
     {
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Creates a pages indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfIndirectObject_Pages(PdfFormatter pdfFormatter) : base(pdfFormatter)
         {
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -326,10 +295,7 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------xx.02.2006
     #region PdfIndirectObject_Page
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Page</summary>
     internal sealed class PdfIndirectObject_Page : PdfIndirectObject, IPdfRepObjX
     {
@@ -358,7 +324,6 @@ namespace Root.Reports
         /// <summary>ProcSet ImageI: indexed (color-table) images</summary>
         internal Boolean bProcSet_ImageI = false;
 
-        //------------------------------------------------------------------------------------------03.02.2006
         /// <summary>Creates a page indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         internal PdfIndirectObject_Page(PdfFormatter pdfFormatter, Page page) : base(pdfFormatter)
@@ -366,7 +331,6 @@ namespace Root.Reports
             this.page = page;
         }
 
-        //------------------------------------------------------------------------------------------xx.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -432,7 +396,6 @@ namespace Root.Reports
             EndObj();
         }
 
-        //------------------------------------------------------------------------------------------xx.02.2006
         /// <summary>Registers the specified font properties for this page.</summary>
         /// <param name="fontProp">Font properties</param>
         /// <seealso cref="PdfPageData.ht_FontProp"/>
@@ -447,11 +410,7 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         #region IPdfRepObjX Members
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------xx.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)

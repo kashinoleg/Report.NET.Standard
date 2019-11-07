@@ -11,7 +11,6 @@ namespace Root.Reports
         /// <summary>Internal structure used by the formatter</summary>
         internal object oImageResourceX;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new image data object</summary>
         /// <param name="stream">Image stream</param>
         public ImageData(Stream stream)

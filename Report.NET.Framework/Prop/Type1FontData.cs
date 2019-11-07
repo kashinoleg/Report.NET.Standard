@@ -14,9 +14,7 @@ namespace Root.Reports
     /// </remarks>
     internal class Type1FontData : FontData
     {
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Glyph Definition
-        //----------------------------------------------------------------------------------------------------
 
         /// <summary>Unicode definition</summary>
         private static readonly Int32[] aiGlyphUnicode = {
@@ -236,7 +234,6 @@ namespace Root.Reports
       "zeroinferior", "zerooldstyle", "zerobaseior", "zeta"
     };
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Glyph hash table; key: name, value: unicode</summary>
         private static readonly Hashtable ht_Glyph = new Hashtable(aiGlyphUnicode.Length * 2);
 
@@ -263,10 +260,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region AFM Font Information
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Font metrics version</summary>
         /// <example><code>StartFontMetrics 4.1</code></example>
         internal readonly String sFontMetricsVersion;
@@ -403,11 +397,7 @@ namespace Root.Reports
         //internal readonly Int32 iCompositesCount;
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Type1FontData
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Token delimiters</summary>
         private static readonly Char[] acDelimiterToken = { ' ', '\t' };
 
@@ -616,11 +606,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Methods
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
@@ -637,7 +623,6 @@ namespace Root.Reports
             return acm.fWidthX;
         }
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
@@ -673,7 +658,6 @@ namespace Root.Reports
             return rWidth;
         }
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Gets the character metrics of the specified character.</summary>
         /// <param name="iUnicode">Unicode character</param>
         /// <returns>Character metrics of the specified character</returns>
@@ -686,7 +670,6 @@ namespace Root.Reports
             return aCharMetrics_0To255[iUnicode];
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the factor from the "EM"-size to the "H"-size.</summary>
         /// <returns>Factor from the "EM"-size to the "H"-size</returns>
         /// <remarks>"EM"-size * rGetFactor_EM_To_H() =  "H"-size</remarks>
@@ -703,7 +686,6 @@ namespace Root.Reports
             return fCapHeight / 1000.0;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the height of the font in 1/72 inches.</summary>
         /// <param name="fontProp">Font properties</param>
         /// <returns>Height of the font in 1/72 inches</returns>
@@ -718,7 +700,6 @@ namespace Root.Reports
             return fontProp.rSizePoint * f / 1000F;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the width of the specified text with this font in 1/72 inches.</summary>
         /// <param name="fontProp">Font properties</param>
         /// <param name="sText">Text</param>
@@ -729,9 +710,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region CharMetrics
-        //----------------------------------------------------------------------------------------------------
 
         /// <summary>AFM Character Metrics</summary>
         /// <example><code>C 102 ; WX 333 ; N f ; B 20 0 383 683 ; L i fi ; L l fl ;</code></example>
@@ -755,7 +734,6 @@ namespace Root.Reports
             /// <summary>Ligature sequence</summary>
             internal readonly ArrayList al_Ligature;
 
-            //------------------------------------------------------------------------------------------13.02.2005
             /// <summary>Semicolon delimiter</summary>
             private static readonly Char[] acDelimiterSemicolon = { ';' };
 
@@ -814,10 +792,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------13.02.2005
         #region Ligature
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>AFM Ligature</summary>
         private struct Ligature
         {
@@ -827,7 +802,6 @@ namespace Root.Reports
             /// <summary>Ligature</summary>
             internal readonly String sLigature;
 
-            //------------------------------------------------------------------------------------------13.02.2005
             /// <summary>Creates a ligature object.</summary>
             /// <param name="sSuccessor"></param>
             /// <param name="sLigature"></param>

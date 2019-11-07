@@ -9,10 +9,7 @@ namespace Root.Reports
     /// <remarks>This class provides general tools for the Report.NET library.</remarks>
     static public class RT
     {
-        //------------------------------------------------------------------------------------------07.03.2005
         #region Static
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Resource manager</summary>
         private static ResourceManager rm = new ResourceManager(typeof(RT));
 
@@ -72,14 +69,12 @@ namespace Root.Reports
         /// <remarks>Height of a A6 page in millimeters.</remarks>
         public const Double rA6_HeightMM = rA5_WidthMM;
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Sets the number format for PDF values.</summary>
         static RT()
         {
             cultureInfo_PDF.NumberFormat.NumberDecimalSeparator = ".";
         }
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Determines whether the specified numbers are considered equal.</summary>
         /// <param name="r1">First number to compare</param>
         /// <param name="r2">Second number to compare</param>
@@ -106,17 +101,13 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------07.03.2005
         #region Conversion
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Conversion factor: millimeter to point</summary>
         private const Double rMMToPoint = 1.0 / 25.4 * 72.0;
 
         /// <summary>Conversion factor: point to millimeter</summary>
         private const Double rPointToMM = 1.0 / 72.0 * 25.4;
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Converts millimeters to points (1/72 inch).</summary>
         /// <param name="rMM">Value in millimeters</param>
         /// <returns>value in points (1/72 inch)</returns>
@@ -126,7 +117,6 @@ namespace Root.Reports
             return rMM * rMMToPoint;
         }
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Converts points (1/72 inch) to millimeters.</summary>
         /// <param name="rPoint">Value in points (1/72 inch)</param>
         /// <returns>value in millimeters</returns>
@@ -136,7 +126,6 @@ namespace Root.Reports
             return rPoint * rPointToMM;
         }
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Converts degrees to radians.</summary>
         /// <param name="rDegree">Value in degrees</param>
         /// <returns>value in radians</returns>
@@ -148,17 +137,13 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------07.03.2005
         #region PDF
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Culture info for formatting PDF values</summary>
         private static CultureInfo cultureInfo_PDF = new System.Globalization.CultureInfo("en-US");
 
         /// <summary>Number format string for PDF dimensions</summary>
         private const String sPdfNumberFormat = "0.###";
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>Converts a dimension value to the PDF value format.</summary>
         /// <param name="rDim">Dimension value</param>
         /// <returns>Dimension value in the PDF value format</returns>
@@ -167,7 +152,6 @@ namespace Root.Reports
             return rDim.ToString(sPdfNumberFormat, cultureInfo_PDF);
         }
 
-        //------------------------------------------------------------------------------------------07.03.2005
         /// <summary>StringBuilder object for use in "sPdfString"</summary>
         private static StringBuilder sb = new StringBuilder(200);
 
@@ -199,6 +183,5 @@ namespace Root.Reports
             }
         }
         #endregion
-        //------------------------------------------------------------------------------------------07.03.2005
     }
 }

@@ -9,15 +9,12 @@ namespace Root.Reports
     /// </remarks>
     public class TlmCellDef
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a cell data object.</summary>
         internal TlmCellDef()
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
-        // Layout
-        //----------------------------------------------------------------------------------------------------x
+        #region Layout
 
         private Double _rAlignH = Double.NaN;
         /// <summary>Gets or sets the horizontal alignment of the cell contents (default: left)</summary>
@@ -63,11 +60,9 @@ namespace Root.Reports
             get { return RT.rMMFromPoint(rLineFeed); }
             set { rLineFeed = RT.rPointFromMM(value); }
         }
+        #endregion
 
-        //----------------------------------------------------------------------------------------------------x
-        // Margins
-        //----------------------------------------------------------------------------------------------------x
-
+        #region Margins
         /// <summary>Left margin of the cell (points, 1/72 inch, default: 0)</summary>
         public Double rMarginLeft = Double.NaN;
 
@@ -147,11 +142,9 @@ namespace Root.Reports
         {
             set { rMargin = RT.rPointFromMM(value); }
         }
+        #endregion
 
-        //----------------------------------------------------------------------------------------------------x
-        // Indents
-        //----------------------------------------------------------------------------------------------------x
-
+        #region Indents
         /// <summary>Left indent of the cell (points, 1/72 inch, default 1 mm)</summary>
         public Double rIndentLeft = Double.NaN;
 
@@ -231,19 +224,14 @@ namespace Root.Reports
         {
             set { rIndent = RT.rPointFromMM(value); }
         }
+        #endregion
 
-        //----------------------------------------------------------------------------------------------------x
-        // Background
-        //----------------------------------------------------------------------------------------------------x
-
+        #region Background
         /// <summary>Brush properties of the cell background (default: null - no background)</summary>
         public BrushProp brushProp_Back = BrushProp.bp_Null;
+        #endregion
 
-        //----------------------------------------------------------------------------------------------------x
-        // Lines
-        //----------------------------------------------------------------------------------------------------x
-
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        #region Lines
         /// <summary>Pen properties of the left line of the cell</summary>
         /// <remarks>Visibility:
         /// "left cell".order_LineRight == Back: this line (default)
@@ -285,12 +273,9 @@ namespace Root.Reports
         {
             set { penProp_LineV = penProp_LineH = value; }
         }
+        #endregion
 
-        //------------------------------------------------------------------------------------------03.11.2006
-        //----------------------------------------------------------------------------------------------------x
         #region Line Order/Visibility
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Gets or sets the order of the left line.</summary>
         /// <value>
         /// The preferred height of the row in points (1/72 inch).

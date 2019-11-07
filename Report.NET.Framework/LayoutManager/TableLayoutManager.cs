@@ -6,27 +6,22 @@ namespace Root.Reports
     /// <summary>Table Layout Manager</summary>
     public class TableLayoutManager : TlmBase
     {
-        //====================================================================================================x
         /// <summary>Definition of the default properties of a cell of this table</summary>
         public readonly TlmCellDef tlmCellDef_Header;
 
         /// <summary>Definition of the default properties of a row of this table</summary>
         public readonly TlmRowDef tlmRowDef_Header;
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new table layout manager.</summary>
         /// <param name="report">Report of this table layout manager</param>
         public TableLayoutManager(ReportBase report) : base(report)
         {
             tlmHeightMode = TlmHeightMode.Static;
 
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -x
             PenProp penProp_Solid = new PenProp(report, 0.5, Color.Black);
             tlmCellDef_Default.penProp_LineV = penProp_Solid;
 
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -x
             tlmColumnDef_Default.penProp_BorderH = penProp_Solid;
 
-            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -x
             tlmCellDef_Header = new TlmCellDef();
             tlmRowDef_Header = new TlmRowDef();
 
@@ -44,7 +39,6 @@ namespace Root.Reports
             tlmCellDef_Header.penProp_Line = penProp_Solid;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new table layout manager.</summary>
         /// <param name="fp_Header">Font property of the header</param>
         public TableLayoutManager(FontProp fontProp_Header) : this(fontProp_Header.fontDef.report)
@@ -52,7 +46,6 @@ namespace Root.Reports
             this.fontProp_Header = fontProp_Header;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         public CellCreateType[] aCellCreateType = null;
 
@@ -105,7 +98,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Raises the NewContainer event.</summary>
         /// <param name="ea">Event argument</param>
         internal protected override void OnNewContainer(NewContainerEventArgs ea)
@@ -114,11 +106,7 @@ namespace Root.Reports
             CreateHeader(container_Cur);
         }
 
-        //----------------------------------------------------------------------------------------------------x
-        // Virtual Methods
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
+        #region Virtual Methods
         /// <summary>This method will be called before the row will be closed.</summary>
         /// <param name="row">Row that will be closed</param>
         internal protected override void OnClosingRow(TlmRow row)
@@ -146,7 +134,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will be called before the report objects will be written to the container.</summary>
         internal override void OnBeforeWrite()
         {
@@ -168,5 +155,6 @@ namespace Root.Reports
                 }
             }
         }
+        #endregion
     }
 }

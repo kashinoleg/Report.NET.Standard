@@ -35,13 +35,11 @@ namespace Root.Reports
         /// <summary>Creation date and time of  the document</summary>
         public DateTime dt_CreationDate = DateTime.Today;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a formatter object.</summary>
         protected Formatter()
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates the report.</summary>
         /// <param name="report">Report</param>
         /// <param name="stream">Output stream</param>
@@ -51,7 +49,6 @@ namespace Root.Reports
             _stream = stream;
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Gets the output stream object.</summary>
         public Stream stream
         {
@@ -59,47 +56,37 @@ namespace Root.Reports
             get { return _stream; }
         }
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region Create RepObjX Objects
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------03.02.2006
         internal virtual object oCreate_Container()
         {
             return null;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         internal virtual object oCreate_RepArcBase()
         {
             return null;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         internal virtual object oCreate_RepImage()
         {
             return null;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         internal virtual object oCreate_RepLine()
         {
             return null;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         internal virtual object oCreate_RepRect()
         {
             return null;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         internal virtual object oCreate_RepString()
         {
             return null;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         /// <summary>Creates the extended page data object.</summary>
         /// <param name="page">Page</param>
         /// <returns>Extended page data object</returns>
@@ -107,10 +94,7 @@ namespace Root.Reports
         #endregion
     }
 
-    //------------------------------------------------------------------------------------------01.02.2006
     #region PageLayout
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Page Layout</summary>
     /// <remarks>This attribute specifies the page layout to be used when the document is opened.</remarks>
     public enum PageLayout

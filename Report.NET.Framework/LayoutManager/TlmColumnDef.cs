@@ -9,10 +9,7 @@ namespace Root.Reports
     /// </remarks>
     public class TlmColumnDef
     {
-        //----------------------------------------------------------------------------------------------------x
         #region Border Margins
-        //----------------------------------------------------------------------------------------------------x
-
         private Double _rBorderTop = Double.NaN;
         /// <summary>Gets or sets the top border margin of the column (default: <see cref="System.Double.NaN"/>).</summary>
         /// <value>
@@ -124,10 +121,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Border Lines
-        //----------------------------------------------------------------------------------------------------x
-
         private PenProp _penProp_BorderTop = PenProp.penProp_Null;
         /// <summary>Gets or sets the pen properties of the top border line of the column (default: <see langword="null"/>).</summary>
         /// <value>

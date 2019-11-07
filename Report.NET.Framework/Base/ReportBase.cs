@@ -40,7 +40,6 @@ namespace Root.Reports
 
         internal ArrayList al_PendingTasks = new ArrayList(20);
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Creates a Report.</summary>
         /// <param name="formatter">Formatter to use for this report</param>
         public ReportBase(Formatter formatter)
@@ -48,33 +47,29 @@ namespace Root.Reports
             Init(formatter);
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Creates a report.</summary>
         public ReportBase() : this(new PdfFormatter())
         {
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Gets the font definition hash table.</summary>
         internal Dictionary<String, FontDef> dict_FontDef
         {
             get { return _dict_FontDef; }
         }
-        //----------------------------------------------------------------------------------------------------
+
         /// <summary>Returns an enumeration of all fonts definitions.</summary>
         internal IEnumerable enum_FontDef
         {
             get { return dict_FontDef.Values; }
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Returns an enumeration of all pages.</summary>
         public IEnumerable enum_Page
         {
             get { return al_Page; }
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Gets the formatter of the report</summary>
         public Formatter formatter
         {
@@ -83,20 +78,17 @@ namespace Root.Reports
             set { _formatter = value; }
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Returns the number of pages of this report.</summary>
         public Int32 iPageCount
         {
             get { return al_Page.Count; }
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Creates the contents of the report</summary>
         internal protected virtual void Create()
         {
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Creates a report.</summary>
         /// <param name="formatter">Formatter to use for this report</param>
         internal void Init(Formatter formatter)
@@ -109,7 +101,6 @@ namespace Root.Reports
             formatter.report = this;
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Registers a new page.</summary>
         internal void RegisterPage(Page page)
         {
@@ -117,7 +108,6 @@ namespace Root.Reports
             page_Cur = page;
         }
 
-        //----------------------------------------------------------------------------------------------------
         /// <summary>Saves the report.</summary>
         /// <param name="sFileName">File name</param>
         public void Save(String sFileName)

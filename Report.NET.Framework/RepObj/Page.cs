@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Drawing;
-
-namespace Root.Reports
+﻿namespace Root.Reports
 {
     /// <summary>Page of a report</summary>
     /// <example>Page sample:
@@ -34,12 +30,11 @@ namespace Root.Reports
         internal readonly new ReportBase report;
 
         /// <summary>Page Number</summary>
-        public Int32 iPageNo;
+        public int iPageNo;
 
         /// <summary>Page name</summary>
-        public String sName;
+        public string sName;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a page for the report</summary>
         /// <param name="report">Report to which this page will be add</param>
         public Page(ReportBase report) : base(RT.rPointFromMM(210.224), RT.rPointFromMM(297.302))
@@ -50,14 +45,12 @@ namespace Root.Reports
             iPageNo = report.iPageCount;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Sets the landscape orientation for this page.</summary>
         public void SetLandscape()
         {
-            Double r = rHeight;
+            var r = rHeight;
             rHeight = rWidth;
             rWidth = r;
         }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Root.Reports
+﻿namespace Root.Reports
 {
     /// <summary>Report Rectangle Object.</summary>
     public class RepRect : RepObj
@@ -17,7 +15,7 @@ namespace Root.Reports
         /// <param name="brushProp">Brush properties of the rectangle</param>
         /// <param name="rWidth">Width of the rectangle</param>
         /// <param name="rHeight">Height of the rectangle</param>
-        public RepRect(PenProp penProp, BrushProp brushProp, Double rWidth, Double rHeight)
+        public RepRect(PenProp penProp, BrushProp brushProp, double rWidth, double rHeight)
         {
             if (penProp != null)
             {
@@ -44,7 +42,7 @@ namespace Root.Reports
         /// <param name="penProp">Pen properties of the border line</param>
         /// <param name="rWidth">Width of the rectangle</param>
         /// <param name="rHeight">Height of the rectangle</param>
-        public RepRect(PenProp penProp, Double rWidth, Double rHeight) : this(penProp, null, rWidth, rHeight)
+        public RepRect(PenProp penProp, double rWidth, double rHeight) : this(penProp, null, rWidth, rHeight)
         {
         }
 
@@ -53,7 +51,7 @@ namespace Root.Reports
         /// <param name="brushProp">Brush properties of the rectangle</param>
         /// <param name="rWidth">Width of the rectangle</param>
         /// <param name="rHeight">Height of the rectangle</param>
-        public RepRect(BrushProp brushProp, Double rWidth, Double rHeight) : this(null, brushProp, rWidth, rHeight)
+        public RepRect(BrushProp brushProp, double rWidth, double rHeight) : this(null, brushProp, rWidth, rHeight)
         {
         }
 
@@ -69,7 +67,7 @@ namespace Root.Reports
         /// <param name="brushProp">Brush properties of the rectangle</param>
         /// <param name="rWidth">Width of the rectangle</param>
         /// <param name="rHeight">Height of the rectangle</param>
-        public RepRectMM(PenProp penProp, BrushProp brushProp, Double rWidth, Double rHeight) : base(penProp, brushProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
+        public RepRectMM(PenProp penProp, BrushProp brushProp, double rWidth, double rHeight) : base(penProp, brushProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
         {
         }
 
@@ -78,7 +76,7 @@ namespace Root.Reports
         /// <param name="penProp">Pen properties of the border line</param>
         /// <param name="rWidth">Width of the rectangle</param>
         /// <param name="rHeight">Height of the rectangle</param>
-        public RepRectMM(PenProp penProp, Double rWidth, Double rHeight) : base(penProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
+        public RepRectMM(PenProp penProp, double rWidth, double rHeight) : base(penProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
         {
         }
 
@@ -87,7 +85,7 @@ namespace Root.Reports
         /// <param name="brushProp">Brush properties of the rectangle</param>
         /// <param name="rWidth">Width of the rectangle</param>
         /// <param name="rHeight">Height of the rectangle</param>
-        public RepRectMM(BrushProp brushProp, Double rWidth, Double rHeight) : base(brushProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
+        public RepRectMM(BrushProp brushProp, double rWidth, double rHeight) : base(brushProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
         {
         }
     }

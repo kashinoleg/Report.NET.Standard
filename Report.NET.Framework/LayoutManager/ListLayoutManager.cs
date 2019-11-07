@@ -5,9 +5,6 @@ namespace Root.Reports
     /// <summary>List Layout Manager</summary>
     public class ListLayoutManager : TlmBase
     {
-        //====================================================================================================x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new list layout manager.</summary>
         /// <param name="report">Report object of this list layout manager</param>
         public ListLayoutManager(ReportBase report) : base(report)
@@ -15,7 +12,6 @@ namespace Root.Reports
             //pp_Border = new PenPropMM(report, 0.1, Color.Black);
         }
 
-        //----------------------------------------------------------------------------------------------------x###
         /// <summary>This method will be called after a new row has been created.</summary>
         /// <param name="row"></param>
         internal protected override void OnNewRow(TlmRow row)
@@ -38,7 +34,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x###
         /// <summary>This method will be called before the report objects will be written to the container.</summary>
         internal override void OnBeforeWrite()
         {

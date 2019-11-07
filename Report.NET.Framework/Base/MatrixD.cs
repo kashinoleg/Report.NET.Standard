@@ -33,7 +33,6 @@ namespace Root.Reports
         /// <summary>Vertical position of the report object relative to its container.</summary>
         private Double _rDY;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         /// <param name="rSX"></param>
         /// <param name="rRY"></param>
@@ -51,14 +50,12 @@ namespace Root.Reports
             _rDY = rDY;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         internal Boolean bComplex
         {
             get { return _rSX != 1 || _rRY != 0 || _rRX != 0 || _rSY != 1; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the horizontal position of this report object relative to its container.</summary>
         /// <value>Gets or sets the horizontal position of this report object relative to its container.</value>
         public Double rDX
@@ -67,7 +64,6 @@ namespace Root.Reports
             get { return _rDX; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Vertical position of this report object relative to its container.</summary>
         public Double rDY
         {
@@ -75,35 +71,30 @@ namespace Root.Reports
             get { return _rDY; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Shearing X</summary>
         public Double rRX
         {
             get { return _rRX; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Shearing Y</summary>
         public Double rRY
         {
             get { return _rRY; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Scaling X</summary>
         public Double rSX
         {
             get { return _rSX; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Scaling Y</summary>
         public Double rSY
         {
             get { return _rSY; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates an exact copy of this Matrix object.</summary>
         /// <returns>Copy of this matrix</returns>
         public MatrixD Clone()
@@ -111,7 +102,6 @@ namespace Root.Reports
             return new MatrixD(_rSX, _rRY, _rRX, _rSY, _rDX, _rDY);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Multiplies this matrix with the specified matrix values.</summary>
         /// <param name="rSXp"></param>
         /// <param name="rRYp"></param>
@@ -152,7 +142,6 @@ namespace Root.Reports
             _rDY = rDYn;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Multiplies this matrix with the specified matrix values.</summary>
         /// <param name="rSXp"></param>
         /// <param name="rRYp"></param>
@@ -165,7 +154,6 @@ namespace Root.Reports
             Multiply(rSXp, rRYp, rRXp, rSYp, rDXp, rDYp, MatrixDOrder.Prepend);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Multiplies this matrix with the specified matrix values.</summary>
         /// <param name="m"></param>
         /// <param name="matrixDOrder"></param>
@@ -174,7 +162,6 @@ namespace Root.Reports
             Multiply(m._rSX, m._rRY, m._rRX, m._rSY, m._rDX, m._rDY, matrixDOrder);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         /// <param name="m"></param>
         internal void Multiply(MatrixD m)
@@ -182,7 +169,6 @@ namespace Root.Reports
             Multiply(m, MatrixDOrder.Prepend);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Applies the specified rotation to the transformation matrix of this report object.</summary>
         /// <param name="rAngle">Angle of rotation in degrees</param>
         internal void Rotate(double rAngle)
@@ -193,7 +179,6 @@ namespace Root.Reports
             Multiply(new MatrixD(Math.Cos(rAngle / 180 * Math.PI), Math.Sin(rAngle / 180 * Math.PI), -Math.Sin(rAngle / 180 * Math.PI), Math.Cos(rAngle / 180 * Math.PI), 0, 0));
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         /// <param name="rX"></param>
         /// <param name="rY"></param>
@@ -203,7 +188,6 @@ namespace Root.Reports
             return rX * _rSX + rY * _rRX + _rDX;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         /// <param name="rX"></param>
         /// <param name="rY"></param>
@@ -213,7 +197,6 @@ namespace Root.Reports
             return rX * _rRY + rY * _rSY + _rDY;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Scales this report object.</summary>
         /// <param name="rScaleX">The value by which to scale this Matrix in the x-axis direction.</param>
         /// <param name="rScaleY">The value by which to scale this Matrix in the y-axis direction.</param>

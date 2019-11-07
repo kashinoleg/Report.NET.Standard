@@ -3,10 +3,7 @@ using System.Drawing;
 
 namespace Root.Reports
 {
-    //------------------------------------------------------------------------------------------29.07.2006
     #region PdfIndirectObject_Font
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Font</summary>
     /// <remarks>Each font data object that is used in the PDF document must point to an object of this type (FontData.oFontDataX).</remarks>
     internal abstract class PdfIndirectObject_Font : PdfIndirectObject
@@ -20,7 +17,6 @@ namespace Root.Reports
         /// If <c>pdfPageData_Registered</c> contains the current page, then it has been registered before.</summary>
         internal PdfIndirectObject_Page pdfIndirectObject_Page;
 
-        //------------------------------------------------------------------------------------------29.07.2006
         /// <summary>Creates a font indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         /// <param name="fontProp">Font property</param>
@@ -41,14 +37,10 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------29.07.2006
     #region PdfIndirectObject_Font_Type1
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Font Type1</summary>
     internal sealed class PdfIndirectObject_Font_Type1 : PdfIndirectObject_Font
     {
-        //------------------------------------------------------------------------------------------29.07.2006
         /// <summary>Creates a font indirect object for a Type1 font.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         /// <param name="type1FontData">Type1 font data</param>
@@ -57,7 +49,6 @@ namespace Root.Reports
         {
         }
 
-        //------------------------------------------------------------------------------------------29.07.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -77,17 +68,13 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------04.08.2006
     #region PdfIndirectObject_Font_OpenType
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Font Open Type</summary>
     internal sealed class PdfIndirectObject_Font_OpenType : PdfIndirectObject_Font
     {
         /// <summary>Font descriptor that belongs to this font type</summary>
         private readonly PdfIndirectObject_FontDescriptor pdfIndirectObject_FontDescriptor;
 
-        //------------------------------------------------------------------------------------------04.08.2006
         /// <summary>Creates a font indirect object for an open type font.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         /// <param name="openTypeFontData">Open type font data</param>
@@ -97,7 +84,6 @@ namespace Root.Reports
             pdfIndirectObject_FontDescriptor = new PdfIndirectObject_FontDescriptor(pdfFormatter, openTypeFontData);
         }
 
-        //------------------------------------------------------------------------------------------01.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {
@@ -131,17 +117,13 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------xx.02.2006
     #region PdfIndirectObject_FontDescriptor
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>PDF Indirect Object: Font Descriptor</summary>
     internal sealed class PdfIndirectObject_FontDescriptor : PdfIndirectObject
     {
         /// <summary>Font property</summary>
         private readonly OpenTypeFontData openTypeFontData;
 
-        //------------------------------------------------------------------------------------------04.05.2006
         /// <summary>Creates a font descriptor indirect object.</summary>
         /// <param name="pdfFormatter">PDF formatter</param>
         /// <param name="fontProp">Font property</param>
@@ -176,7 +158,6 @@ namespace Root.Reports
         // >>
         // endobj
 
-        //------------------------------------------------------------------------------------------xx.02.2006
         /// <summary>Writes the object to the buffer.</summary>
         internal override void Write()
         {

@@ -19,7 +19,6 @@ namespace Root.Reports
         /// If null, it has not yet been used and therefore it is not registered.</summary>
         private BrushProp _brushProp_Registered;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new brush properties object.</summary>
         /// <param name="report">Report to which this brush belongs</param>
         /// <param name="color">Color of the brush</param>
@@ -29,7 +28,6 @@ namespace Root.Reports
             _color = color;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets a reference to the same but registered brush property object.</summary>
         internal BrushProp brushProp_Registered
         {
@@ -50,7 +48,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets or sets the color of the brush</summary>
         public Color color
         {
@@ -63,7 +60,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
         /// <param name="o">The object to compare with the current object.</param>
         /// <returns>true if the specified Object is equal to the current Object; otherwise, false.</returns>
@@ -77,7 +73,6 @@ namespace Root.Reports
             return Equals(_color, bp._color);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Hash function of this class.</summary>
         /// <returns>Hash code for the current Object.</returns>
         public override Int32 GetHashCode()

@@ -19,7 +19,6 @@ namespace Root.Reports
             this.rHeight = rHeight;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container.</summary>
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
@@ -104,7 +103,6 @@ namespace Root.Reports
         }
 #endif
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container (metric version).</summary>
         /// <param name="rX">X-coordinate of the report object in millimeter</param>
         /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
@@ -114,7 +112,6 @@ namespace Root.Reports
             Add(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container and sets the alignment.</summary>
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rAlignH">Horizontal alignment of the report object relative to [X].</param>
@@ -130,7 +127,6 @@ namespace Root.Reports
             Add(repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container and sets the alignment (metric versоon).</summary>
         /// <param name="rX">X-coordinate of the report objectt in millimeter</param>
         /// <param name="rAlignH">Horizontal alignment of the report object relative to [X].</param>
@@ -142,7 +138,6 @@ namespace Root.Reports
             AddAligned(RT.rPointFromMM(rX), rAlignH, RT.rPointFromMM(rY), rAlignV, repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container, horizontally centered.</summary>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
@@ -151,7 +146,6 @@ namespace Root.Reports
             base.AddCB(rWidth / 2.0, rY, repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container, horizontally centered.</summary>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
@@ -164,7 +158,6 @@ namespace Root.Reports
             Add(repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container, horizontally centered (metric version).</summary>
         /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
         /// <param name="repObj">Report object to add to the container</param>
@@ -173,7 +166,6 @@ namespace Root.Reports
             AddCB(RT.rPointFromMM(rY), repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container, right justified.</summary>
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
@@ -183,7 +175,6 @@ namespace Root.Reports
             AddAligned(rX, RepObj.rAlignRight, rY, RepObj.rAlignBottom, repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the container, right justified (metric version).</summary>
         /// <param name="rX">X-coordinate of the report objectt in millimeter</param>
         /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
@@ -206,7 +197,5 @@ namespace Root.Reports
         public StaticContainerMM(Double rWidth, Double rHeight) : base(RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
         {
         }
-
     }
-
 }

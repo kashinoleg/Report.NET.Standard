@@ -12,7 +12,6 @@ namespace Root.Reports
         /// <summary>Text of the string object.</summary>
         public String sText;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new string object.</summary>
         /// <param name="fontProp">Font properties of the string object</param>
         /// <param name="sText">Text of the string object</param>
@@ -27,7 +26,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Sets or gets the height of this report object.</summary>
         public override Double rHeight
         {
@@ -41,7 +39,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Sets or gets the width of this report object.</summary>
         public override Double rWidth
         {
@@ -55,7 +52,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the position of the top side of this report object (points, 1/72 inch).</summary>
         public override Double rPosTop
         {
@@ -78,7 +74,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the position of the bottom of this report object (points, 1/72 inch).</summary>
         public override Double rPosBottom
         {
@@ -108,7 +103,6 @@ namespace Root.Reports
     /// <summary>Report Int32 Object.</summary>
     public class RepInt32 : RepString
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new Int32 object.</summary>
         /// <param name="fontProp">Font properties of the Int32 object</param>
         /// <param name="iVal">Int32 value</param>
@@ -117,7 +111,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new Int32 object.</summary>
         /// <param name="fontProp">Font properties of the Int32 object</param>
         /// <param name="iVal">Int32 value</param>
@@ -127,7 +120,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new Int32 object.</summary>
         /// <param name="fontProp">Font properties of the Int32 object</param>
         /// <param name="iVal">Int32 value</param>
@@ -142,7 +134,6 @@ namespace Root.Reports
     /// <summary>Report Real32 Object.</summary>
     public class RepReal32 : RepString
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new RepReal32 object.</summary>
         /// <param name="fontProp">Font properties of the Real32 object</param>
         /// <param name="fVal">Real32 (Single) value</param>
@@ -151,7 +142,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new RepReal32 object.</summary>
         /// <param name="fontProp">Font properties of the Real32 object</param>
         /// <param name="fVal">Real32 (Single) value</param>
@@ -160,14 +150,12 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new RepReal32 object.</summary>
         /// <param name="fontProp">Font properties of the Real32 object</param>
         /// <param name="fVal">Real32 (Single) value</param>
         public RepReal32(FontProp fontProp, Single fVal) : base(fontProp, fVal.ToString("0.00"))
         {
         }
-
     }
 
 
@@ -175,7 +163,6 @@ namespace Root.Reports
     /// <summary>Report Real64 Object.</summary>
     public class RepReal64 : RepString
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new RepReal64 object.</summary>
         /// <param name="fontProp">Font properties of the Real64 object</param>
         /// <param name="rVal">Real64 value</param>
@@ -184,7 +171,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new RepReal64 object.</summary>
         /// <param name="fontProp">Font properties of the Real64 object</param>
         /// <param name="rVal">Real64 value</param>
@@ -194,14 +180,12 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new RepReal64 object.</summary>
         /// <param name="fontProp">Font properties of the Real64 object</param>
         /// <param name="rVal">Real64 value</param>
         public RepReal64(FontProp fontProp, Double rVal) : base(fontProp, rVal.ToString("0.00"))
         {
         }
-
     }
 
 
@@ -209,7 +193,6 @@ namespace Root.Reports
     /// <summary>Report DateTime Object.</summary>
     public class RepDateTime : RepString
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new DateTime object.</summary>
         /// <param name="fontProp">Font properties of the DateTime object</param>
         /// <param name="dt_Val">DateTime value</param>
@@ -218,14 +201,11 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new DateTime object.</summary>
         /// <param name="fontProp">Font properties of the DateTime object</param>
         /// <param name="dt_Val">DateTime value</param>
         public RepDateTime(FontProp fontProp, DateTime dt_Val) : base(fontProp, dt_Val.ToString())
         {
         }
-
     }
-
 }

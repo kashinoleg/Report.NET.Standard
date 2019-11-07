@@ -16,14 +16,11 @@ namespace Root.Reports
     /// </remarks>
     internal class OpenTypeFontData : FontData
     {
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Constructor
-        //----------------------------------------------------------------------------------------------------
 
         /// <summary>Font definition</summary>
         private readonly FontDef fontDef;
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Token delimiters</summary>
         private static readonly Char[] acDelimiterToken = { ' ', '\t' };
 
@@ -67,10 +64,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Font Information
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Font metrics version</summary>
         /// <example><code>StartFontMetrics 4.1</code></example>
         internal readonly String sFontMetricsVersion;
@@ -117,17 +111,13 @@ namespace Root.Reports
         private readonly Hashtable ht_CharMetrics;
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Font Data
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>TrueType Collection (file extension .ttc)</summary>
         private Boolean bTrueTypeCollection = false;
 
         /// <summary>TrueType Collection Index</summary>
         private Int32 iTrueTypeCollectionIndex = 0;
 
-        //------------------------------------------------------------------------------------------04.04.2006
         private enum FontDataType
         {
             TrueTypeOutlines,
@@ -135,8 +125,6 @@ namespace Root.Reports
         }
 
         private FontDataType fontDataType = FontDataType.TrueTypeOutlines;
-
-        //------------------------------------------------------------------------------------------04.04.2006
 
         /// <summary>Number of tables</summary>
         private Int32 iNumTables;
@@ -150,7 +138,6 @@ namespace Root.Reports
         /// <summary>NumTables x 16-searchRange</summary>
         private Int32 iRangeShift;
 
-        //------------------------------------------------------------------------------------------08.04.2006
         /// <summary>Table directory</summary>
         private class TableDirectory
         {
@@ -169,7 +156,6 @@ namespace Root.Reports
 
         private Dictionary<String, TableDirectory> dict_TableDirectory = new Dictionary<string, TableDirectory>(30);
 
-        //------------------------------------------------------------------------------------------08.04.2006
         private class FontHeader
         {
             internal UInt32 uTableVersionNumber;
@@ -188,7 +174,6 @@ namespace Root.Reports
 
         private FontHeader fontHeader;
 
-        //------------------------------------------------------------------------------------------08.04.2006
         private class HorizontalHeader
         {
             internal UInt32 uTableVersionNumber;
@@ -207,7 +192,6 @@ namespace Root.Reports
 
         private HorizontalHeader horizontalHeader;
 
-        //------------------------------------------------------------------------------------------06.04.2006
         private class WinMetrics
         {
             internal Int32 iVersion;
@@ -251,7 +235,6 @@ namespace Root.Reports
 
         private WinMetrics winMetrics;
 
-        //------------------------------------------------------------------------------------------xx.02.2005
         //  post
 
         /// <summary>Italic angle</summary>
@@ -266,7 +249,6 @@ namespace Root.Reports
         /// <summary><see langword="true"/> if all the characters have the same width.</summary>
         internal Boolean bFixedPitch = false;
 
-        //------------------------------------------------------------------------------------------xx.02.2005
         /// <summary>Reads the font data from the file.</summary>
         /// <param name="openTypeReader">Open Type Reader</param>
         private void ReadFontDataFromFile(OpenTypeReader openTypeReader)
@@ -434,11 +416,8 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Table "name"
-        //----------------------------------------------------------------------------------------------------
 
-        //------------------------------------------------------------------------------------------xx.02.2005
         /// <summary>Reads the table "name".</summary>
         /// <param name="openTypeReader">Open Type Reader</param>
         private void ReadTable_name(OpenTypeReader openTypeReader)
@@ -488,14 +467,11 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Table "hmtx" (glyph widths)
-        //----------------------------------------------------------------------------------------------------
 
         /// <summary>Glyph widths in font design units.</summary>
         private Int32[] aiGlyphWidth;
 
-        //------------------------------------------------------------------------------------------xx.02.2005
         /// <summary>Reads the table "hmtx" (glyph widths).</summary>
         /// <remarks>The glyph widths are normalized to 1000 units.</remarks>
         /// <param name="openTypeReader">Open Type Reader</param>
@@ -514,11 +490,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region Methods
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
@@ -527,7 +499,6 @@ namespace Root.Reports
             return 500;
         }
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
@@ -536,7 +507,6 @@ namespace Root.Reports
             return aiGlyphWidth[iChar];
         }
 
-        //------------------------------------------------------------------------------------------16.02.2005
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
@@ -570,7 +540,6 @@ namespace Root.Reports
             return rWidth;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the height of the font in 1/72 inches.</summary>
         /// <param name="fontProp">Font properties</param>
         /// <returns>Height of the font in 1/72 inches</returns>
@@ -585,7 +554,6 @@ namespace Root.Reports
             return 0;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the width of the specified text with this font in 1/72 inches.</summary>
         /// <param name="fontProp">Font properties</param>
         /// <param name="sText">Text</param>
@@ -596,7 +564,6 @@ namespace Root.Reports
             return 0;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the factor from the "EM"-size to the "H"-size.</summary>
         /// <returns>Factor from the "EM"-size to the "H"-size</returns>
         /// <remarks>"EM"-size * rGetFactor_EM_To_H() =  "H"-size</remarks>
@@ -606,10 +573,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------16.02.2005
         #region CharMetrics
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>AFM Character Metrics</summary>
         /// <example><code>C 102 ; WX 333 ; N f ; B 20 0 383 683 ; L i fi ; L l fl ;</code></example>
         internal class CharMetrics
@@ -632,7 +596,6 @@ namespace Root.Reports
             /// <summary>Ligature sequence</summary>
             internal readonly ArrayList al_Ligature;
 
-            //------------------------------------------------------------------------------------------13.02.2005
             /// <summary>Semicolon delimiter</summary>
             private static readonly Char[] acDelimiterSemicolon = { ';' };
 
@@ -691,10 +654,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------13.02.2005
         #region Ligature
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>AFM Ligature</summary>
         private struct Ligature
         {
@@ -704,7 +664,6 @@ namespace Root.Reports
             /// <summary>Ligature</summary>
             internal readonly String sLigature;
 
-            //------------------------------------------------------------------------------------------13.02.2005
             /// <summary>Creates a ligature object.</summary>
             /// <param name="sSuccessor"></param>
             /// <param name="sLigature"></param>

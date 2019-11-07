@@ -3,37 +3,28 @@ using System.Diagnostics;
 
 namespace Root.Reports
 {
-    //------------------------------------------------------------------------------------------17.02.2006
     #region IPdfRepObjX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Interface for the extended data of a RepObj-object when a PDF formatter is used</summary>
     internal interface IPdfRepObjX
     {
-        //------------------------------------------------------------------------------------------03.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         void Write(PdfIndirectObject_PageContents.Environment e);
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------17.02.2006
     #region PdfContainerX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Extended PDF Container Class</summary>
     internal sealed class PdfContainerX : IPdfRepObjX
     {
         /// <summary>Singleton instance of this class.</summary>
         internal static readonly PdfContainerX instance = new PdfContainerX();
 
-        //------------------------------------------------------------------------------------------09.02.2006
         /// <summary>Singleton instance <see cref="instance"/> must be used.</summary>
         private PdfContainerX()
         {
         }
 
-        //------------------------------------------------------------------------------------------17.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
@@ -57,23 +48,18 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------xx.02.2006
     #region PdfRepImageX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Extended PDF Image Class</summary>
     internal sealed class PdfRepImageX : IPdfRepObjX
     {
         /// <summary>Singleton instance of this class.</summary>
         internal static readonly PdfRepImageX instance = new PdfRepImageX();
 
-        //------------------------------------------------------------------------------------------17.02.2006
         /// <summary>Singleton instance <see cref="instance"/> must be used.</summary>
         private PdfRepImageX()
         {
         }
 
-        //------------------------------------------------------------------------------------------xx.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
@@ -93,23 +79,18 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------17.02.2006
     #region PdfRepLineX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Extended PDF Line Class</summary>
     internal sealed class PdfRepLineX : IPdfRepObjX
     {
         /// <summary>Singleton instance of this class.</summary>
         internal static readonly PdfRepLineX instance = new PdfRepLineX();
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Singleton instance <see cref="instance"/> must be used.</summary>
         private PdfRepLineX()
         {
         }
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
@@ -132,23 +113,18 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------07.02.2006
     #region PdfRepArcBaseX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Extended PDF ArcBase Class</summary>
     internal sealed class PdfRepArcBaseX : IPdfRepObjX
     {
         /// <summary>Singleton instance of this class.</summary>
         internal static readonly PdfRepArcBaseX instance = new PdfRepArcBaseX();
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Singleton instance <see cref="instance"/> must be used.</summary>
         private PdfRepArcBaseX()
         {
         }
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
@@ -269,23 +245,18 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------07.02.2006
     #region PdfRepRectX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Extended PDF Rectangle Class</summary>
     internal sealed class PdfRepRectX : IPdfRepObjX
     {
         /// <summary>Singleton instance of this class.</summary>
         internal static readonly PdfRepRectX instance = new PdfRepRectX();
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Singleton instance <see cref="instance"/> must be used.</summary>
         private PdfRepRectX()
         {
         }
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
@@ -331,23 +302,18 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------07.02.2006
     #region PdfRepStringX
-    //----------------------------------------------------------------------------------------------------
-
     /// <summary>Extended PDF String Class</summary>
     internal sealed class PdfRepStringX : IPdfRepObjX
     {
         /// <summary>Singleton instance of this class.</summary>
         internal static readonly PdfRepStringX instance = new PdfRepStringX();
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Singleton instance <see cref="instance"/> must be used.</summary>
         private PdfRepStringX()
         {
         }
 
-        //------------------------------------------------------------------------------------------07.02.2006
         /// <summary>Writes the RepObj to the buffer.</summary>
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)

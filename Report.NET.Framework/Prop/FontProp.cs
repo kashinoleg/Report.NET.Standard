@@ -12,14 +12,11 @@ namespace Root.Reports
     // <include file='Prop\FontProp.cs.xml' path='documentation/class[@name="FontProp"]/*'/>
     public class FontProp
     {
-        //------------------------------------------------------------------------------------------28.07.2006
         #region Constructor
-        //----------------------------------------------------------------------------------------------------
 
         /// <summary>Style of the font</summary>
         private FontStyle fontStyle = FontStyle.Regular;
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Creates a new font property object with the specified size and color.</summary>
         /// <param name="fontDef">Font definition</param>
         /// <param name="rSize">Size of the font in 1/72 inches, height of the letter "H".</param>
@@ -36,7 +33,6 @@ namespace Root.Reports
             this.color = color;
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Creates a new font property object with the specified size.</summary>
         /// <param name="fontDef">Font definition</param>
         /// <param name="rSize">Size of the font in 1/72 inches, height of the letter "H".</param>
@@ -52,18 +48,13 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------28.07.2006
         #region Properties
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------02.05.2006
         /// <summary>Gets <b>true</b> if the font property object is registered.</summary>
         private Boolean bRegistered
         {
             get { return Object.ReferenceEquals(_fontProp_Registered, this); }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Gets or sets the bold style of the font.</summary>
         /// <value><b>true</b> if the font is bold; otherwise <b>false</b></value>
         /// <remarks>This property can be used to change the bold style of the font.</remarks>
@@ -85,7 +76,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Gets or sets the italic style of the font.</summary>
         /// <value><b>true</b> if the font is italic; otherwise <b>false</b></value>
         /// <remarks>This property can be used to change the italic style of the font.</remarks>
@@ -107,7 +97,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Gets or sets the underline attribute of the font.</summary>
         /// <value><b>true</b> if the font is underlined; otherwise <b>false</b></value>
         /// <remarks>This property can be used to change the underline attribute of the font.</remarks>
@@ -129,7 +118,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------02.05.2006
         private Color _color;
         /// <summary>Gets or sets the color of the font.</summary>
         /// <value>Color of the font</value>
@@ -145,7 +133,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------02.05.2006
         private FontDef _fontDef;
         /// <summary>Gets or sets the font definition object.</summary>
         /// <value>Font definition object of the font</value>
@@ -160,7 +147,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         private FontData _fontData;
         /// <summary>Gets the font data object of this font property.</summary>
         internal FontData fontData
@@ -175,7 +161,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         private FontProp _fontProp_Registered;
         /// <summary>Gets a reference to the font property object with the same attributes that is registered.</summary>
         /// <remarks>
@@ -206,7 +191,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         private Double _rAngle;
         /// <summary>Gets or sets the angle of the font.</summary>
         /// <value>Angle in degrees</value>
@@ -221,7 +205,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------02.05.2006
         /// <summary>Gets the report object to which this font property belongs.</summary>
         /// <value>Report object</value>
         /// <remarks>A font property is only valid for one report.</remarks>
@@ -230,7 +213,6 @@ namespace Root.Reports
             get { return fontData.report; }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         private Double _rLineFeed = Double.NaN;
         /// <summary>Gets the height of the line feed in points (1/72 inch).</summary>
         /// <value>Height of the line feed in points (1/72 inch)</value>
@@ -253,7 +235,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Gets the height of the line feed in millimeters.</summary>
         /// <value>Height of the line feed in millimeters</value>
         /// <remarks>This property can be used to change the height for the line feed. The default height of the line feed is rSize * 2.</remarks>
@@ -264,7 +245,6 @@ namespace Root.Reports
             set { rLineFeed = RT.rPointFromMM(value); }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Size of the font</summary>
         /// <remarks>
         /// for a FontProp or FontPropMM object: size of the letter "H" in points (1/72 inch)
@@ -307,7 +287,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------02.02.2005
         /// <summary>Gets or sets the size of the font in millimeters.</summary>
         /// <value>Size of the font in millimeters: height of the letter "H"</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>
@@ -318,7 +297,6 @@ namespace Root.Reports
             set { rSize = RT.rPointFromMM(value); }
         }
 
-        //------------------------------------------------------------------------------------------02.02.2005
         /// <summary>Gets or sets the size of the font in points.</summary>
         /// <value>Size of the font in points</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>
@@ -330,11 +308,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------02.05.2006
         #region Methods
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------02.05.2006
         /// <summary>This method will disconnect this font from the registered font.</summary>
         /// <remarks>This operation is required if properties of the font change.</remarks>
         internal void ResetRegisteredFont()
@@ -346,7 +320,6 @@ namespace Root.Reports
             _fontProp_Registered = null;
         }
 
-        //------------------------------------------------------------------------------------------02.05.2006
         /// <summary>This method will disconnect this font from the registered font and its font data.</summary>
         /// <remarks>This operation is required if properties of the font change.</remarks>
         private void ResetRegisteredFontAndFontData()
@@ -355,7 +328,6 @@ namespace Root.Reports
             _fontData = null;
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Returns the width of the specified text in points (1/72 inch).</summary>
         /// <param name="sText">Text</param>
         /// <returns>Width of the text in points (1/72 inch)</returns>
@@ -389,7 +361,6 @@ namespace Root.Reports
             return fontData.rWidth(this, sText);
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Returns the width of the specified text in millimeters.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Width of the text in millimeters</returns>
@@ -400,7 +371,6 @@ namespace Root.Reports
             return RT.rMMFromPoint(rGetTextWidth(sText));
         }
 
-        //------------------------------------------------------------------------------------------02.05.2006
         /// <summary>Truncates the text to the specified width in points (1/72 inch) and adds three dots if necessary.</summary>
         /// <param name="sText">Text</param>
         /// <param name="rWidthMax">Maximal width of the text in points (1/72 inch)</param>
@@ -443,7 +413,6 @@ namespace Root.Reports
             return sGetTextLine(sText, rWidthMax, ref iStart, TextSplitMode.Truncate) + "...";
         }
 
-        //------------------------------------------------------------------------------------------02.05.2006
         /// <summary>Truncates the text to the specified width in millimeters and adds three dots if necessary.</summary>
         /// <param name="sText">Text</param>
         /// <param name="rWidthMaxMM">Maximal width of the text in millimeters</param>
@@ -455,7 +424,6 @@ namespace Root.Reports
             return sTruncateText(sText, RT.rPointFromMM(rWidthMaxMM));
         }
 
-        //------------------------------------------------------------------------------------------22.08.2006
         /// <summary>Gets a line of text with a maximal width from the specified string.</summary>
         /// <param name="sText">Text</param>
         /// <param name="rWidthMax">Maximal width of the text in points (1/72 inch)</param>
@@ -498,7 +466,6 @@ namespace Root.Reports
             return fontData.sGetTextLine(sText, rWidthMax * 1000.0 / rSizePoint, ref iStart, textSplitMode);
         }
 
-        //------------------------------------------------------------------------------------------22.08.2006
         /// <summary>Gets a line of text with a maximal width from the specified string (metric version).</summary>
         /// <param name="sText">Text</param>
         /// <param name="rWidthMaxMM">Maximal width of the text in millimeters</param>
@@ -515,7 +482,6 @@ namespace Root.Reports
             return sGetTextLine(sText, RT.rPointFromMM(rWidthMaxMM), ref iStart, textSplitMode);
         }
 
-        //------------------------------------------------------------------------------------------22.08.2006
         /// <summary>Gets the best fitting font to put the text into the specified rectangle.</summary>
         /// <param name="sText">Text</param>
         /// <param name="rWidthMax">Maximal width of the text in points (1/72 inch)</param>
@@ -596,7 +562,6 @@ namespace Root.Reports
             return fontProp_Test;
         }
 
-        //------------------------------------------------------------------------------------------22.08.2006
         /// <summary>Gets the best fitting font to put the text into the specified rectangle (metric version).</summary>
         /// <param name="sText">Text</param>
         /// <param name="rWidthMaxMM">Maximal width of the text in millimeters</param>
@@ -615,9 +580,7 @@ namespace Root.Reports
         #endregion
     }
 
-    //------------------------------------------------------------------------------------------28.07.2006
     #region FontPropMM
-    //----------------------------------------------------------------------------------------------------
 
     #region
     /// <summary>Defines the properties (i.e. format and style attributes) of a font with metric values.</summary>
@@ -652,7 +615,6 @@ namespace Root.Reports
     #endregion
     public class FontPropMM : FontProp
     {
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <overloads>
         /// <summary>Creates a new font property object with metric values.</summary>
         /// <remarks>
@@ -675,7 +637,6 @@ namespace Root.Reports
         {
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Creates a new font property object with the specified size (in millimeters).</summary>
         /// <param name="fontDef">Font definition</param>
         /// <param name="rSizeMM">Size of the font in millimeters, height of the letter "H".</param>
@@ -692,9 +653,7 @@ namespace Root.Reports
     }
     #endregion
 
-    //------------------------------------------------------------------------------------------28.07.2006
     #region FontPropPoint
-    //----------------------------------------------------------------------------------------------------
 
     #region
     /// <summary>Defines the properties (i.e. format and style attributes) of a font that is defined in points.</summary>
@@ -729,11 +688,7 @@ namespace Root.Reports
     #endregion
     public class FontPropPoint : FontProp
     {
-        //------------------------------------------------------------------------------------------28.07.2006
         #region Constructor
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <overloads>
         /// <summary>Creates a new font property object. The size is specified in points.</summary>
         /// <remarks>
@@ -756,7 +711,6 @@ namespace Root.Reports
         {
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Creates a new font property object with the specified size (in points).</summary>
         /// <param name="fontDef">Font definition</param>
         /// <param name="rSizePoint">Size of the font in points.</param>
@@ -772,11 +726,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------28.07.2006
         #region Properties
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Gets or sets the size of the font in 1/72 inches, height of the letter "H".</summary>
         /// <value>Size of the font in 1/72 inches, height of the letter "H"</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>
@@ -791,7 +741,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------28.07.2006
         /// <summary>Gets or sets the size of the font in points.</summary>
         /// <value>Size of the font in points</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>

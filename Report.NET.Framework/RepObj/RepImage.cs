@@ -13,7 +13,6 @@ namespace Root.Reports
         /// <summary>Image data</summary>
         internal ImageData imageData;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new image object.</summary>
         /// <param name="sFileName">Filename of the Image</param>
         /// <param name="rWidth">Width of the image</param>
@@ -25,7 +24,6 @@ namespace Root.Reports
             this.rHeight = rHeight;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new image object.</summary>
         /// <param name="stream">Image stream</param>
         /// <param name="rWidth">Width of the image</param>
@@ -37,7 +35,6 @@ namespace Root.Reports
             this.rHeight = rHeight;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>This method will be called after the report object has been added to the container.</summary>
         internal protected override void OnAdded()
         {
@@ -81,7 +78,6 @@ namespace Root.Reports
     /// <summary>Creates a new image object.</summary>
     public class RepImageMM : RepImage
     {
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new Image object with millimeter values</summary>
         /// <param name="sFileName">Filename of the Image</param>
         /// <param name="rWidth">Width of the image in millimeter</param>
@@ -90,7 +86,6 @@ namespace Root.Reports
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new Image object with millimeter values</summary>
         /// <param name="stream">Image stream</param>
         /// <param name="rWidth">Width of the image in millimeter</param>
@@ -98,7 +93,5 @@ namespace Root.Reports
         public RepImageMM(Stream stream, Double rWidth, Double rHeight) : base(stream, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
         {
         }
-
     }
-
 }

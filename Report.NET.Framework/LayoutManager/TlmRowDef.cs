@@ -47,6 +47,5 @@ namespace Root.Reports
             get { return RT.rMMFromPoint(rPreferredHeight); }
             set { rPreferredHeight = RT.rPointFromMM(value); }
         }
-
     }
 }

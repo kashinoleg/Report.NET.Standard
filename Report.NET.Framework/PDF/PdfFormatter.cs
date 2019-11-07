@@ -12,14 +12,11 @@ namespace Root.Reports
     /// <remarks>This class is used to make a PDF document from the specified report.</remarks>
     public class PdfFormatter : Formatter
     {
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region PdfFormatter
-        //----------------------------------------------------------------------------------------------------
 
         /// <summary>position of the xref table</summary>
         internal Int32 iXRefPos;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Initializes a new instance of the PDF formatter class.</summary>
         /// <example>
         /// <code>
@@ -78,12 +75,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region PDF Document Properties
-        //----------------------------------------------------------------------------------------------------
-
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Subject of the document</summary>
         public String sSubject;
 
@@ -133,9 +125,7 @@ namespace Root.Reports
 
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region Create RepObjX Objects
-        //----------------------------------------------------------------------------------------------------
 
         internal override Object oCreate_Container()
         {
@@ -147,7 +137,6 @@ namespace Root.Reports
             return PdfRepArcBaseX.instance;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         internal override Object oCreate_RepImage()
         {
             return PdfRepImageX.instance;
@@ -168,7 +157,6 @@ namespace Root.Reports
             return PdfRepStringX.instance;
         }
 
-        //------------------------------------------------------------------------------------------03.02.2006
         /// <summary>Creates the extended page data object.</summary>
         /// <param name="page">Page</param>
         /// <returns>Extended page data object</returns>
@@ -178,11 +166,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region old
-        //----------------------------------------------------------------------------------------------------
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Builds the xref structure.</summary>
         private void BuildXObjectsX()
         {
@@ -416,11 +400,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region Objects
-        //----------------------------------------------------------------------------------------------------
-
-        //----------------------------------------------------------------------------------------------------x
     internal List<PdfIndirectObject> list_PdfIndirectObject = new List<PdfIndirectObject>(50);
 
         internal PdfIndirectObject_Catalog pdfIndirectObject_Catalog;
@@ -459,7 +439,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Prepares the PDF-object structure for a container.</summary>
         /// <param name="pdfPageData"></param>
         /// <param name="iObjId"></param>
@@ -558,10 +537,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region Output-Stream / Buffer
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>number of bytes written to the PDF output stream</summary>
         internal Int32 iBytesWrittenToStream;
 
@@ -571,7 +547,6 @@ namespace Root.Reports
         /// <summary>output buffer</summary>
         internal StringBuilder sb;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Copies the contents of the buffer to the PDF output stream.</summary>
         internal void FlushBuffer()
         {
@@ -582,7 +557,6 @@ namespace Root.Reports
             //sb.Remove(0, sb.Length);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Writes a string directly to the output stream.</summary>
         /// <param name="s">String to write to the output stream</param>
         internal void WriteDirect(String s)
@@ -592,7 +566,6 @@ namespace Root.Reports
             iBytesWrittenToStream += aByte.Length;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Writes a line of text into the buffer.</summary>
         /// <param name="s">String to append to the buffer</param>
         private void WriteLine(String s)
@@ -602,11 +575,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.01.2006
         #region base
-        //----------------------------------------------------------------------------------------------------
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary></summary>
         /// <param name="report"></param>
         /// <param name="stream"></param>
@@ -654,10 +623,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------01.02.2006
         #region PageMode
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>PDF Page Layout</summary>
         /// <remarks>The page-layout attribute will specify how the document should be displayed when it has been opened.</remarks>
         public enum PageMode
@@ -677,10 +643,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------29.01.2006
         #region NonFullScreenPageMode
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>PDF Full-Screen Page-Mode</summary>
         /// <remarks>
         /// The page-mode of the document will specify how to display the document on exiting full-screen mode.

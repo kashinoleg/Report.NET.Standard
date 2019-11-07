@@ -18,11 +18,7 @@ namespace Root.Reports
     /// </remarks>
     public sealed class TlmCell : TlmCellDef
     {
-        //------------------------------------------------------------------------------------------03.11.2006
-        //----------------------------------------------------------------------------------------------------x
         #region Constructor
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Start column</summary>
         internal readonly TlmColumn tlmColumn_Start;
 
@@ -35,7 +31,6 @@ namespace Root.Reports
         /// <summary>End row</summary>
         internal TlmRow tlmRow_End;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a cell definition object.</summary>
         /// <param name="tlmColumn_Start">Start column</param>
         /// <param name="tlmColumn_End">End column</param>
@@ -80,25 +75,19 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>The cell will be closed.</summary>
         internal void Close()
         {
             status = Status.Closed;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the handle of the table layout manager.</summary>
         private TlmBase tlmBase
         {
             get { return tlmColumn_Start.tlmBase; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         #region Status
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Status of the cell</summary>
         internal enum Status
         {
@@ -115,7 +104,6 @@ namespace Root.Reports
         /// <summary>Status of the cell</summary>
         private Status status = Status.Init;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Checks whether the cell status is <see cref="TlmCell.Status.Init"/>.</summary>
         /// <param name="sMsg">Message text</param>
         /// <exception cref="ReportException">The column status is not 'Init'.</exception>
@@ -128,7 +116,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Checks whether the cell status is 'Open'.</summary>
         /// <param name="sMsg">Message text</param>
         /// <exception cref="ReportException">The column status is not 'Open'.</exception>
@@ -142,10 +129,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Position
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>Horizontal alignment of the cell contents (default: left)</summary>
         public override Double rAlignH
         {
@@ -153,7 +137,6 @@ namespace Root.Reports
             set { base.rAlignH = value; iFirstRepObjOfCurLine = iRepObjCount; bCut = false; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Current horizontal position (points, 1/72 inch)</summary>
         public Double rCurX = 0;
 
@@ -179,7 +162,6 @@ namespace Root.Reports
             set { rCurY = RT.rPointFromMM(value); }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the position of the left margin of the cell.</summary>
         /// <value>Position of the left margin of the cell (points, 1/72 inch)</value>
         internal Double rPosMarginLeft
@@ -208,14 +190,12 @@ namespace Root.Reports
             get { return tlmRow_End.rPosBottom - rMarginBottom; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the width of the inner (indented) area (points, 1/72 inch).</summary>
         private Double rInnerWidth
         {
             get { return rPosMarginRight - rPosMarginLeft - rIndentLeft - rIndentRight; }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <overloads>
         ///   <summary>Makes a new line in the cell.</summary>
         /// </overloads>
@@ -235,7 +215,6 @@ namespace Root.Reports
             rCurY += rLineFeed;
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line in the cell with the standard line feed height.</summary>
         /// <remarks>The current vertical position <see cref="TlmCell.rCurY"/> will be incremented by the value of <see cref="TlmCellDef.rLineFeed"/>, the current horizontal position <see cref="TlmCell.rCurX"/> will be set to the left indent <see cref="TlmCellDef.rIndentLeft"/>.</remarks>
         /// <exception cref="ReportException">The cell is not <see cref="TlmCell.Status">Open</see>.</exception>
@@ -246,7 +225,6 @@ namespace Root.Reports
             NewLine(rLineFeed);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Makes a new line in the cell with the specified line feed height (metric version).</summary>
         /// <remarks>
         /// The current vertical position <see cref="TlmCell.rCurY"/> will be incremented by <paramref name="rLineFeedMM"/>, the current horizontal position <see cref="TlmCell.rCurX"/> will be set to the left indent <see cref="TlmCellDef.rIndentLeft"/>.
@@ -260,7 +238,6 @@ namespace Root.Reports
             NewLine(RT.rPointFromMM(rLineFeedMM));
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Calculates the bottom position of the row.</summary>
         /// <param name="bCommitted">If <see langword="true"/>, the bottom position of the committed rows will be calculated, otherwise the bottom position of all rows will be calculated. </param>
         /// <returns>Bottom position (points, 1/72 inch)</returns>
@@ -282,10 +259,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         #region Cell Data
-        //----------------------------------------------------------------------------------------------------x
-
         /// <summary>This variable holds the report objects.</summary>
         /// <remarks>null: no report objects; RepObj: one report object; ArrayList: contains many report objects.</remarks>
         private Object oData;
@@ -293,14 +267,12 @@ namespace Root.Reports
         /// <summary>Array list of report objects: temporary used in method 'Add'.</summary>
         private static ArrayList al_RepObj = new ArrayList(50);
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>First report object of current line</summary>
         /// <remarks>This index will be used to adjust the position of the report objects in one line.</remarks>
         private Int32 iFirstRepObjOfCurLine = 0;
 
         private Boolean bCut = false;
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current cell.</summary>
         /// <param name="repObj">Report object that will be added to the current cell</param>
         private void AddRepObj(RepObj repObj)
@@ -322,7 +294,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Removes a range of report objects.</summary>
         /// <param name="iIndex">Start index</param>
         /// <param name="iCount">Number of report objects to remove</param>
@@ -342,7 +313,6 @@ namespace Root.Reports
             al_RepObj.RemoveRange(iIndex, iCount);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the specified report object.</summary>
         /// <param name="iIndex">Index of the report object</param>
         /// <returns>Report object with the specified index</returns>
@@ -368,7 +338,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Gets the current number of report objects.</summary>
         /// <value>Number of report objects</value>
         internal Int32 iRepObjCount
@@ -391,7 +360,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <overloads>
         ///   <summary>Adds a report object to the cell.</summary>
         /// </overloads>
@@ -582,7 +550,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the cell at the current position.</summary>
         /// <remarks>The current horizontal position <see cref="TlmCell.rCurX"/> will be incremented by the width of the report object.</remarks>
         /// <param name="repObj">Report object that will be added to the cell</param>
@@ -591,7 +558,6 @@ namespace Root.Reports
             Add(0, 0, repObj);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the cell at the current position with the specified offset (metric version).</summary>
         /// <remarks>
         /// The current horizontal position <see cref="TlmCell.rCurX"/> will be incremented by the width of the report object.
@@ -609,7 +575,6 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the cell at the current position.</summary>
         /// <remarks>The current horizontal position <see cref="TlmCell.rCurX"/> will be incremented by the width of the report object.</remarks>
         /// <param name="repObj">Report object that will be added to the cell</param>
@@ -673,11 +638,7 @@ namespace Root.Reports
             RemoveRange(iStartIndex, iRepObjCount - iStartIndex);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         #region Line Visibility
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Determines the visibility of the left line in reference to the specified row.</summary>
         /// <param name="iRow">Row index</param>
         /// <returns>If the left line is visible, the method returns <see langword="true"/>, otherwise it returns <see langword="false"/>.</returns>
@@ -694,7 +655,6 @@ namespace Root.Reports
             return (iOrderLineLeft >= cell_Left.iOrderLineRight);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Determines the visibility of the right line in reference to the specified row.</summary>
         /// <param name="iRow">Row index</param>
         /// <returns>If the right line is visible, the method returns <see langword="true"/>, otherwise it returns <see langword="false"/>.</returns>
@@ -711,7 +671,6 @@ namespace Root.Reports
             return (iOrderLineRight > cell_Right.iOrderLineLeft);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Determines the visibility of the top line in reference to the specified column.</summary>
         /// <param name="iCol">Column index</param>
         /// <returns>If the top line is visible, the method returns <see langword="true"/>, otherwise it returns <see langword="false"/>.</returns>
@@ -728,7 +687,6 @@ namespace Root.Reports
             return (iOrderLineTop >= cell_Top.iOrderLineBottom);
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Determines the visibility of the bottom line in reference to the specified column.</summary>
         /// <param name="iCol">Column index</param>
         /// <returns>If the bottom line is visible, the method returns <see langword="true"/>, otherwise it returns <see langword="false"/>.</returns>

@@ -6,11 +6,7 @@ namespace Root.Reports
     /// <summary>Base class of all report layout managers.</summary>
     public abstract class LayoutManager
     {
-        //----------------------------------------------------------------------------------------------------x
         #region Constructor
-        //----------------------------------------------------------------------------------------------------x
-
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Creates a new layout manager.</summary>
         protected LayoutManager(ReportBase report)
         {
@@ -18,11 +14,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------06.11.2006
         #region Properties
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------06.11.2006
         private readonly ReportBase _report;
         /// <summary>Gets the report object to which this layout manager belongs.</summary>
         /// <value>Report object</value>
@@ -33,13 +25,11 @@ namespace Root.Reports
         }
         #endregion
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Sets variable _container to the next container.</summary>
         protected virtual void NextContainer()
         {
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current container at the current position.</summary>
         /// <param name="al_RepObj">Result array for the report objects</param>
         /// <param name="repString">Report object to add to the container</param>
@@ -136,7 +126,6 @@ namespace Root.Reports
             }
         }
 
-        //----------------------------------------------------------------------------------------------------x
         /// <summary>Adds a report object to the current container at the current position.</summary>
         /// <param name="repString">Report object to add to the container</param>
         /// <param name="container">Container</param>
@@ -216,6 +205,5 @@ namespace Root.Reports
                 iLineStartIndex = iIndex;
             }
         }
-
     }
 }

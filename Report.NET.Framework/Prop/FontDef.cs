@@ -24,11 +24,7 @@ namespace Root.Reports
     #endregion
     public sealed class FontDef
     {
-        //------------------------------------------------------------------------------------------xx.03.2006
         #region Static
-        //----------------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <overloads>
         /// <summary>Gets a font definition.</summary>
         /// <remarks>
@@ -53,7 +49,6 @@ namespace Root.Reports
             return new FontDef(report, sFontName);
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Gets a font definition for the specified standard font.</summary>
         /// <param name="report">Report to which this font belongs</param>
         /// <param name="standardFont">Standard font enumeration value</param>
@@ -72,7 +67,6 @@ namespace Root.Reports
             return new FontDef(report, standardFont);
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Gets a font definition for the specified standard font.</summary>
         /// <param name="report">Report to which this font belongs</param>
         /// <param name="sFontName">TTF font name</param>
@@ -90,7 +84,6 @@ namespace Root.Reports
             return new FontDef(report, sFontName, FontType.TTF);
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Gets a font definition for the specified standard font.</summary>
         /// <param name="report">Report to which this font belongs</param>
         /// <param name="sFontName">Standard font enumeration value</param>
@@ -105,17 +98,18 @@ namespace Root.Reports
             {
                 throw new ArgumentNullException("sFontName", "font name must be specified");
             }
-      FontDef fontDef;
-      if (report.dict_FontDef.TryGetValue(sFontName, out fontDef)) {
-        if (fontDef.fontType != fontType) {
-          throw new ReportException(String.Format("Font '{0}' has been defined as '{1}' font.", sFontName, fontDef.fontType.ToString("G")));
-        }
-        return fontDef;
-      }
+            FontDef fontDef;
+            if (report.dict_FontDef.TryGetValue(sFontName, out fontDef))
+            {
+                if (fontDef.fontType != fontType)
+                {
+                    throw new ReportException(String.Format("Font '{0}' has been defined as '{1}' font.", sFontName, fontDef.fontType.ToString("G")));
+                }
+                return fontDef;
+            }
             return null;
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Gets the font name.</summary>
         /// <param name="report">Report to which this font definition belongs</param>
         /// <param name="standardFont">Standard font enumeration value</param>
@@ -142,7 +136,6 @@ namespace Root.Reports
             return null;
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Gets the font family.</summary>
         /// <param name="report">Report to which this font definition belongs</param>
         /// <param name="standardFont">Standard font enumeration value</param>
@@ -157,10 +150,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         #region FontDef
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Report to which this font definition belongs.</summary>
         /// <remarks>A font definition must be assigned to a report.</remarks>
         public readonly ReportBase report;
@@ -174,7 +164,6 @@ namespace Root.Reports
 
         internal Object oFontDefX = null;
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Creates a new font definition.</summary>
         /// <param name="report">Report to which this font belongs</param>
         /// <param name="sFontName">Name of the font family</param>
@@ -193,7 +182,6 @@ namespace Root.Reports
             report.dict_FontDef.Add(sFontName, this);
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <overloads>
         /// <summary>Creates a new font definition.</summary>
         /// <remarks>
@@ -228,7 +216,6 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Creates a new font definition for the specified standard font.</summary>
         /// <param name="report">Report to which this font definition belongs</param>
         /// <param name="standardFont">Standard font enumeration value</param>
@@ -244,10 +231,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------06.03.2005
         #region AFontData
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Array of Font Data Objects</summary>
         /// <remarks>
         /// This class provides an indexer for the font data objects
@@ -265,7 +249,6 @@ namespace Root.Reports
             /// </example>
             private FontData[] aFontData = new FontData[4];
 
-            //------------------------------------------------------------------------------------------06.03.2005
             /// <summary>Create the font data array.</summary>
             /// <param name="fontDef">Font definition object</param>
             internal AFontData(FontDef fontDef)
@@ -273,7 +256,6 @@ namespace Root.Reports
                 this.fontDef = fontDef;
             }
 
-            //------------------------------------------------------------------------------------------06.03.2005
             /// <summary>Gets the font data object that is identified by the specified style.</summary>
             /// <param name="fontStyle">Style value that identifies the font data object</param>
             /// <value>Font data object that is identified by the specified style</value>
@@ -301,15 +283,11 @@ namespace Root.Reports
             }
         }
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         /// <summary>Array that contains the font data objects for each style.</summary>
         internal readonly AFontData aFontData;
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         #region FontType
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Font type</summary>
         private enum FontType
         {
@@ -320,10 +298,7 @@ namespace Root.Reports
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------xx.03.2006
         #region StandardFont
-        //----------------------------------------------------------------------------------------------------
-
         /// <summary>Predefined standard fonts</summary>
         /// <remarks>
         /// The standard fonts are supported by the viewer and must not be embedded in the PDF file.
