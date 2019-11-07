@@ -10,7 +10,7 @@ addons:
       secure: $SONAR_TOKEN
   snaps:
   - name: dotnet-sdk
-    classic: true
+    confinement: classic
     channel: latest/beta
 
 git:
@@ -25,7 +25,7 @@ install:
 script:
   - dotnet sonarscanner begin /d:sonar.login="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /k:"kashinoleg_Report.NET.Standard" /o:"kashinoleg" /n:"Report.NET.Standard" /v:"1.0.0.$TRAVIS_BUILD_NUMBER" /d:sonar.links.homepage="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.ci="https://travis-ci.org/kashinoleg/Report.NET.Standard" /d:sonar.links.scm="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.issue="https://github.com/kashinoleg/Report.NET.Standard/issues" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*"
 
-  - dotnet build Report.NET.sln
+  - dotnet build Report.NET.sln -c Release
 # /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
 #  - dotnet test silver-horn-cloo-tests/silver-horn-cloo-tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
   - dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
