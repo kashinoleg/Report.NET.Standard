@@ -1,4 +1,16 @@
-﻿StartFontMetrics 4.1
+﻿namespace Report.NET.Standard.Fonts
+{
+    /// <summary>
+    /// This file and the 14 PostScript(R) AFM files it accompanies may be used, copied,
+    /// and distributed for any purpose and without charge, with or without modification,
+    /// provided that all copyright notices are retained; that the AFM files are not distributed without this file;
+    /// that all modifications to this file or any of the AFM files are prominently noted in the modified file(s);
+    /// and that this paragraph is not modified. Adobe Systems has no responsibility or obligation to support the use of the AFM files. 
+    /// </summary>
+    public class ZapfDingbatsFont : IFont
+    {
+        public string FontText =>
+@"StartFontMetrics 4.1
 Comment Copyright (c) 1985, 1987, 1988, 1989, 1997 Adobe Systems Incorporated. All Rights Reserved.
 Comment Creation Date: Thu May  1 15:14:13 1997
 Comment UniqueID 43082
@@ -222,4 +234,6 @@ C 252 ; WX 927 ; N a189 ; B 35 150 891 542 ;
 C 253 ; WX 970 ; N a190 ; B 35 76 931 616 ;
 C 254 ; WX 918 ; N a191 ; B 34 99 884 593 ;
 EndCharMetrics
-EndFontMetrics
+EndFontMetrics";
+    }
+}

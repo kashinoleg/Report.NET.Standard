@@ -1,4 +1,16 @@
-﻿StartFontMetrics 4.1
+﻿namespace Report.NET.Standard.Fonts
+{
+    /// <summary>
+    /// This file and the 14 PostScript(R) AFM files it accompanies may be used, copied,
+    /// and distributed for any purpose and without charge, with or without modification,
+    /// provided that all copyright notices are retained; that the AFM files are not distributed without this file;
+    /// that all modifications to this file or any of the AFM files are prominently noted in the modified file(s);
+    /// and that this paragraph is not modified. Adobe Systems has no responsibility or obligation to support the use of the AFM files. 
+    /// </summary>
+    public class CourierBoldObliqueFont : IFont
+    {
+        public string FontText =>
+@"StartFontMetrics 4.1
 Comment Copyright (c) 1989, 1990, 1991, 1993, 1997 Adobe Systems Incorporated.  All Rights Reserved.
 Comment Creation Date: Mon Jun 23 16:28:46 1997
 Comment UniqueID 43049
@@ -339,4 +351,6 @@ C -1 ; WX 600 ; N onesuperior ; B 212 230 514 616 ;
 C -1 ; WX 600 ; N imacron ; B 77 0 575 585 ;
 C -1 ; WX 600 ; N Euro ; B 0 0 0 0 ;
 EndCharMetrics
-EndFontMetrics
+EndFontMetrics";
+    }
+}

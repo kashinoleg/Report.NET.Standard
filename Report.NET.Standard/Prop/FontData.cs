@@ -9,18 +9,15 @@ namespace Root.Reports
 {
     /// <summary>Font Data</summary>
     /// <remarks>This is the base class of the font types that are supported by the Report.NET library.</remarks>
-    internal abstract class FontData
+    public abstract class FontData
     {
         internal FontDef fontDef;
 
         /// <summary>Font style</summary>
-        internal readonly FontStyle fontStyle;
-
-        /// <summary>Encoding to be applied to this font</summary>
-        private readonly Encoding encoding;
+        public FontStyle fontStyle { get; set; }
 
         /// <summary><see langword="true"/> if the font is to be embedded in the document</summary>
-        internal readonly Boolean bEmbed;
+        internal bool bEmbed;
 
         /// <summary>Extended font property data (e.g. to add values that are used by the PDF formatter).</summary>
         internal Object oFontDataX;
@@ -63,11 +60,10 @@ namespace Root.Reports
         /// <param name="fontDef">Font definition</param>
         /// <param name="fontStyle">Font style</param>
         /// <param name="encoding">Encoding to be applied to this font</param>
-        internal FontData(FontDef fontDef, FontStyle fontStyle, Encoding encoding)
+        internal FontData(FontDef fontDef, FontStyle fontStyle)
         {
             this.fontDef = fontDef;
             this.fontStyle = fontStyle;
-            this.encoding = encoding;
             this.bEmbed = false;
         }
 
@@ -289,21 +285,6 @@ namespace Root.Reports
             }
             return sb.ToString(0, iResultLength);
         }
-
-        #region
-        /// <summary>Font encoding</summary>
-        internal enum Encoding
-        {
-            /// <summary>CP 1250 encoding</summary>
-            Cp1250,
-            /// <summary>CP 1252 (WIN ANSI) encoding</summary>
-            Cp1252,
-            /// <summary>CP 1257 encoding</summary>
-            Cp1257,
-            /// <summary>MAC ROMAN encoding</summary>
-            MacRoman
-        }
-        #endregion
     }
 
     [Flags()]

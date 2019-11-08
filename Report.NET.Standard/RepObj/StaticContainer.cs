@@ -146,18 +146,6 @@ namespace Root.Reports
             base.AddCB(rWidth / 2.0, rY, repObj);
         }
 
-        /// <summary>Adds a report object to the container, horizontally centered.</summary>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        [Obsolete("use 'AddCB(...)'")]
-        public void AddCentered(Double rY, RepObj repObj)
-        {
-            repObj.matrixD.rDX = rWidth / 2;
-            repObj.rAlignH = RepObj.rAlignCenter;
-            repObj.matrixD.rDY = rY;
-            Add(repObj);
-        }
-
         /// <summary>Adds a report object to the container, horizontally centered (metric version).</summary>
         /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
         /// <param name="repObj">Report object to add to the container</param>

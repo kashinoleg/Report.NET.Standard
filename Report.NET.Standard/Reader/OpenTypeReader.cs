@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Root.Reports
+namespace Report.NET.Standard.Reader
 {
     /// <summary>Reader Class for OpenType Fonts</summary>
     internal class OpenTypeReader : IDisposable
@@ -12,9 +12,12 @@ namespace Root.Reports
 
         /// <summary>Creates a reader for open type fonts.</summary>
         /// <param name="sFileName">Name of the font file</param>
-        internal OpenTypeReader(String sFileName)
+        internal OpenTypeReader(Stream stream)
         {
-            stream = new FileStream(sFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            this.stream = stream;
+            System.Text.EncodingProvider ppp;
+            ppp = System.Text.CodePagesEncodingProvider.Instance;
+            Encoding.RegisterProvider(ppp);
         }
 
         /// <summary>Skips the specified number of bytes of the stream.</summary>
@@ -47,7 +50,7 @@ namespace Root.Reports
         internal String sReadCHAR(Int32 iLength)
         {
             Byte[] aByte = aByte_ReadBYTE(iLength);
-            String s = System.Text.Encoding.GetEncoding("windows-1252").GetString(aByte);
+            String s = System.Text.Encoding.GetEncoding("UTF-8").GetString(aByte);
             return s.Trim();
         }
 
