@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.NET.Standard", "Report.NET.Standard\Report.NET.Standard.csproj", "{A6DDA1E4-0B12-457D-AF39-417BC4CE8761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report.NET.Framework.Tests", "Report.NET.Framework.Tests\Report.NET.Framework.Tests.csproj", "{9D2D404A-4579-47BF-9F75-E380C8D47331}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Report.NET.Core.Tests", "Report.NET.Core.Tests\Report.NET.Core.Tests.csproj", "{853F33DD-585A-4B70-AB77-AE90D52F1551}"
 EndProject
 Global
@@ -19,9 +17,6 @@ Global
 		{A6DDA1E4-0B12-457D-AF39-417BC4CE8761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6DDA1E4-0B12-457D-AF39-417BC4CE8761}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6DDA1E4-0B12-457D-AF39-417BC4CE8761}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D2D404A-4579-47BF-9F75-E380C8D47331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D2D404A-4579-47BF-9F75-E380C8D47331}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D2D404A-4579-47BF-9F75-E380C8D47331}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{853F33DD-585A-4B70-AB77-AE90D52F1551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{853F33DD-585A-4B70-AB77-AE90D52F1551}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{853F33DD-585A-4B70-AB77-AE90D52F1551}.Release|Any CPU.ActiveCfg = Release|Any CPU

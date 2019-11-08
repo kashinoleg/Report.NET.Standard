@@ -155,7 +155,7 @@ namespace Root.Reports
             {
                 if (_fontData == null)
                 {
-                    _fontData = fontDef.aFontData[fontStyle & (FontStyle.Bold | FontStyle.Italic)];
+                    _fontData = fontDef[fontStyle & (FontStyle.Bold | FontStyle.Italic)];
                 }
                 return _fontData;
             }

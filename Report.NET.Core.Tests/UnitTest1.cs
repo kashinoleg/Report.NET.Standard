@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Report.NET.Standard.Reader;
 using Root.Reports;
 using System.Drawing;
 using System.IO;
@@ -12,7 +13,7 @@ namespace Report.NET.Core.Tests
         public void TestMethod1()
         {
             ReportBase report = new ReportBase(new PdfFormatter());
-            FontDef fd = new FontDef(report, "Helvetica");
+            FontDef fd = new FontDef(report, Standard.Fonts.StandardFontEnum.Helvetica);
             FontProp fp = new FontPropMM(fd, 25);
             Page page = new Page(report);
 
@@ -28,7 +29,7 @@ namespace Report.NET.Core.Tests
         public void TestMethod2()
         {
             ReportBase report = new ReportBase(new PdfFormatter());
-            FontDef fd = new FontDef(report, "times-roman");
+            FontDef fd = new FontDef(report, Standard.Fonts.StandardFontEnum.Helvetica);
             FontProp fp = new FontPropMM(fd, 2.1);
             FontProp fp_Title = new FontPropMM(fd, 18);
             fp_Title.bBold = true;
@@ -39,7 +40,7 @@ namespace Report.NET.Core.Tests
             double rY = 40;
             page.AddCB_MM(rY, new RepString(fp_Title, "Image Sample"));
             fp_Title.rSizeMM = 4;
-            var stream = File.Open("Image/Sample.jpg", FileMode.Open);
+            var stream = File.Open("Image/Sample.jpg", FileMode.Open, FileAccess.Read, FileShare.Read);
             //System.IO.Stream stream = GetType().Assembly.GetManifestResourceStream("Report.NetCore.Tests.Image.Sample.jpg");
             Assert.IsNotNull(stream);
             page.AddMM(20, 90, new RepImageMM(stream, 40, double.NaN));
@@ -89,5 +90,36 @@ namespace Report.NET.Core.Tests
             //*/
             report.Save("ImageSample.pdf");
         }
+
+        [TestMethod]
+        public void TestMethod3()
+        {
+            //arrays
+            ReportBase report = new ReportBase(new PdfFormatter());
+            FontDef fd = new FontDef(report, "Roboto");
+            //act
+            using (var stream = new FileStream("Fonts/Roboto-Regular.ttf", FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                fd.aFontData[(int)FontStyle.Regular] = new OpenTypeFontData(fd, FontStyle.Regular, stream, FontTypeEnum.TTF);
+            }
+            using (var stream = new FileStream("Fonts/Roboto-Bold.ttf", FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                fd.aFontData[(int)FontStyle.Bold] = new OpenTypeFontData(fd, FontStyle.Bold, stream, FontTypeEnum.TTF);
+            }
+            using (var stream = new FileStream("Fonts/Roboto-Italic.ttf", FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                fd.aFontData[(int)FontStyle.Italic] = new OpenTypeFontData(fd, FontStyle.Italic, stream, FontTypeEnum.TTF);
+            }
+            using (var stream = new FileStream("Fonts/Roboto-BoldItalic.ttf", FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                fd.aFontData[(int)(FontStyle.Bold | FontStyle.Italic)] = new OpenTypeFontData(fd, FontStyle.Bold | FontStyle.Italic, stream, FontTypeEnum.TTF);
+            }
+            //assert
+            Assert.IsNotNull(fd.aFontData[(int)FontStyle.Regular]);
+            Assert.IsNotNull(fd.aFontData[(int)FontStyle.Bold]);
+            Assert.IsNotNull(fd.aFontData[(int)FontStyle.Italic]);
+            Assert.IsNotNull(fd.aFontData[(int)(FontStyle.Bold | FontStyle.Italic)]);
+        }
+
     }
 }

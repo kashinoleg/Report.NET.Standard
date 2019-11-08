@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
+    <PackageReference Include="System.Text.Encoding" Version="4.3.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
   </ItemGroup>
 
 </Project>

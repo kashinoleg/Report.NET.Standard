@@ -9,15 +9,15 @@ namespace Root.Reports
 {
     /// <summary>Font Data</summary>
     /// <remarks>This is the base class of the font types that are supported by the Report.NET library.</remarks>
-    internal abstract class FontData
+    public abstract class FontData
     {
         internal FontDef fontDef;
 
         /// <summary>Font style</summary>
-        internal readonly FontStyle fontStyle;
+        public FontStyle fontStyle { get; set; }
 
         /// <summary><see langword="true"/> if the font is to be embedded in the document</summary>
-        internal readonly Boolean bEmbed;
+        internal bool bEmbed;
 
         /// <summary>Extended font property data (e.g. to add values that are used by the PDF formatter).</summary>
         internal Object oFontDataX;

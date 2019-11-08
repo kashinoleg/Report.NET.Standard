@@ -405,77 +405,10 @@ namespace Root.Reports
         /// <summary>Creates the type 1 font data object.</summary>
         /// <param name="stream">AFM definition stream</param>
         /// <param name="style">Font style</param>
-        internal Type1FontData(FontDef fontDef, String _sFontName, FontStyle fontStyle)
+        internal Type1FontData(FontDef fontDef, String _sFontName, FontStyle fontStyle, IFont font)
           : base(fontDef, fontStyle)
         {
             sFontName = _sFontName;
-            IFont font = null;
-            bool isBold = (fontStyle & FontStyle.Bold) > 0;
-            bool isItalic = (fontStyle & FontStyle.Italic) > 0;
-            switch (sFontName.ToLower())
-            {
-                case "courier":
-                    if (isBold && isItalic)
-                    {
-                        font = new CourierBoldObliqueFont();
-                    }
-                    else if (isBold)
-                    {
-                        font = new CourierBoldFont();
-                    }
-                    else if (isItalic)
-                    {
-                        font = new CourierObliqueFont();
-                    }
-                    else
-                    {
-                        font = new CourierFont();
-                    }
-                    break;
-                case "arial":
-                case "helvetica":
-                    if (isBold && isItalic)
-                    {
-                        font = new HelveticaBoldObliqueFont();
-                    }
-                    else if (isBold)
-                    {
-                        font = new HelveticaBoldFont();
-                    }
-                    else if (isItalic)
-                    {
-                        font = new HelveticaObliqueFont();
-                    }
-                    else
-                    {
-                        font = new HelveticaFont();
-                    }
-                    break;
-                case "times-roman":
-                    if (isBold && isItalic)
-                    {
-                        font = new TimesBoldItalicFont();
-                    }
-                    else if (isBold)
-                    {
-                        font = new TimesBoldFont();
-                    }
-                    else if (isItalic)
-                    {
-                        font = new TimesItalicFont();
-                    }
-                    else
-                    {
-                        font = new TimesRomanFont();
-                    }
-                    break;
-                case "symbol":
-                    font = new SymbolFont();
-                    break;
-                case "zapfdingbats":
-                    font = new ZapfDingbatsFont();
-                    break;
-            }
             CreateFont(font);
         }
         #endregion
