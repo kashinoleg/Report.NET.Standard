@@ -15,9 +15,6 @@ namespace Report.NET.Standard.Reader
         internal OpenTypeReader(Stream stream)
         {
             this.stream = stream;
-            System.Text.EncodingProvider ppp;
-            ppp = System.Text.CodePagesEncodingProvider.Instance;
-            Encoding.RegisterProvider(ppp);
         }
 
         /// <summary>Skips the specified number of bytes of the stream.</summary>
@@ -29,7 +26,7 @@ namespace Report.NET.Standard.Reader
 
         /// <summary>This method will set the read position to the specified offset.</summary>
         /// <param name="iOffset">New read position</param>
-        internal void Seek(Int32 iOffset)
+        internal void Seek(int iOffset)
         {
             stream.Seek(iOffset, SeekOrigin.Begin);
         }
@@ -37,9 +34,9 @@ namespace Report.NET.Standard.Reader
         /// <summary>Reads the specified number of BYTE values (8-bit unsigned integer) from the stream.</summary>
         /// <param name="iLength">Number of BYTE values</param>
         /// <returns>array of BYTE values</returns>
-        internal Byte[] aByte_ReadBYTE(Int32 iLength)
+        internal byte[] aByte_ReadBYTE(int iLength)
         {
-            Byte[] aByte = new Byte[iLength];
+            byte[] aByte = new byte[iLength];
             stream.Read(aByte, 0, iLength);
             return aByte;
         }
@@ -47,19 +44,19 @@ namespace Report.NET.Standard.Reader
         /// <summary>Reads the specified number of CHAR values (8-bit signed integer) from the stream.</summary>
         /// <param name="iLength">Number of CHAR values</param>
         /// <returns>string with the CHAR values</returns>
-        internal String sReadCHAR(Int32 iLength)
+        internal string sReadCHAR(int iLength)
         {
-            Byte[] aByte = aByte_ReadBYTE(iLength);
-            String s = System.Text.Encoding.GetEncoding("UTF-8").GetString(aByte);
+            byte[] aByte = aByte_ReadBYTE(iLength);
+            string s = Encoding.GetEncoding("UTF-8").GetString(aByte);
             return s.Trim();
         }
 
         /// <summary>Reads an USHORT value (16-bit unsigned integer) from the stream.</summary>
         /// <returns>USHORT value</returns>
-        internal Int32 iReadUSHORT()
+        internal int iReadUSHORT()
         {
-            Int32 i1 = stream.ReadByte();
-            Int32 i2 = stream.ReadByte();
+            int i1 = stream.ReadByte();
+            int i2 = stream.ReadByte();
             return (i1 << 8) + i2;
         }
 
@@ -67,8 +64,8 @@ namespace Report.NET.Standard.Reader
         /// <returns>SHORT value</returns>
         internal Int16 int16_ReadSHORT()
         {
-            Int32 i1 = stream.ReadByte();
-            Int32 i2 = stream.ReadByte();
+            int i1 = stream.ReadByte();
+            int i2 = stream.ReadByte();
             return (Int16)((i1 << 8) + i2);
         }
 
