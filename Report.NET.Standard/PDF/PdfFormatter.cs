@@ -511,6 +511,10 @@ namespace Root.Reports
                         {
                             pdfIndirectObject_Font = new PdfIndirectObject_Font_Type1(this, (Type1FontData)fontData_String);
                         }
+                        else if (fontData_String is OpenTypeFontData)
+                        {
+                            pdfIndirectObject_Font = new PdfIndirectObject_Font_OpenType(this, (OpenTypeFontData)fontData_String);
+                        }
                         else
                         {
                             Debug.Fail("unknown type of FontData");

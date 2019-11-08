@@ -120,6 +120,5 @@ namespace Report.NET.Core.Tests
             Assert.IsNotNull(fd.aFontData[(int)FontStyle.Italic]);
             Assert.IsNotNull(fd.aFontData[(int)(FontStyle.Bold | FontStyle.Italic)]);
         }
-
     }
 }

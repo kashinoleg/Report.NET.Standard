@@ -1,6 +1,5 @@
 ﻿namespace Report.NET.Standard.Reader
 {
-    #region FontType
     /// <summary>Font type</summary>
     public enum FontTypeEnum
     {
@@ -11,5 +10,4 @@
         TTC,
         OTF
     }
-    #endregion
 }
