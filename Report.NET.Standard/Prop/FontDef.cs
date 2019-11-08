@@ -206,14 +206,6 @@ namespace Root.Reports
             {
                 throw new ReportException("for 'PdfFormatter' only");
             }
-            if (sFontName == "Arial")
-            {
-                sFontName = "Helvetica";
-            }
-            if (!"courier,helvetica,times-roman,symbol,zapfdingbats".Contains(sFontName.ToLower()))
-            {
-                throw new ReportException("this font is not a standard PDF font");
-            }
         }
 
         /// <summary>Creates a new font definition for the specified standard font.</summary>

@@ -1,4 +1,16 @@
-﻿StartFontMetrics 4.1
+﻿namespace Report.NET.Standard.Fonts
+{
+    /// <summary>
+    /// This file and the 14 PostScript(R) AFM files it accompanies may be used, copied,
+    /// and distributed for any purpose and without charge, with or without modification,
+    /// provided that all copyright notices are retained; that the AFM files are not distributed without this file;
+    /// that all modifications to this file or any of the AFM files are prominently noted in the modified file(s);
+    /// and that this paragraph is not modified. Adobe Systems has no responsibility or obligation to support the use of the AFM files. 
+    /// </summary>
+    public class SymbolFont : IFont
+    {
+        public string FontText =>
+@"StartFontMetrics 4.1
 Comment Copyright (c) 1985, 1987, 1989, 1990, 1997 Adobe Systems Incorporated. All rights reserved.
 Comment Creation Date: Thu May  1 15:12:25 1997
 Comment UniqueID 43064
@@ -210,4 +222,6 @@ C 253 ; WX 494 ; N bracerightmid ; B 209 -85 473 935 ;
 C 254 ; WX 494 ; N bracerightbt ; B 48 -75 284 935 ;
 C -1 ; WX 790 ; N apple ; B 56 -3 733 808 ;
 EndCharMetrics
-EndFontMetrics
+EndFontMetrics";
+    }
+}

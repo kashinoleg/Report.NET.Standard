@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Root.Reports
+﻿namespace Root.Reports
 {
     /// <summary>Report Line Object.</summary>
     public class RepLine : RepObj
@@ -12,7 +10,7 @@ namespace Root.Reports
         /// <param name="penProp">Pen properties of the line</param>
         /// <param name="rX">X-coordinate of the end of the line, relative to the start point</param>
         /// <param name="rY">Y-coordinate of the end of the line, relative to the start point</param>
-        public RepLine(PenProp penProp, Double rX, Double rY)
+        public RepLine(PenProp penProp, double rX, double rY)
         {
             this.penProp = penProp.penProp_Registered;
             this.rWidth = rX;
@@ -30,7 +28,7 @@ namespace Root.Reports
         /// <param name="penProp">Pen properties of the line</param>
         /// <param name="rX">X-coordinate of the end of the line, relative to the start point, in millimeter</param>
         /// <param name="rY">Y-coordinate of the end of the line, relative to the start point, in millimeter</param>
-        public RepLineMM(PenProp penProp, Double rX, Double rY) : base(penProp, RT.rPointFromMM(rX), RT.rPointFromMM(rY))
+        public RepLineMM(PenProp penProp, double rX, double rY) : base(penProp, RT.rPointFromMM(rX), RT.rPointFromMM(rY))
         {
         }
     }

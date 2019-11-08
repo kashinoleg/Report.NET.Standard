@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Fonts;
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Drawing;
@@ -263,45 +264,45 @@ namespace Root.Reports
         #region AFM Font Information
         /// <summary>Font metrics version</summary>
         /// <example><code>StartFontMetrics 4.1</code></example>
-        internal readonly String sFontMetricsVersion;
+        internal String sFontMetricsVersion { get; set; }
 
         /// <summary>Metric sets</summary>
         /// <example><code>MetricsSets 0</code></example>
-        internal readonly Int32 iMetricsSets = 0;
+        internal Int32 iMetricsSets = 0;
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Global Font Information
 
         /// <summary>Font name</summary>
         /// <example><code>FontName Times-Roman</code></example>
-        internal readonly String sFontName;
+        internal String sFontName;
 
         /// <summary>Full name</summary>
         /// <example><code>FullName Times Roman</code></example>
-        internal readonly String sFullName;
+        internal String sFullName;
 
         /// <summary>Family name</summary>
         /// <example><code>FamilyName Times</code></example>
-        internal readonly String sFamilyName;
+        internal String sFamilyName;
 
         /// <summary>Weight</summary>
         /// <example><code>Weight Roman</code></example>
-        internal readonly String sWeight;
+        internal String sWeight;
 
         /// <summary>Font box</summary>
         /// <example><code>FontBBox -168 -218 1000 898</code></example>
-        internal readonly Single fFontBBox_llx = Single.NaN;
-        internal readonly Single fFontBBox_lly = Single.NaN;
-        internal readonly Single fFontBBox_urx = Single.NaN;
-        internal readonly Single fFontBBox_ury = Single.NaN;
+        internal Single fFontBBox_llx = Single.NaN;
+        internal Single fFontBBox_lly = Single.NaN;
+        internal Single fFontBBox_urx = Single.NaN;
+        internal Single fFontBBox_ury = Single.NaN;
 
         /// <summary>Version</summary>
         /// <example><code>Version 002.000</code></example>
-        internal readonly String sVersion;
+        internal String sVersion;
 
         /// <summary>Notice</summary>
         /// <example><code>Notice Copyright (c) 1985, 1987, 1989, 1990, 1993, 1997 Adobe Systems Incorporated ...</code></example>
-        internal readonly String sNotice;
+        internal String sNotice;
 
         /// <summary>Encoding scheme</summary>
         /// <remarks>
@@ -309,7 +310,7 @@ namespace Root.Reports
         /// For all other names the font is treated as symbolic.
         /// </remarks>
         /// <example><code>EncodingScheme AdobeStandardEncoding</code></example>
-        internal readonly String sEncodingScheme;
+        internal String sEncodingScheme;
 
         // internal readonly Int32 iMappingScheme;  // not present with base fonts
 
@@ -317,13 +318,13 @@ namespace Root.Reports
 
         /// <summary>Character set</summary>
         /// <example><code>CharacterSet ExtendedRoman</code></example>
-        internal readonly String sCharacterSet;
+        internal String sCharacterSet;
 
         // internal readonly Int32 iCharacters;
 
         /// <summary>Base font flag</summary>
         /// <example><code>IsBaseFont true</code></example>
-        internal readonly Boolean bIsBaseFont = true;
+        internal Boolean bIsBaseFont = true;
 
         // internal readonly Single fVVector_Origin0;  // only for MetricsSets 2
 
@@ -333,27 +334,27 @@ namespace Root.Reports
 
         /// <summary>Cap height</summary>
         /// <example><code>CapHeight 662</code></example>
-        internal readonly Single fCapHeight = Single.NaN;
+        internal Single fCapHeight = Single.NaN;
 
         /// <summary>X height</summary>
         /// <example><code>XHeight 450</code></example>
-        internal readonly Single fXHeight = Single.NaN;
+        internal Single fXHeight = Single.NaN;
 
         /// <summary>Ascender</summary>
         /// <example><code>Ascender 683</code></example>
-        internal readonly Single fAscender = Single.NaN;
+        internal Single fAscender = Single.NaN;
 
         /// <summary>Descender</summary>
         /// <example><code>Descender -217</code></example>
-        internal readonly Single fDescender = Single.NaN;
+        internal Single fDescender = Single.NaN;
 
         /// <summary>Standard horizontal width</summary>
         /// <example><code>StdHW 28</code></example>
-        internal readonly Single fStdHW = Single.NaN;
+        internal Single fStdHW = Single.NaN;
 
         /// <summary>Standard vertical width</summary>
         /// <example><code>StdVW 84</code></example>
-        internal readonly Single fStdVW = Single.NaN;
+        internal Single fStdVW = Single.NaN;
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Writing Direction Information
@@ -362,15 +363,15 @@ namespace Root.Reports
 
         /// <summary>Underline position</summary>
         /// <example><code>UnderlinePosition -100</code></example>
-        internal readonly Single fUnderlinePosition = Single.NaN;
+        internal Single fUnderlinePosition = Single.NaN;
 
         /// <summary>Underline thickness</summary>
         /// <example><code>UnderlineThickness 50</code></example>
-        internal readonly Single fUnderlineThickness = Single.NaN;
+        internal Single fUnderlineThickness = Single.NaN;
 
         /// <summary>Italic angle</summary>
         /// <example><code>ItalicAngle 0</code></example>
-        internal readonly Single fItalicAngle = Single.NaN;
+        internal Single fItalicAngle = Single.NaN;
 
         // internal readonly Single fCharWidth_x;
 
@@ -378,19 +379,19 @@ namespace Root.Reports
 
         /// <summary><see langword="true"/> if all the characters have the same width.</summary>
         /// <example><code>IsFixedPitch false</code></example>
-        internal readonly Boolean bIsFixedPitch = false;
+        internal Boolean bIsFixedPitch = false;
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // Individual Character Metrics
 
         /// <summary>Number of character metrics entries</summary>
-        internal readonly Int32 iCharMetricsCount;
+        internal Int32 iCharMetricsCount;
 
         /// <summary>Character metrics definition array for unicode range 0 to 255</summary>
-        private readonly CharMetrics[] aCharMetrics_0To255;
+        private CharMetrics[] aCharMetrics_0To255;
 
         /// <summary>Character metrics definition hashtable for unicode >= 256</summary>
-        private readonly Hashtable ht_CharMetrics;
+        private Hashtable ht_CharMetrics;
 
         //internal readonly Int32 iKernDataCount;
 
@@ -405,164 +406,210 @@ namespace Root.Reports
         /// <param name="stream">AFM definition stream</param>
         /// <param name="style">Font style</param>
         internal Type1FontData(FontDef fontDef, String _sFontName, FontStyle fontStyle)
-          : base(fontDef, fontStyle, FontData.Encoding.Cp1252)
+          : base(fontDef, fontStyle)
         {
             sFontName = _sFontName;
-            if ((fontStyle & FontStyle.Bold) > 0)
-            {  // bold
-                if ((fontStyle & FontStyle.Italic) > 0)
-                {  // bold and italic
-                    if (sFontName == "Courier" || sFontName == "Helvetica")
-                    {
-                        sFontName += "-BoldOblique";
-                    }
-                    else if (sFontName == "Times-Roman")
-                    {
-                        sFontName = "Times-BoldItalic";
-                    }
-                    else
-                    {
-                        sFontName += "-BoldItalic";
-                    }
-                }
-                else
-                {  // bold only
-                    if (sFontName == "Times-Roman")
-                    {
-                        sFontName = "Times-Bold";
-                    }
-                    else
-                    {
-                        sFontName += "-Bold";
-                    }
-                }
-            }
-            else if ((fontStyle & FontStyle.Italic) > 0)
-            {  // italic
-                if (sFontName == "Courier" || sFontName == "Helvetica")
-                {
-                    sFontName += "-Oblique";
-                }
-                else if (sFontName == "Times-Roman")
-                {
-                    sFontName = "Times-Italic";
-                }
-                else
-                {
-                    sFontName += "-Italic";
-                }
-            }
-            //From the assembly where this code lives!
-            Stream stream = GetType().Assembly.GetManifestResourceStream($"Report.NET.Standard.PDF.afm.{sFontName}.afm");
-
-            StreamReader streamReader = new StreamReader(stream);
-            try
+            IFont font = null;
+            bool isBold = (fontStyle & FontStyle.Bold) > 0;
+            bool isItalic = (fontStyle & FontStyle.Italic) > 0;
+            switch (sFontName.ToLower())
             {
-                // Header
-                String sLine = streamReader.ReadLine();
-                if (sLine == null || !sLine.StartsWith("StartFontMetrics"))
-                {
-                    throw new ReportException("Token [StartFontMetrics] expected in AFM file");
-                }
-
-                // general information
-                do
-                {
-                    if (sLine.StartsWith("Comment"))
+                case "courier":
+                    if (isBold && isItalic)
                     {
-                        goto NextLine;
+                        font = new CourierBoldObliqueFont();
                     }
-                    String[] asToken = sLine.Split(acDelimiterToken, 5);
-                    if (asToken.Length == 0)
+                    else if (isBold)
                     {
-                        goto NextLine;
+                        font = new CourierBoldFont();
                     }
-                    switch (asToken[0])
+                    else if (isItalic)
                     {
-                        case "StartFontMetrics": { sFontMetricsVersion = asToken[1]; break; }
-                        case "MetricsSets": { iMetricsSets = Int32.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "FontName": { sFontName = asToken[1]; break; }
-                        case "FullName": { sFullName = asToken[1]; break; }
-                        case "FamilyName": { sFamilyName = asToken[1]; break; }
-                        case "Weight": { sWeight = asToken[1]; break; }
-                        case "FontBBox":
-                            {
-                                fFontBBox_llx = Single.Parse(asToken[1], CultureInfo.InvariantCulture);
-                                fFontBBox_lly = Single.Parse(asToken[2], CultureInfo.InvariantCulture);
-                                fFontBBox_urx = Single.Parse(asToken[3], CultureInfo.InvariantCulture);
-                                fFontBBox_ury = Single.Parse(asToken[4], CultureInfo.InvariantCulture);
-                                break;
-                            }
-                        case "Version": { sVersion = asToken[1]; break; }
-                        case "Notice": { sNotice = sLine.Substring(7); break; }
-                        case "EncodingScheme": { sEncodingScheme = asToken[1]; break; }
-                        case "CharacterSet": { sCharacterSet = asToken[1]; break; }
-                        case "IsBaseFont": { bIsBaseFont = Boolean.Parse(asToken[1]); break; }
-                        case "CapHeight": { fCapHeight = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "XHeight": { fXHeight = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "Ascender": { fAscender = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "Descender": { fDescender = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "StdHW": { fStdHW = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "StdVW": { fStdVW = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "UnderlinePosition": { fUnderlinePosition = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "UnderlineThickness": { fUnderlineThickness = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "ItalicAngle": { fItalicAngle = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
-                        case "IsFixedPitch": { bIsFixedPitch = Boolean.Parse(asToken[1]); break; }
-                        case "StartCharMetrics": { iCharMetricsCount = Int32.Parse(asToken[1], CultureInfo.InvariantCulture); goto EndGeneralInfo; }
-                        default:
-                            {
-                                Debug.Fail("Unknown token [" + asToken[0] + "] in AFM file: " + sFontName);
-                                break;
-                            }
+                        font = new CourierObliqueFont();
                     }
-                NextLine:
-                    sLine = streamReader.ReadLine();
-                } while (sLine != null);
-            EndGeneralInfo:
-
-                // check for required fields
-                Debug.Assert(sFontMetricsVersion != null);
-                Debug.Assert(iMetricsSets == 0);
-                if (sFontName == null)
-                {
-                    throw new ReportException("FontName is required in AFM file: " + sFontName);
-                }
-                if (Single.IsNaN(fFontBBox_llx) || Single.IsNaN(fFontBBox_lly) || Single.IsNaN(fFontBBox_urx) || Single.IsNaN(fFontBBox_ury))
-                {
-                    throw new ReportException("FontBBox is required in AFM file: " + sFamilyName);
-                }
-
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // character metrics
-                if (iCharMetricsCount <= 0)
-                {
-                    throw new ReportException("Character metrics expected in AFM file: " + sFontName);
-                }
-                aCharMetrics_0To255 = new CharMetrics[256];
-                ht_CharMetrics = new Hashtable(aiGlyphUnicode.Length * 3 / 2);
-                for (Int32 iLine = 0; iLine < iCharMetricsCount; iLine++)
-                {
-                    sLine = streamReader.ReadLine();
-                    if (sLine == null)
+                    else
                     {
-                        throw new ReportException("More character metrics definitions expected in AFM file: " + sFontName);
+                        font = new CourierFont();
                     }
-
-                    CharMetrics charMetrics = new CharMetrics(this, sLine);
-                    if (sEncodingScheme == "FontSpecific")
+                    break;
+                case "arial":
+                case "helvetica":
+                    if (isBold && isItalic)
                     {
-                        Int32 iCharacterCode = charMetrics.iCharacterCode;
-                        if (iCharacterCode >= 0 && iCharacterCode < aCharMetrics_0To255.Length)
+                        font = new HelveticaBoldObliqueFont();
+                    }
+                    else if (isBold)
+                    {
+                        font = new HelveticaBoldFont();
+                    }
+                    else if (isItalic)
+                    {
+                        font = new HelveticaObliqueFont();
+                    }
+                    else
+                    {
+                        font = new HelveticaFont();
+                    }
+                    break;
+                case "times-roman":
+                    if (isBold && isItalic)
+                    {
+                        font = new TimesBoldItalicFont();
+                    }
+                    else if (isBold)
+                    {
+                        font = new TimesBoldFont();
+                    }
+                    else if (isItalic)
+                    {
+                        font = new TimesItalicFont();
+                    }
+                    else
+                    {
+                        font = new TimesRomanFont();
+                    }
+                    break;
+                case "symbol":
+                    font = new SymbolFont();
+                    break;
+                case "zapfdingbats":
+                    font = new ZapfDingbatsFont();
+                    break;
+            }
+            CreateFont(font);
+        }
+        #endregion
+
+        #region Methods
+
+        internal void CreateFont(IFont font)
+        {
+            if (font == null)
+            {
+                throw new ReportException($"Exception: Font \"{sFontName}\" not found.");
+            }
+            var streamReader = font.FontText.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            int i = 0;
+            String sLine = streamReader[i++];
+            if (sLine == null || !sLine.StartsWith("StartFontMetrics"))
+            {
+                throw new ReportException("Token [StartFontMetrics] expected in AFM file");
+            }
+
+            // general information
+            do
+            {
+                if (sLine.StartsWith("Comment"))
+                {
+                    goto NextLine;
+                }
+                String[] asToken = sLine.Split(acDelimiterToken, 5);
+                if (asToken.Length == 0)
+                {
+                    goto NextLine;
+                }
+                switch (asToken[0])
+                {
+                    case "StartFontMetrics": { sFontMetricsVersion = asToken[1]; break; }
+                    case "MetricsSets": { iMetricsSets = Int32.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "FontName": { sFontName = asToken[1]; break; }
+                    case "FullName": { sFullName = asToken[1]; break; }
+                    case "FamilyName": { sFamilyName = asToken[1]; break; }
+                    case "Weight": { sWeight = asToken[1]; break; }
+                    case "FontBBox":
                         {
-                            aCharMetrics_0To255[charMetrics.iCharacterCode] = charMetrics;
+                            fFontBBox_llx = Single.Parse(asToken[1], CultureInfo.InvariantCulture);
+                            fFontBBox_lly = Single.Parse(asToken[2], CultureInfo.InvariantCulture);
+                            fFontBBox_urx = Single.Parse(asToken[3], CultureInfo.InvariantCulture);
+                            fFontBBox_ury = Single.Parse(asToken[4], CultureInfo.InvariantCulture);
+                            break;
+                        }
+                    case "Version": { sVersion = asToken[1]; break; }
+                    case "Notice": { sNotice = sLine.Substring(7); break; }
+                    case "EncodingScheme": { sEncodingScheme = asToken[1]; break; }
+                    case "CharacterSet": { sCharacterSet = asToken[1]; break; }
+                    case "IsBaseFont": { bIsBaseFont = Boolean.Parse(asToken[1]); break; }
+                    case "CapHeight": { fCapHeight = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "XHeight": { fXHeight = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "Ascender": { fAscender = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "Descender": { fDescender = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "StdHW": { fStdHW = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "StdVW": { fStdVW = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "UnderlinePosition": { fUnderlinePosition = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "UnderlineThickness": { fUnderlineThickness = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "ItalicAngle": { fItalicAngle = Single.Parse(asToken[1], CultureInfo.InvariantCulture); break; }
+                    case "IsFixedPitch": { bIsFixedPitch = Boolean.Parse(asToken[1]); break; }
+                    case "StartCharMetrics": { iCharMetricsCount = Int32.Parse(asToken[1], CultureInfo.InvariantCulture); goto EndGeneralInfo; }
+                    case "Characters":
+                        break;
+                    default:
+                        {
+                            Debug.Fail("Unknown token [" + asToken[0] + "] in AFM file: " + sFontName);
+                            break;
+                        }
+                }
+            NextLine:
+                sLine = streamReader[i++];
+            } while (sLine != null);
+        EndGeneralInfo:
+
+            // check for required fields
+            Debug.Assert(sFontMetricsVersion != null);
+            Debug.Assert(iMetricsSets == 0);
+            if (sFontName == null)
+            {
+                throw new ReportException("FontName is required in AFM file: " + sFontName);
+            }
+            if (Single.IsNaN(fFontBBox_llx) || Single.IsNaN(fFontBBox_lly) || Single.IsNaN(fFontBBox_urx) || Single.IsNaN(fFontBBox_ury))
+            {
+                throw new ReportException("FontBBox is required in AFM file: " + sFamilyName);
+            }
+
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            // character metrics
+            if (iCharMetricsCount <= 0)
+            {
+                throw new ReportException("Character metrics expected in AFM file: " + sFontName);
+            }
+            aCharMetrics_0To255 = new CharMetrics[256];
+            ht_CharMetrics = new Hashtable(aiGlyphUnicode.Length * 3 / 2);
+            for (Int32 iLine = 0; iLine < iCharMetricsCount; iLine++)
+            {
+                sLine = streamReader[i++];
+                if (sLine == null)
+                {
+                    throw new ReportException("More character metrics definitions expected in AFM file: " + sFontName);
+                }
+
+                CharMetrics charMetrics = new CharMetrics(this, sLine);
+                if (sEncodingScheme == "FontSpecific")
+                {
+                    Int32 iCharacterCode = charMetrics.iCharacterCode;
+                    if (iCharacterCode >= 0 && iCharacterCode < aCharMetrics_0To255.Length)
+                    {
+                        aCharMetrics_0To255[charMetrics.iCharacterCode] = charMetrics;
+                    }
+                }
+                else
+                {
+                    Object o = ht_Glyph[charMetrics.sName];
+                    if (o is Int32)
+                    {
+                        Int32 iUnicode = (Int32)o;
+                        if (iUnicode >= aCharMetrics_0To255.Length)
+                        {
+                            ht_CharMetrics.Add(iUnicode, charMetrics);
+                        }
+                        else
+                        {
+                            aCharMetrics_0To255[iUnicode] = charMetrics;
                         }
                     }
                     else
                     {
-                        Object o = ht_Glyph[charMetrics.sName];
-                        if (o is Int32)
+                        Object[] ao = (Object[])o;
+                        foreach (Int32 iUnicode in ao)
                         {
-                            Int32 iUnicode = (Int32)o;
                             if (iUnicode >= aCharMetrics_0To255.Length)
                             {
                                 ht_CharMetrics.Add(iUnicode, charMetrics);
@@ -572,41 +619,17 @@ namespace Root.Reports
                                 aCharMetrics_0To255[iUnicode] = charMetrics;
                             }
                         }
-                        else
-                        {
-                            Object[] ao = (Object[])o;
-                            foreach (Int32 iUnicode in ao)
-                            {
-                                if (iUnicode >= aCharMetrics_0To255.Length)
-                                {
-                                    ht_CharMetrics.Add(iUnicode, charMetrics);
-                                }
-                                else
-                                {
-                                    aCharMetrics_0To255[iUnicode] = charMetrics;
-                                }
-                            }
-                        }
                     }
                 }
-
-                sLine = streamReader.ReadLine();
-                if (!sLine.StartsWith("EndCharMetrics"))
-                {
-                    throw new ReportException("Token [EndCharMetrics] expected in AFM file: " + sFontName);
-                }
-
-                // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                // kerning data not implemented
             }
-            finally
+
+            sLine = streamReader[i++];
+            if (!sLine.StartsWith("EndCharMetrics"))
             {
-                streamReader.Close();
+                throw new ReportException("Token [EndCharMetrics] expected in AFM file: " + sFontName);
             }
         }
-        #endregion
 
-        #region Methods
         /// <summary>Returns the raw width of the specified text.</summary>
         /// <param name="sText">Text</param>
         /// <returns>Raw width of the text</returns>
@@ -673,16 +696,15 @@ namespace Root.Reports
         /// <summary>Gets the factor from the "EM"-size to the "H"-size.</summary>
         /// <returns>Factor from the "EM"-size to the "H"-size</returns>
         /// <remarks>"EM"-size * rGetFactor_EM_To_H() =  "H"-size</remarks>
-        internal override Double rGetFactor_EM_To_H()
+        internal override double rGetFactor_EM_To_H()
         {
-            if (sFontName == "Symbol" || sFontName == "ZapfDingbats")
+            if (!float.IsNaN(fCapHeight))
             {
-                Type1FontData.CharMetrics afmCharMetrics = this.afmCharMetrics(74);
+                CharMetrics afmCharMetrics = this.afmCharMetrics(74);
                 Debug.Assert(!(Single.IsNaN(afmCharMetrics.fBBox_ury)));
                 Debug.Assert(!(Single.IsNaN(afmCharMetrics.fBBox_lly)));
                 return (afmCharMetrics.fBBox_ury - afmCharMetrics.fBBox_lly) / 1000.0;
             }
-            Debug.Assert(!(Single.IsNaN(fCapHeight)));
             return fCapHeight / 1000.0;
         }
 

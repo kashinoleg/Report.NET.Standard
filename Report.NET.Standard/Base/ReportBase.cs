@@ -12,10 +12,10 @@ namespace Root.Reports
         private Formatter _formatter;
 
         /// <summary>List of all font definitions that are defined for the report</summary>
-        private readonly Dictionary<String, FontDef> _dict_FontDef = new Dictionary<String, FontDef>(20);
+        private readonly Dictionary<string, FontDef> _dict_FontDef = new Dictionary<string, FontDef>(20);
 
         /// <summary>List of all font properties objects that are defined for the report</summary>
-        internal readonly Dictionary<String, FontProp> dict_FontProp = new Dictionary<String, FontProp>(100);
+        internal readonly Dictionary<string, FontProp> dict_FontProp = new Dictionary<string, FontProp>(100);
 
         /// <summary>List of all line properties objects that are defined for the report</summary>
         internal readonly Hashtable ht_PenProp = new Hashtable(100);
@@ -30,10 +30,10 @@ namespace Root.Reports
         internal readonly Hashtable ht_ImageData = new Hashtable(50);
 
         /// <summary>Title of the report</summary>
-        public String sTitle;
+        public string sTitle;
 
         /// <summary>The name of the person who created the report</summary>
-        public String sAuthor;
+        public string sAuthor;
 
         /// <summary>Current page</summary>
         public Page page_Cur;
@@ -53,22 +53,13 @@ namespace Root.Reports
         }
 
         /// <summary>Gets the font definition hash table.</summary>
-        internal Dictionary<String, FontDef> dict_FontDef
-        {
-            get { return _dict_FontDef; }
-        }
+        internal Dictionary<string, FontDef> dict_FontDef => _dict_FontDef;
 
         /// <summary>Returns an enumeration of all fonts definitions.</summary>
-        internal IEnumerable enum_FontDef
-        {
-            get { return dict_FontDef.Values; }
-        }
+        internal IEnumerable enum_FontDef => dict_FontDef.Values;
 
         /// <summary>Returns an enumeration of all pages.</summary>
-        public IEnumerable enum_Page
-        {
-            get { return al_Page; }
-        }
+        public IEnumerable enum_Page => al_Page;
 
         /// <summary>Gets the formatter of the report</summary>
         public Formatter formatter
@@ -79,10 +70,7 @@ namespace Root.Reports
         }
 
         /// <summary>Returns the number of pages of this report.</summary>
-        public Int32 iPageCount
-        {
-            get { return al_Page.Count; }
-        }
+        public int iPageCount => al_Page.Count;
 
         /// <summary>Creates the contents of the report</summary>
         internal protected virtual void Create()
@@ -110,23 +98,29 @@ namespace Root.Reports
 
         /// <summary>Saves the report.</summary>
         /// <param name="sFileName">File name</param>
-        public void Save(String sFileName)
+        public void Save(string sFileName)
         {
-            FileStream stream = File.Create(sFileName);
+            using (FileStream stream = File.Create(sFileName))
+            {
+                Save(stream);
+            }
+        }
 
-            //Encoding.Convert(Encoding.Unicode, Encoding.ASCII, stream.  enc = new System.Text.Encoder();
-
+        /// <summary>
+        /// Saves the report to stream
+        /// </summary>
+        /// <param name="stream">stream</param>
+        public void Save(Stream stream)
+        {
             if (page_Cur == null)
             {
                 Create();
             }
-
             try
             {
                 formatter.Create(this, stream);
-                foreach (Object o in al_PendingTasks)
+                foreach (object o in al_PendingTasks)
                 {
-                    //          TlmBase tlmBase = (TlmBase)o;
                     throw new ReportException("Layout manager has not been closed");
                 }
             }

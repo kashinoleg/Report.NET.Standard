@@ -1,4 +1,16 @@
-﻿StartFontMetrics 4.1
+﻿namespace Report.NET.Standard.Fonts
+{
+    /// <summary>
+    /// This file and the 14 PostScript(R) AFM files it accompanies may be used, copied,
+    /// and distributed for any purpose and without charge, with or without modification,
+    /// provided that all copyright notices are retained; that the AFM files are not distributed without this file;
+    /// that all modifications to this file or any of the AFM files are prominently noted in the modified file(s);
+    /// and that this paragraph is not modified. Adobe Systems has no responsibility or obligation to support the use of the AFM files. 
+    /// </summary>
+    public class TimesBoldItalicFont : IFont
+    {
+        public string FontText =>
+@"StartFontMetrics 4.1
 Comment Copyright (c) 1985, 1987, 1989, 1990, 1993, 1997 Adobe Systems Incorporated.  All Rights Reserved.
 Comment Creation Date: Thu May  1 13:04:06 1997
 Comment UniqueID 43066
@@ -2381,4 +2393,6 @@ KPX ydieresis comma -37
 KPX ydieresis period -37
 EndKernPairs
 EndKernData
-EndFontMetrics
+EndFontMetrics";
+    }
+}
