@@ -70,7 +70,7 @@ namespace Root.Reports
                                 else
                                 {
                                     new Page(report);
-                                    RepImage di = new RepImageMM(stream, Double.NaN, Double.NaN);
+                                    var di = new RepImage(stream, null, null);
                                     report.page_Cur.Add(0, 0, di);
                                 }
                             }

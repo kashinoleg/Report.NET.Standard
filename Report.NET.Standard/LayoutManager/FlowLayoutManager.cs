@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Diagnostics;
 
 namespace Root.Reports
@@ -7,10 +8,10 @@ namespace Root.Reports
     public class FlowLayoutManager : LayoutManager
     {
         /// <summary>Current horizontal position</summary>
-        public Double rX_Cur = 0;
+        public UnitModel rX_Cur = new UnitModel();
 
         /// <summary>Current vertical position</summary>
-        public Double rY_Cur = 0;
+        public UnitModel rY_Cur = new UnitModel();
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         /// <summary>Status of the layout manager</summary>
@@ -39,20 +40,6 @@ namespace Root.Reports
             this._container_Cur = container;
         }
 
-        /// <summary>Gets or sets the current horizontal position in millimeters.</summary>
-        public Double rX_CurMM
-        {
-            get { return RT.rMMFromPoint(rX_Cur); }
-            set { rX_Cur = RT.rPointFromMM(value); }
-        }
-
-        /// <summary>Gets or sets the current vertical position in millimeters.</summary>
-        public Double rY_CurMM
-        {
-            get { return RT.rMMFromPoint(rY_Cur); }
-            set { rY_Cur = RT.rPointFromMM(value); }
-        }
-
         /// <summary>Adds a report object to the current container at the current position.</summary>
         /// <param name="repObj">Report object to add to the container</param>
         public void Add(RepObj repObj)
@@ -75,13 +62,13 @@ namespace Root.Reports
                 Int32 iIndex = 0;
                 while (true)
                 {
-                    if (rY_Cur > container_Cur.rHeight)
+                    if (rY_Cur.Point > container_Cur.rHeight)
                     {
                         _container_Cur = null;
                         CreateNewContainer();
                     }
                     Int32 iLineBreakIndex = 0;
-                    Double rPosX = rX_Cur;
+                    Double rPosX = rX_Cur.Point;
                     Double rLineBreakPos = 0;
                     while (true)
                     {
@@ -123,26 +110,26 @@ namespace Root.Reports
 
                     if (iLineStartIndex == 0 && iIndex >= sText.Length)
                     {  // add entire object
-                        container_Cur.Add(rX_Cur, rY_Cur, repObj);
-                        rX_Cur = rLineBreakPos;
+                        container_Cur.Add(rX_Cur.Point, rY_Cur.Point, repObj);
+                        rX_Cur.Point = rLineBreakPos;
                         break;
                     }
                     String sLine = sText.Substring(iLineStartIndex, iLineBreakIndex - iLineStartIndex);
-                    container_Cur.Add(rX_Cur, rY_Cur, new RepString(fp, sLine));
+                    container_Cur.Add(rX_Cur.Point, rY_Cur.Point, new RepString(fp, sLine));
                     if (iIndex >= sText.Length)
                     {
-                        rX_Cur = rLineBreakPos;
+                        rX_Cur.Point = rLineBreakPos;
                         break;
                     }
-                    rX_Cur = 0;
-                    rY_Cur += fp.rLineFeed;
+                    rX_Cur = new UnitModel();
+                    rY_Cur.Point += fp.rLineFeed;
                     iLineStartIndex = iIndex;
                 }
             }
             else
             {
                 Debug.Fail("Unknown object type");
-                container_Cur.Add(rX_Cur, rY_Cur, repObj);
+                container_Cur.Add(rX_Cur.Point, rY_Cur.Point, repObj);
             }
         }
 
@@ -158,13 +145,13 @@ namespace Root.Reports
         /// <param name="rLineFeed">Line feed</param>
         public void NewLine(Double rLineFeed)
         {
-            rX_Cur = 0;
-            if (rY_Cur + rLineFeed > container_Cur.rHeight)
+            rX_Cur = new UnitModel();
+            if (rY_Cur.Point + rLineFeed > container_Cur.rHeight)
             {
                 _container_Cur = null;
                 CreateNewContainer();
             }
-            rY_Cur += rLineFeed;
+            rY_Cur.Point += rLineFeed;
         }
 
         /// <summary>Makes a new line (metric version).</summary>
@@ -246,8 +233,8 @@ namespace Root.Reports
                 NewContainerEventArgs ea = new NewContainerEventArgs(this, _container_Cur);
                 OnNewContainer(ea);
             }
-            rX_Cur = 0;
-            rY_Cur = 0;
+            rX_Cur = new UnitModel();
+            rY_Cur = new UnitModel();
         }
 
         /// <summary>This method will create a new container that will be added to the parent container at the specified position.</summary>
@@ -270,15 +257,6 @@ namespace Root.Reports
                 container_Parent.Add(rX, rY, _container_Cur);
             }
             return _container_Cur;
-        }
-
-        /// <summary>This method will creates a new container that will be added to the parent container at the specified position (metric version).</summary>
-        /// <param name="container_Parent">Parent container</param>
-        /// <param name="rX_MM">X coordinate of the new container (mm)</param>
-        /// <param name="rY_MM">Y coordinate of the new container (mm)</param>
-        public Container container_CreateMM(Container container_Parent, Double rX_MM, Double rY_MM)
-        {
-            return container_Create(container_Parent, RT.rPointFromMM(rX_MM), RT.rPointFromMM(rY_MM));
         }
         #endregion
     }

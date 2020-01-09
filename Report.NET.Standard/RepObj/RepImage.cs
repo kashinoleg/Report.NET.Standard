@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
 using System.Drawing;
 using System.IO;
 
@@ -14,25 +14,14 @@ namespace Root.Reports
         internal ImageData imageData;
 
         /// <summary>Creates a new image object.</summary>
-        /// <param name="sFileName">Filename of the Image</param>
-        /// <param name="rWidth">Width of the image</param>
-        /// <param name="rHeight">Height of the image</param>
-        public RepImage(String sFileName, Double rWidth, Double rHeight)
-        {
-            this.stream = new FileStream(sFileName, FileMode.Open);
-            this.rWidth = rWidth;
-            this.rHeight = rHeight;
-        }
-
-        /// <summary>Creates a new image object.</summary>
         /// <param name="stream">Image stream</param>
         /// <param name="rWidth">Width of the image</param>
         /// <param name="rHeight">Height of the image</param>
-        public RepImage(Stream stream, Double rWidth, Double rHeight)
+        public RepImage(Stream stream, UnitModel rWidth, UnitModel rHeight)
         {
             this.stream = stream;
-            this.rWidth = rWidth;
-            this.rHeight = rHeight;
+            this.rWidth = rWidth != null ? rWidth.Point : double.NaN;
+            this.rHeight = rHeight != null ? rHeight.Point : double.NaN;
         }
 
         /// <summary>This method will be called after the report object has been added to the container.</summary>
@@ -49,12 +38,11 @@ namespace Root.Reports
 
             //Changed By TechnoGuru - jjborie@yahoo.fr - http://www.borie.org/
             imageData.stream.Position = 0;
-#if !WindowsCE
             using (Image image = Image.FromStream(imageData.stream))
             {
-                if (Double.IsNaN(rWidth))
+                if (double.IsNaN(rWidth))
                 {
-                    if (Double.IsNaN(rHeight))
+                    if (double.IsNaN(rHeight))
                     {
                         rWidth = image.Width / image.HorizontalResolution * 72;
                         rHeight = image.Height / image.VerticalResolution * 72; ;
@@ -64,34 +52,11 @@ namespace Root.Reports
                         rWidth = image.Width * rHeight / image.Height;
                     }
                 }
-                else if (Double.IsNaN(rHeight))
+                else if (double.IsNaN(rHeight))
                 {
                     rHeight = image.Height * rWidth / image.Width;
                 }
             }
-#endif
-        }
-    }
-
-
-    //****************************************************************************************************
-    /// <summary>Creates a new image object.</summary>
-    public class RepImageMM : RepImage
-    {
-        /// <summary>Creates a new Image object with millimeter values</summary>
-        /// <param name="sFileName">Filename of the Image</param>
-        /// <param name="rWidth">Width of the image in millimeter</param>
-        /// <param name="rHeight">Height of the image in millimeter</param>
-        public RepImageMM(String sFileName, Double rWidth, Double rHeight) : base(sFileName, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
-        {
-        }
-
-        /// <summary>Creates a new Image object with millimeter values</summary>
-        /// <param name="stream">Image stream</param>
-        /// <param name="rWidth">Width of the image in millimeter</param>
-        /// <param name="rHeight">Height of the image in millimeter</param>
-        public RepImageMM(Stream stream, Double rWidth, Double rHeight) : base(stream, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
-        {
         }
     }
 }

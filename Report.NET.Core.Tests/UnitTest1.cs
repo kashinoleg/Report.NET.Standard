@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Report.NET.Standard.Base;
 using Report.NET.Standard.Reader;
 using Root.Reports;
 using System.Drawing;
@@ -20,7 +21,7 @@ namespace Report.NET.Core.Tests
             page.AddCB_MM(80, new RepString(fp, "Hello World!"));
 
             PenProp pp = new PenProp(report, 10);
-            page.AddCB_MM(100, new RepLineMM(pp, 0, 30));
+            page.AddCB_MM(100, new RepLine(pp, new UnitModel() { MM = 0 }, new UnitModel() { MM = 30 }));
 
             report.Save("HelloWorld.pdf");
         }
@@ -43,25 +44,25 @@ namespace Report.NET.Core.Tests
             var stream = File.Open("Image/Sample.jpg", FileMode.Open, FileAccess.Read, FileShare.Read);
             //System.IO.Stream stream = GetType().Assembly.GetManifestResourceStream("Report.NetCore.Tests.Image.Sample.jpg");
             Assert.IsNotNull(stream);
-            page.AddMM(20, 90, new RepImageMM(stream, 40, double.NaN));
+            page.AddMM(20, 90, new RepImage(stream, new UnitModel() { MM = 40 }, null));
             page.AddMM(20, 95, new RepString(fp, "W = 40mm, H = auto."));
-            page.AddMM(67, 90, new RepImageMM(stream, 40, 20));
+            page.AddMM(67, 90, new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 20 }));
             page.AddMM(67, 95, new RepString(fp, "W = 40mm, H = 20mm"));
-            page.AddMM(114, 90, new RepImageMM(stream, double.NaN, 30));
+            page.AddMM(114, 90, new RepImage(stream, null, new UnitModel() { MM = 30 }));
             page.AddMM(114, 95, new RepString(fp, "W = auto., H = 30mm"));
-            page.AddMM(161, 90, new RepImageMM(stream, 30, 30));
+            page.AddMM(161, 90, new RepImage(stream, new UnitModel() { MM = 30 }, new UnitModel() { MM = 30 }));
             page.AddMM(161, 95, new RepString(fp, "W = 30mm, H = 30mm"));
             rY += 150;
 
             // adjust the size of a bounding rectangle
-            RepRect dr = new RepRectMM(bp, 80, 60);
+            RepRect dr = new RepRect(bp, new UnitModel() { MM = 80 }, new UnitModel() { MM = 60 });
             page.AddMM(20, rY, dr);
-            RepImage di = new RepImageMM(stream, 70, double.NaN);
+            RepImage di = new RepImage(stream, new UnitModel() { MM = 70 }, null);
             page.AddMM(25, rY - 5, di);
             dr.rHeightMM = di.rHeightMM + 10;
 
             // rotated image
-            di = new RepImageMM(stream, 40, 30);
+            di = new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 30 });
             di.RotateTransform(-15);
             page.AddMM(120, rY - 33, di);
 
@@ -69,10 +70,10 @@ namespace Report.NET.Core.Tests
             StaticContainer sc = new StaticContainer(RT.rPointFromMM(45), RT.rPointFromMM(35));
             page.AddMM(145, rY - 35, sc);
             sc.RotateTransform(15);
-            sc.AddMM(0, 35, new RepRectMM(bp, 45, 35));
-            sc.AddMM(1.25, 33.75, new RepLineMM(pp, 42.5, 0));
-            sc.AddMM(1.25, 1.25, new RepLineMM(pp, 42.5, 0));
-            sc.AddAlignedMM(22.5, RepObj.rAlignCenter, 17.5, RepObj.rAlignCenter, new RepImageMM(stream, 40, 30));
+            sc.AddMM(0, 35, new RepRect(bp, new UnitModel() { MM = 45 }, new UnitModel() { MM = 35 }));
+            sc.AddMM(1.25, 33.75, new RepLine(pp, new UnitModel() { MM = 42.5 }, new UnitModel() { MM = 0 }));
+            sc.AddMM(1.25, 1.25, new RepLine(pp, new UnitModel() { MM = 42.5 }, new UnitModel() { MM = 0 }));
+            sc.AddAlignedMM(22.5, RepObj.rAlignCenter, 17.5, RepObj.rAlignCenter, new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 30 }));
             rY += 30;
 
             // alignment sample
@@ -81,12 +82,12 @@ namespace Report.NET.Core.Tests
             int rX = 100;
             double rD = 20;
             bp.color = Color.DarkSalmon;
-            page.AddMM(rX, rY + rD, new RepRectMM(bp, rD, rD));
-            page.AddAlignedMM(rX, RepObj.rAlignRight, rY, RepObj.rAlignBottom, new RepImageMM(stream, 20, double.NaN));
-            page.AddAlignedMM(rX, RepObj.rAlignRight, rY + rD, RepObj.rAlignTop, new RepImageMM(stream, 20, double.NaN));
-            page.AddMM(rX + rD, rY, new RepImageMM(stream, 20, double.NaN));  // default
-            page.AddAlignedMM(rX + rD, RepObj.rAlignLeft, rY + rD, RepObj.rAlignTop, new RepImageMM(stream, 20, double.NaN));
-            page.AddAlignedMM(rX + rD / 2, RepObj.rAlignCenter, rY + rD / 2, RepObj.rAlignCenter, new RepImageMM(stream, 10, double.NaN));
+            page.AddMM(rX, rY + rD, new RepRect(bp, new UnitModel() { MM = rD }, new UnitModel() { MM = rD }));
+            page.AddAlignedMM(rX, RepObj.rAlignRight, rY, RepObj.rAlignBottom, new RepImage(stream, new UnitModel() { MM = 20 }, null));
+            page.AddAlignedMM(rX, RepObj.rAlignRight, rY + rD, RepObj.rAlignTop, new RepImage(stream, new UnitModel() { MM = 20 }, null));
+            page.AddMM(rX + rD, rY, new RepImage(stream, new UnitModel() { MM = 20 }, null));  // default
+            page.AddAlignedMM(rX + rD, RepObj.rAlignLeft, rY + rD, RepObj.rAlignTop, new RepImage(stream, new UnitModel() { MM = 20 }, null));
+            page.AddAlignedMM(rX + rD / 2, RepObj.rAlignCenter, rY + rD / 2, RepObj.rAlignCenter, new RepImage(stream, new UnitModel() { MM = 10 }, null));
             //*/
             report.Save("ImageSample.pdf");
         }
@@ -126,7 +127,7 @@ namespace Report.NET.Core.Tests
             page.AddCB_MM(80, new RepString(fp, "Hello World!"));
 
             PenProp pp = new PenProp(report, 10);
-            page.AddCB_MM(100, new RepLineMM(pp, 0, 30));
+            page.AddCB_MM(100, new RepLine(pp, new UnitModel() { MM = 0 }, new UnitModel() { MM = 30 }));
 
             report.Save("HelloWorld.pdf");
         }

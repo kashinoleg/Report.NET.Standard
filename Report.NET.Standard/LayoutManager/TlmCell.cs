@@ -166,14 +166,14 @@ namespace Root.Reports
         /// <value>Position of the left margin of the cell (points, 1/72 inch)</value>
         internal Double rPosMarginLeft
         {
-            get { return tlmColumn_Start.rPosX + rMarginLeft; }
+            get { return tlmColumn_Start.rPosX.Point + rMarginLeft; }
         }
 
         /// <summary>Gets the position of the right margin of the cell.</summary>
         /// <value>Position of the right margin of the cell (points, 1/72 inch)</value>
         internal Double rPosMarginRight
         {
-            get { return tlmColumn_End.rPosX + tlmColumn_End.rWidth - rMarginRight; }
+            get { return tlmColumn_End.rPosX.Point + tlmColumn_End.rWidth.Point - rMarginRight; }
         }
 
         /// <summary>Gets the position of the top margin of the cell.</summary>

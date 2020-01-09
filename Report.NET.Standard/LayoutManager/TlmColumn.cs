@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 
 namespace Root.Reports
 {
@@ -27,7 +28,7 @@ namespace Root.Reports
         /// <summary>Creates a column definition object.</summary>
         /// <param name="tlmBase">Table layout manager of this column</param>
         /// <param name="rWidth">Width of the column (points, 1/72 inch)</param>
-        internal TlmColumn(TlmBase tlmBase, Double rWidth)
+        internal TlmColumn(TlmBase tlmBase, UnitModel rWidth)
         {
             tlmBase.CheckStatus_Init("cannot add columns.");
             this.tlmBase = tlmBase;
@@ -35,7 +36,7 @@ namespace Root.Reports
             iIndex = tlmBase.list_TlmColumn.Count;
             tlmBase.list_TlmColumn.Add(this);
 
-            if (rWidth <= 0)
+            if (rWidth.Point <= 0)
             {
                 throw new ReportException("Invalid value for the column width");
             }
@@ -51,7 +52,7 @@ namespace Root.Reports
         /// <param name="tlmBase">Table layout manager of this column</param>
         /// <param name="sHeader">Header of the column</param>
         /// <param name="rWidth">Width of the column</param>
-        public TlmColumn(TlmBase tlmBase, String sHeader, Double rWidth) : this(tlmBase, rWidth)
+        public TlmColumn(TlmBase tlmBase, String sHeader, UnitModel rWidth) : this(tlmBase, rWidth)
         {
             this.sHeader = sHeader;
             fontProp_Header = tlmBase.fontProp_Header;
@@ -124,31 +125,20 @@ namespace Root.Reports
         #endregion
 
         #region Layout
-        internal Double _rPosX = 0;
+        internal UnitModel _rPosX = new UnitModel();
         /// <summary>Gets the horizontal position of the left side of the column.</summary>
         /// <value>The position of the left side of the column in points (1/72 inch).</value>
         /// <remarks>For the metric version see <see cref="TlmColumn.rPosX_MM"/>.</remarks>
-        public Double rPosX
-        {
-            get { return _rPosX; }
-        }
+        public UnitModel rPosX => _rPosX;
 
-        /// <summary>Gets the horizontal position of the left side of the column.</summary>
-        /// <value>The position of the left side of the column in millimeters.</value>
-        /// <remarks>For the inch version see <see cref="TlmColumn.rPosX"/>.</remarks>
-        public Double rPosX_MM
-        {
-            get { return RT.rMMFromPoint(_rPosX); }
-        }
-
-        private Double _rWidth;
+        private UnitModel _rWidth;
         /// <summary>Gets or sets the width of the column.</summary>
         /// <value>The width of the column in points (1/72 inch)</value>
         /// <remarks>
         /// The width of the column can be set as long as the table is in initialization mode.
         /// <para>For the metric version see <see cref="TlmColumn.rWidthMM"/>.</para>
         /// </remarks>
-        public Double rWidth
+        public UnitModel rWidth
         {
             get { return _rWidth; }
             set
@@ -157,40 +147,6 @@ namespace Root.Reports
                 _rWidth = value;
             }
         }
-
-        /// <summary>Gets or sets the width of the column.</summary>
-        /// <value>The width of the column in millimeters.</value>
-        /// <remarks>
-        /// The width of the column can be set as long as the table is in initialization mode.
-        /// <para>For the inch version see <see cref="TlmColumn.rWidth"/>.</para>
-        /// </remarks>
-        public Double rWidthMM
-        {
-            get { return RT.rMMFromPoint(rWidth); }
-            set { rWidth = RT.rPointFromMM(value); }
-        }
         #endregion
-    }
-
-    /// <summary>Column definition with metric values.</summary>
-    public class TlmColumnMM : TlmColumn
-    {
-        /// <summary>Creates a column definition object with metric values.</summary>
-        /// <param name="tlm">Table layout manager of this column</param>
-        /// <param name="sHeader">Header of the column</param>
-        /// <param name="rWidthMM">Width of the column</param>
-        public TlmColumnMM(TableLayoutManager tlm, String sHeader, Double rWidthMM)
-          : base(tlm, sHeader, RT.rPointFromMM(rWidthMM))
-        {
-        }
-
-        /// <summary>Creates a column definition object with metric values.</summary>
-        /// <param name="tlm">Table layout manager of this column</param>
-        /// <param name="sHeader">Header of the column</param>
-        /// <param name="rWidthMM">Width of the column</param>
-        public TlmColumnMM(ListLayoutManager tlm, Double rWidthMM)
-          : base(tlm, null, RT.rPointFromMM(rWidthMM))
-        {
-        }
     }
 }

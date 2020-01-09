@@ -1,4 +1,6 @@
-﻿namespace Root.Reports
+﻿using Report.NET.Standard.Base;
+
+namespace Root.Reports
 {
     /// <summary>Report Line Object.</summary>
     public class RepLine : RepObj
@@ -8,28 +10,14 @@
 
         /// <summary>Creates a new line object.</summary>
         /// <param name="penProp">Pen properties of the line</param>
-        /// <param name="rX">X-coordinate of the end of the line, relative to the start point</param>
-        /// <param name="rY">Y-coordinate of the end of the line, relative to the start point</param>
-        public RepLine(PenProp penProp, double rX, double rY)
+        /// <param name="x">X-coordinate of the end of the line, relative to the start point</param>
+        /// <param name="y">Y-coordinate of the end of the line, relative to the start point</param>
+        public RepLine(PenProp penProp, UnitModel x, UnitModel y)
         {
             this.penProp = penProp.penProp_Registered;
-            this.rWidth = rX;
-            this.rHeight = rY;
+            this.rWidth = x.Point;
+            this.rHeight = y.Point;
             oRepObjX = penProp.report.formatter.oCreate_RepLine();
-        }
-
-    }
-
-    //****************************************************************************************************
-    /// <summary>Report Line Object with millimeter values.</summary>
-    public class RepLineMM : RepLine
-    {
-        /// <summary>Creates a new line object with millimeter values</summary>
-        /// <param name="penProp">Pen properties of the line</param>
-        /// <param name="rX">X-coordinate of the end of the line, relative to the start point, in millimeter</param>
-        /// <param name="rY">Y-coordinate of the end of the line, relative to the start point, in millimeter</param>
-        public RepLineMM(PenProp penProp, double rX, double rY) : base(penProp, RT.rPointFromMM(rX), RT.rPointFromMM(rY))
-        {
         }
     }
 }

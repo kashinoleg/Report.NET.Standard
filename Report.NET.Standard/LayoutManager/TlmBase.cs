@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -124,7 +125,7 @@ namespace Root.Reports
             Double rWidthCur = 0;
             foreach (TlmColumn col in list_TlmColumn)
             {
-                rWidthCur += col.rWidth;
+                rWidthCur += col.rWidth.Point;
             }
             Double rScale = rWidthNew / rWidthCur;
             foreach (TlmColumn col in list_TlmColumn)
@@ -154,7 +155,7 @@ namespace Root.Reports
                     Double r = 0;
                     foreach (TlmColumn col in list_TlmColumn)
                     {
-                        r += col.rWidth;
+                        r += col.rWidth.Point;
                     }
                     return r;
                 }
@@ -184,8 +185,8 @@ namespace Root.Reports
                 _rWidth = 0;
                 foreach (TlmColumn col in list_TlmColumn)
                 {
-                    col._rPosX = rWidth;
-                    _rWidth += col.rWidth;
+                    col._rPosX = new UnitModel() { Point = rWidth };
+                    _rWidth += col.rWidth.Point;
                     aCellCreateType_New[col.iIndex] = TlmBase.CellCreateType.New;
                 }
             }
@@ -462,11 +463,12 @@ namespace Root.Reports
                     }
                     Int32 iColEnd = iCol;
                     OptimizeTopLine(bOrderTop, tlmCell, ref iColEnd);
-                    Double rPosStart = (iCol == tlmCell.tlmColumn_Start.iIndex ? tlmCell.rPosMarginLeft : list_TlmColumn[iCol].rPosX);
+                    Double rPosStart = (iCol == tlmCell.tlmColumn_Start.iIndex ? tlmCell.rPosMarginLeft : list_TlmColumn[iCol].rPosX.Point);
                     TlmColumn col_End = list_TlmColumn[iColEnd];
                     TlmCell cell_End = row.aTlmCell[iColEnd];
-                    Double rPosEnd = (iCol == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX + col_End.rWidth);
-                    RepLine repLine = new RepLine(tlmCell.penProp_LineTop, rPosEnd - rPosStart, rTest);
+
+                    var rPosEnd = (iCol == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX.Point + col_End.rWidth.Point);
+                    RepLine repLine = new RepLine(tlmCell.penProp_LineTop, new UnitModel() { Point = rPosEnd - rPosStart }, new UnitModel() { Point = rTest });
                     container_Cur.AddLT(rPosStart, tlmCell.rPosMarginTop, repLine);
                     iCol = iColEnd;
                 }
@@ -486,11 +488,11 @@ namespace Root.Reports
                     }
                     Int32 iColEnd = iCol;
                     OptimizeBottomLine(bOrderTop, tlmCell, ref iColEnd);
-                    Double rPosStart = (iCol == tlmCell.tlmColumn_Start.iIndex ? tlmCell.rPosMarginLeft : list_TlmColumn[iCol].rPosX);
+                    var rPosStart = (iCol == tlmCell.tlmColumn_Start.iIndex ? tlmCell.rPosMarginLeft : list_TlmColumn[iCol].rPosX.Point);
                     TlmColumn col_End = list_TlmColumn[iColEnd];
                     TlmCell cell_End = row.aTlmCell[iColEnd];
-                    Double rPosEnd = (iCol == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX + col_End.rWidth);
-                    RepLine repLine = new RepLine(tlmCell.penProp_LineBottom, rPosEnd - rPosStart, -rTest);
+                    Double rPosEnd = (iCol == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX.Point + col_End.rWidth.Point);
+                    RepLine repLine = new RepLine(tlmCell.penProp_LineBottom, new UnitModel() { Point = rPosEnd - rPosStart }, new UnitModel() { Point = -rTest });
                     container_Cur.AddLT(rPosStart, tlmCell.rPosMarginBottom, repLine);
                     iCol = iColEnd;
                 }
@@ -540,7 +542,7 @@ namespace Root.Reports
                     TlmRow row_End = list_TlmRow[iRowEnd];
                     TlmCell cell_End = row_End.aTlmCell[iCol];
                     Double rPosEnd = (iRow == row_End.iIndex ? cell_End.rPosMarginBottom : row_End.rPosBottom);
-                    RepLine repLine = new RepLine(tlmCell.penProp_LineLeft, rTest, rPosEnd - rPosStart);
+                    RepLine repLine = new RepLine(tlmCell.penProp_LineLeft, new UnitModel() { Point = rTest }, new UnitModel() { Point = rPosEnd - rPosStart });
                     container_Cur.AddLT(tlmCell.rPosMarginLeft, rPosStart, repLine);
                     iRow = iRowEnd;
                 }
@@ -565,7 +567,7 @@ namespace Root.Reports
                     TlmRow row_End = list_TlmRow[iRowEnd];
                     TlmCell cell_End = row_End.aTlmCell[iCol];
                     Double rPosEnd = (iRow == row_End.iIndex ? cell_End.rPosMarginBottom : row_End.rPosBottom);
-                    RepLine repLine = new RepLine(tlmCell.penProp_LineRight, -rTest, rPosEnd - rPosStart);
+                    RepLine repLine = new RepLine(tlmCell.penProp_LineRight, new UnitModel() { Point = -rTest }, new UnitModel() { Point = rPosEnd - rPosStart });
                     container_Cur.AddLT(tlmCell.rPosMarginRight, rPosStart, repLine);
                     iRow = iRowEnd;
                 }
@@ -675,14 +677,14 @@ namespace Root.Reports
                     Int32 iColEnd = iCol;
                     Int32 iRowEnd = iRow;
                     OptimizeBackground(aaiDone, ref iRowEnd, ref iColEnd);
-                    Double rPosX1 = (iCol == tlmCell.tlmColumn_Start.iIndex ? tlmCell.rPosMarginLeft : list_TlmColumn[iCol].rPosX);
-                    Double rPosY1 = (iRow == tlmCell.tlmRow_Start.iIndex ? tlmCell.rPosMarginTop : tlmRow.rPosTop);
+                    var rPosX1 = (iCol == tlmCell.tlmColumn_Start.iIndex ? tlmCell.rPosMarginLeft : list_TlmColumn[iCol].rPosX.Point);
+                    var rPosY1 = (iRow == tlmCell.tlmRow_Start.iIndex ? tlmCell.rPosMarginTop : tlmRow.rPosTop);
                     TlmRow row_End = list_TlmRow[iRowEnd];
                     TlmColumn col_End = list_TlmColumn[iColEnd];
                     TlmCell cell_End = row_End.aTlmCell[iColEnd];
-                    Double rPosX2 = (iColEnd == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX + col_End.rWidth);
-                    Double rPosY2 = (iRowEnd == row_End.iIndex ? cell_End.rPosMarginBottom : row_End.rPosBottom);
-                    RepRect repRect = new RepRect(tlmCell.brushProp_Back, rPosX2 - rPosX1, rPosY2 - rPosY1);
+                    var rPosX2 = (iColEnd == col_End.iIndex ? cell_End.rPosMarginRight : col_End.rPosX.Point + col_End.rWidth.Point);
+                    var rPosY2 = (iRowEnd == row_End.iIndex ? cell_End.rPosMarginBottom : row_End.rPosBottom);
+                    RepRect repRect = new RepRect(tlmCell.brushProp_Back, new UnitModel() { Point = rPosX2 - rPosX1 }, new UnitModel() { Point = rPosY2 - rPosY1 });
                     container_Cur.AddLT(rPosX1, rPosY1, repRect);
                 }
             }
