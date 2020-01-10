@@ -13,9 +13,9 @@
     <Description>Report.NET.Standard is an free library to dynamically generate PDF documents for various .NET platforms, including .NET Standard.</Description>
     <PackageReleaseNotes>Release library for .NET Standard.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
