@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Report.NET.Standard.Base;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Root.Reports
@@ -16,7 +17,7 @@ namespace Root.Reports
         }
 
         /// <summary>Creates a new container.</summary>
-        public Container(double rWidth, double rHeight)
+        public Container(UnitModel rWidth, UnitModel rHeight)
         {
             this.rWidth = rWidth;
             this.rHeight = rHeight;
@@ -46,10 +47,10 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        internal void Add(double rX, double rY, RepObj repObj)
+        internal void Add(UnitModel rX, UnitModel rY, RepObj repObj)
         {
-            repObj.matrixD.rDX = rX;
-            repObj.matrixD.rDY = rY;
+            repObj.matrixD.rDX = rX.Point;
+            repObj.matrixD.rDY = rY.Point;
             Add(repObj);
         }
 
@@ -94,11 +95,11 @@ namespace Root.Reports
         /// <param name="repObj">Report object to add to the container</param>
         /// <param name="repObj_Pos">The new report object will be inserted before the specified position.
         /// If the position is null it will be appended to the end of the list.</param>
-        internal void AddAligned(double rX, double rAlignH, double rY, double rAlignV, RepObj repObj, RepObj repObj_Pos)
+        internal void AddAligned(UnitModel rX, double rAlignH, UnitModel rY, double rAlignV, RepObj repObj, RepObj repObj_Pos)
         {
-            repObj.matrixD.rDX = rX;
+            repObj.matrixD.rDX = rX.Point;
             repObj.rAlignH = rAlignH;
-            repObj.matrixD.rDY = rY;
+            repObj.matrixD.rDY = rY.Point;
             repObj.rAlignV = rAlignV;
             Add(repObj, repObj_Pos);
         }
@@ -109,7 +110,7 @@ namespace Root.Reports
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="rAlignV">Vertical alignment of the report object relative to [Y].</param>
         /// <param name="repObj">Report object to add to the container</param>
-        internal void AddAligned(double rX, double rAlignH, double rY, double rAlignV, RepObj repObj)
+        internal void AddAligned(UnitModel rX, double rAlignH, UnitModel rY, double rAlignV, RepObj repObj)
         {
             AddAligned(rX, rAlignH, rY, rAlignV, repObj, null);
         }
@@ -120,7 +121,7 @@ namespace Root.Reports
         /// <param name="repObj">Report object to add to the container</param>
         /// <param name="repObj_Pos">The new report object will be inserted before the specified position.
         /// If the position is null it will be appended to the end of the list.</param>
-        public void AddLT(double rX, double rY, RepObj repObj, RepObj repObj_Pos)
+        public void AddLT(UnitModel rX, UnitModel rY, RepObj repObj, RepObj repObj_Pos)
         {
             AddAligned(rX, rAlignLeft, rY, rAlignTop, repObj, repObj_Pos);
         }
@@ -129,7 +130,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        internal void AddLT(double rX, double rY, RepObj repObj)
+        internal void AddLT(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddLT(rX, rY, repObj, null);
         }
@@ -138,16 +139,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddLT_MM(double rX, double rY, RepObj repObj)
-        {
-            AddLT(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment.</summary>
-        /// <param name="rX">X-coordinate of the report object</param>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        internal void AddCT(double rX, double rY, RepObj repObj)
+        internal void AddCT(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddAligned(rX, rAlignCenter, rY, rAlignTop, repObj);
         }
@@ -156,16 +148,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddCT_MM(double rX, double rY, RepObj repObj)
-        {
-            AddCT(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment.</summary>
-        /// <param name="rX">X-coordinate of the report object</param>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        internal void AddCC(double rX, double rY, RepObj repObj)
+        internal void AddCC(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddAligned(rX, rAlignCenter, rY, rAlignCenter, repObj);
         }
@@ -174,16 +157,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddCC_MM(double rX, double rY, RepObj repObj)
-        {
-            AddCC(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment.</summary>
-        /// <param name="rX">X-coordinate of the report object</param>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        internal void AddCB(double rX, double rY, RepObj repObj)
+        internal void AddCB(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddAligned(rX, rAlignCenter, rY, rAlignBottom, repObj);
         }
@@ -192,16 +166,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddCB_MM(double rX, double rY, RepObj repObj)
-        {
-            AddCB(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment.</summary>
-        /// <param name="rX">X-coordinate of the report object</param>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        internal void AddRT(double rX, double rY, RepObj repObj)
+        internal void AddRT(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddAligned(rX, rAlignRight, rY, rAlignTop, repObj);
         }
@@ -210,27 +175,9 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddRT_MM(double rX, double rY, RepObj repObj)
-        {
-            AddRT(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment.</summary>
-        /// <param name="rX">X-coordinate of the report object</param>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        internal void AddRC(double rX, double rY, RepObj repObj)
+        internal void AddRC(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddAligned(rX, rAlignRight, rY, rAlignCenter, repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment.</summary>
-        /// <param name="rX">X-coordinate of the report object</param>
-        /// <param name="rY">Y-coordinate of the report object</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        public void AddRC_MM(double rX, double rY, RepObj repObj)
-        {
-            AddRC(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
         }
 
         #region IEnumerable Members

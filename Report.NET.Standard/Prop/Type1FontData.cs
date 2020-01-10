@@ -652,7 +652,7 @@ namespace Root.Reports
                 f = fFontBBox_ury - fFontBBox_lly;
             }
             Debug.Assert(!(Single.IsNaN(f)));
-            return fontProp.rSizePoint * f / 1000F;
+            return fontProp.rSizePoint.Point * f / 1000F;
         }
 
         /// <summary>Gets the width of the specified text with this font in 1/72 inches.</summary>
@@ -661,7 +661,7 @@ namespace Root.Reports
         /// <returns>Width of the text in 1/72 inches</returns>
         internal protected override Double rWidth(FontProp fontProp, String sText)
         {
-            return fontProp.rSizePoint * rRawWidth(sText) / 1000;
+            return fontProp.rSizePoint.Point * rRawWidth(sText) / 1000;
         }
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Collections;
 
 namespace Root.Reports
@@ -142,7 +143,7 @@ namespace Root.Reports
             Int32 iIndex = 0;
             while (true)
             {
-                if (rCurY > container.rHeight)
+                if (rCurY > container.rHeight.Point)
                 {
                     NextContainer();
                 }
@@ -189,12 +190,12 @@ namespace Root.Reports
 
                 if (iLineStartIndex == 0 && iIndex >= sText.Length)
                 {  // add entire object
-                    container.Add(rOfsX + rCurX, rCurY, repString);
+                    container.Add(new UnitModel() { Point = rOfsX + rCurX }, new UnitModel() { Point = rCurY }, repString);
                     rCurX = rLineBreakPos;
                     break;
                 }
                 String sLine = sText.Substring(iLineStartIndex, iLineBreakIndex - iLineStartIndex);
-                container.Add(rOfsX + rCurX, rCurY, new RepString(fp, sLine));
+                container.Add(new UnitModel() { Point = rOfsX + rCurX }, new UnitModel() { Point = rCurY }, new RepString(fp, sLine));
                 if (iIndex >= sText.Length)
                 {
                     rCurX = rLineBreakPos;

@@ -1,4 +1,6 @@
-﻿namespace Root.Reports
+﻿using Report.NET.Standard.Base;
+
+namespace Root.Reports
 {
     /// <summary>Report Rectangle Object.</summary>
     public class RepRect : RepObj
@@ -10,11 +12,11 @@
         public BrushProp brushProp;
 
         /// <summary>Creates a new filled rectangle object with a border line.</summary>
+        /// <param name="width">Width of the rectangle</param>
+        /// <param name="height">Height of the rectangle</param>
         /// <param name="penProp">Pen properties of the border line</param>
         /// <param name="brushProp">Brush properties of the rectangle</param>
-        /// <param name="rWidth">Width of the rectangle</param>
-        /// <param name="rHeight">Height of the rectangle</param>
-        public RepRect(PenProp penProp, BrushProp brushProp, double rWidth, double rHeight)
+        public RepRect(UnitModel width, UnitModel height, PenProp penProp = null, BrushProp brushProp = null)
         {
             if (penProp != null)
             {
@@ -24,8 +26,8 @@
             {
                 this.brushProp = brushProp.brushProp_Registered;
             }
-            this.rWidth = rWidth;
-            this.rHeight = rHeight;
+            this.rWidth = width;
+            this.rHeight = height;
             if (penProp == null)
             {
                 oRepObjX = brushProp.report.formatter.oCreate_RepRect();
@@ -38,48 +40,17 @@
 
         /// <summary>Creates a new rectangle object.</summary>
         /// <param name="penProp">Pen properties of the border line</param>
-        /// <param name="rWidth">Width of the rectangle</param>
-        /// <param name="rHeight">Height of the rectangle</param>
-        public RepRect(PenProp penProp, double rWidth, double rHeight) : this(penProp, null, rWidth, rHeight)
+        /// <param name="width">Width of the rectangle</param>
+        /// <param name="height">Height of the rectangle</param>
+        public RepRect(PenProp penProp, UnitModel width, UnitModel height) : this(width, height, penProp, null)
         {
         }
 
         /// <summary>Creates a new filled rectangle object without a border line.</summary>
         /// <param name="brushProp">Brush properties of the rectangle</param>
-        /// <param name="rWidth">Width of the rectangle</param>
-        /// <param name="rHeight">Height of the rectangle</param>
-        public RepRect(BrushProp brushProp, double rWidth, double rHeight) : this(null, brushProp, rWidth, rHeight)
-        {
-        }
-
-    }
-
-    //****************************************************************************************************
-    /// <summary>Report Rectangle Object with millimeter values.</summary>
-    public class RepRectMM : RepRect
-    {
-        /// <summary>Creates a new filled rectangle object with a border line and millimeter values.</summary>
-        /// <param name="penProp">Pen properties of the border line</param>
-        /// <param name="brushProp">Brush properties of the rectangle</param>
-        /// <param name="rWidth">Width of the rectangle</param>
-        /// <param name="rHeight">Height of the rectangle</param>
-        public RepRectMM(PenProp penProp, BrushProp brushProp, double rWidth, double rHeight) : base(penProp, brushProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
-        {
-        }
-
-        /// <summary>Creates a new rectangle object with millimeter values.</summary>
-        /// <param name="penProp">Pen properties of the border line</param>
-        /// <param name="rWidth">Width of the rectangle</param>
-        /// <param name="rHeight">Height of the rectangle</param>
-        public RepRectMM(PenProp penProp, double rWidth, double rHeight) : base(penProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
-        {
-        }
-
-        /// <summary>Creates a new filled rectangle object without a border line and with millimeter values.</summary>
-        /// <param name="brushProp">Brush properties of the rectangle</param>
-        /// <param name="rWidth">Width of the rectangle</param>
-        /// <param name="rHeight">Height of the rectangle</param>
-        public RepRectMM(BrushProp brushProp, double rWidth, double rHeight) : base(brushProp, RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
+        /// <param name="width">Width of the rectangle</param>
+        /// <param name="height">Height of the rectangle</param>
+        public RepRect(BrushProp brushProp, UnitModel width, UnitModel height) : this(width, height, null, brushProp)
         {
         }
     }

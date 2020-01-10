@@ -1,4 +1,6 @@
-﻿namespace Root.Reports
+﻿using Report.NET.Standard.Base;
+
+namespace Root.Reports
 {
     /// <summary>Page of a report</summary>
     /// <example>Page sample:
@@ -24,11 +26,8 @@
     /// } 
     /// </code>
     /// </example>
-    public class Page : StaticContainer
+    public sealed class Page : StaticContainer
     {
-        /// <summary>Report that this page belongs to</summary>
-        internal readonly new ReportBase report;
-
         /// <summary>Page Number</summary>
         public int iPageNo;
 
@@ -37,9 +36,8 @@
 
         /// <summary>Creates a page for the report</summary>
         /// <param name="report">Report to which this page will be add</param>
-        public Page(ReportBase report) : base(RT.rPointFromMM(210.224), RT.rPointFromMM(297.302))
+        public Page(ReportBase report) : base(new UnitModel() { MM = 210.224 }, new UnitModel() { MM = 297.302 })
         {
-            this.report = report;
             report.RegisterPage(this);
             oRepObjX = report.formatter.oCreate_PageX(this);
             iPageNo = report.iPageCount;

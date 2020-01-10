@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 
 namespace Root.Reports
 {
@@ -12,10 +13,10 @@ namespace Root.Reports
         internal MatrixD matrixD = new MatrixD(1, 0, 0, 1, 0, 0);
 
         /// <summary>Height of the report object.</summary>
-        private double _rHeight;
+        private UnitModel _rHeight;
 
         /// <summary>Width of the report object.</summary>
-        private double _rWidth;
+        private UnitModel _rWidth;
 
         /// <summary>Horizontal alignment of the report object relative to [pointF_Pos].</summary>
         public double rAlignH = 0;
@@ -61,79 +62,43 @@ namespace Root.Reports
         }
 
         /// <summary>Sets or gets the height of this report object.</summary>
-        public virtual double rHeight
+        public virtual UnitModel rHeight
         {
             set => _rHeight = value;
             get => _rHeight;
         }
 
-        /// <summary>Sets or gets the height of this report object in millimeter.</summary>
-        public double rHeightMM
-        {
-            set => rHeight = RT.rPointFromMM(value);
-            get => RT.rMMFromPoint(rHeight);
-        }
-
         /// <summary>Gets the position of the left side of this report object (points, 1/72 inch).</summary>
-        public double rPosLeft => matrixD.rDX - rWidth * rAlignH;
-
-        /// <summary>Gets the position of the left side of this report object (mm).</summary>
-        public double rPosLeftMM => RT.rMMFromPoint(rPosLeft);
+        public UnitModel rPosLeft => new UnitModel() { Point = matrixD.rDX - rWidth.Point * rAlignH };
 
         /// <summary>Gets the position of the right side of this report object (points, 1/72 inch).</summary>
-        public double rPosRight => matrixD.rDX + rWidth * (1.0 - rAlignH);
-
-        /// <summary>Gets the position of the right side of this report object (mm).</summary>
-        public double rPosRightMM => RT.rMMFromPoint(rPosRight);
+        public UnitModel rPosRight => new UnitModel() { Point = matrixD.rDX + rWidth.Point * (1.0 - rAlignH) };
 
         /// <summary>Gets the position of the top side of this report object (points, 1/72 inch).</summary>
-        public virtual double rPosTop => matrixD.rDY - rHeight * rAlignV;
-
-        /// <summary>Gets the position of the top side of this report object (mm).</summary>
-        public double rPosTopMM => RT.rMMFromPoint(rPosTop);
+        public virtual UnitModel rPosTop => new UnitModel() { Point = matrixD.rDY - rHeight.Point * rAlignV };
 
         /// <summary>Gets the position of the bottom of this report object (points, 1/72 inch).</summary>
-        public virtual double rPosBottom => matrixD.rDY + rHeight * (1.0 - rAlignV);
-
-        /// <summary>Gets the position of the bottom side of this report object (mm).</summary>
-        public double rPosBottomMM => RT.rMMFromPoint(rPosBottom);
+        public virtual UnitModel rPosBottom => new UnitModel() { Point = matrixD.rDY + rHeight.Point * (1.0 - rAlignV) };
 
         /// <summary>Gets the report to which the report object belongs.</summary>
         internal ReportBase report => page.report;
 
         /// <summary>Sets or gets the width of this report object.</summary>
-        public virtual double rWidth
+        public virtual UnitModel rWidth
         {
             set => _rWidth = value;
             get => _rWidth;
         }
 
-        /// <summary>Sets or gets the width of this report object in millimeter.</summary>
-        public double rWidthMM
-        {
-            set => rWidth = RT.rPointFromMM(value);
-            get => RT.rMMFromPoint(rWidth);
-        }
-
         /// <summary>Gets the horizontal position of this report object relative to its container (points, 1/72 inch).</summary>
-        public double rX
+        public UnitModel rX
         {
-            get => matrixD.rDX;
-            set => matrixD.rDX = value;
-        }
-
-        /// <summary>Gets the horizontal position of this report object relative to its container (mm).</summary>
-        public double rX_MM
-        {
-            get => RT.rMMFromPoint(matrixD.rDX);
-            set => matrixD.rDX = RT.rPointFromMM(value);
+            get => new UnitModel() { Point = matrixD.rDX };
+            set => matrixD.rDX = value.Point;
         }
 
         /// <summary>Gets the vertical position of this report object relative to its container.</summary>
-        public double rY => matrixD.rDY;
-
-        /// <summary>Gets the vertical position (millimeter) of this report object relative to its container.</summary>
-        public double rY_MM => RT.rMMFromPoint(matrixD.rDY);
+        public UnitModel rY => new UnitModel() { Point = matrixD.rDY };
 
         /// <summary>This method will be called after the report object has been added to the container.</summary>
         internal protected virtual void OnAdded()

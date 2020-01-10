@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Drawing;
 
 namespace Root.Reports
@@ -17,7 +18,7 @@ namespace Root.Reports
         {
             tlmHeightMode = TlmHeightMode.Static;
 
-            PenProp penProp_Solid = new PenProp(report, 0.5, Color.Black);
+            PenProp penProp_Solid = new PenProp(report, new UnitModel() { Point = 0.5 }, Color.Black);
             tlmCellDef_Default.penProp_LineV = penProp_Solid;
 
             tlmColumnDef_Default.penProp_BorderH = penProp_Solid;
@@ -54,7 +55,7 @@ namespace Root.Reports
         {
             TlmRow row = tlmRow_New((TlmRow)null, aCellCreateType);
             row.bAutoCommit = false;
-            row.rPreferredHeight = tlmRowDef_Header.rPreferredHeight;
+            row.PreferredHeight = tlmRowDef_Header.PreferredHeight;
 
             foreach (TlmColumn col in list_TlmColumn)
             {

@@ -31,7 +31,7 @@ namespace Root.Reports
         private Double _rAngle = Double.NaN;
         /// <summary>Gets or sets the angle of the cell contents (default: 0°)</summary>
         /// <remarks>
-        /// The preferred height <see cref="TlmRowDef.rPreferredHeight"/> must be set.
+        /// The preferred height <see cref="TlmRowDef.PreferredHeight"/> must be set.
         /// <para>The text mode must be <see cref="TlmBase.TextMode">EllipsisCharacter</see>.</para>
         /// </remarks>
         /// <value>Angle of the cell contents, clockwise: 0° horizontal, -90° vertical upwards

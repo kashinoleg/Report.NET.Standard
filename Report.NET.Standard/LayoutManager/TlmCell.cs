@@ -166,14 +166,14 @@ namespace Root.Reports
         /// <value>Position of the left margin of the cell (points, 1/72 inch)</value>
         internal Double rPosMarginLeft
         {
-            get { return tlmColumn_Start.rPosX + rMarginLeft; }
+            get { return tlmColumn_Start.rPosX.Point + rMarginLeft; }
         }
 
         /// <summary>Gets the position of the right margin of the cell.</summary>
         /// <value>Position of the right margin of the cell (points, 1/72 inch)</value>
         internal Double rPosMarginRight
         {
-            get { return tlmColumn_End.rPosX + tlmColumn_End.rWidth - rMarginRight; }
+            get { return tlmColumn_End.rPosX.Point + tlmColumn_End.rWidth.Point - rMarginRight; }
         }
 
         /// <summary>Gets the position of the top margin of the cell.</summary>
@@ -248,11 +248,11 @@ namespace Root.Reports
             Int32 iRepObjCount = (bCommitted ? tlmColumn_Start.iRepObjCommitted : this.iRepObjCount);
             for (Int32 iRepObj = 0; iRepObj < iRepObjCount; iRepObj++)
             {
-                RepObj repObj = repObj_Get(iRepObj);
-                Double rPosBottom = repObj.rPosBottom;
-                if (rPosBottom > rMaxY)
+                var repObj = repObj_Get(iRepObj);
+                var rPosBottom = repObj.rPosBottom;
+                if (rPosBottom.Point > rMaxY)
                 {
-                    rMaxY = rPosBottom;
+                    rMaxY = rPosBottom.Point;
                 }
             }
             return rMaxY + rIndentBottom;
@@ -375,33 +375,34 @@ namespace Root.Reports
         /// <param name="rOfsV">Vertical offset (points, 1/72 inch)</param>
         /// <param name="repObj">Report object that will be added to the cell</param>
         /// <seealso cref="TlmCell.AddMM"/>
-        public void Add(Double rOfsH, Double rOfsV, RepObj repObj)
+        public void Add(double rOfsH, double rOfsV, RepObj repObj)
         {
             RepString repString = repObj as RepString;
             if (RT.bEquals(rAngle, -90, 0.001))
             {  // vertical
                 Debug.Assert(tlmRow_Start.iIndex == tlmRow_End.iIndex, "vertically merged cell are not supported");
-                Double rPreferredHeight = tlmRow_Start.rPreferredHeight;
-                Double rInnerHeight = rPreferredHeight - rIndentTop - rIndentBottom;
+                
                 if (status == Status.Init)
                 {
-                    if (Double.IsNaN(rPreferredHeight))
+                    var rPreferredHeight = tlmRow_Start.PreferredHeight;
+                    if (rPreferredHeight == null)
                     {
                         throw new ReportException("The preferred height of the row must be set");
                     }
                     rCurX = rIndentLeft + rInnerWidth * rAlignV;
-                    rCurY = rPreferredHeight - rIndentBottom - rInnerHeight * rAlignH;
+                    rCurY = rPreferredHeight.Point - rIndentBottom - (rPreferredHeight.Point - rIndentTop - rIndentBottom) * rAlignH;
                     status = Status.Open;
                 }
                 CheckStatus_Open("cannot add a report object.");
 
+                Double rInnerHeight = tlmRow_Start.PreferredHeight.Point - rIndentTop - rIndentBottom;
                 Double rUsedWidth = 0;
                 if (iFirstRepObjOfCurLine < iRepObjCount)
                 {
                     RepObj ro = repObj_Get(iRepObjCount - 1);
-                    rUsedWidth = ro.rPosBottom;
+                    rUsedWidth = ro.rPosBottom.Point;
                     ro = repObj_Get(iFirstRepObjOfCurLine);
-                    rUsedWidth -= ro.rPosTop;
+                    rUsedWidth -= ro.rPosTop.Point;
                 }
                 rUsedWidth += rOfsH;
 
@@ -430,7 +431,7 @@ namespace Root.Reports
                 }
                 else
                 {
-                    Double rOfs = (repObj.rWidth + rOfsH) * rAlignH;
+                    Double rOfs = (repObj.rWidth.Point + rOfsH) * rAlignH;
                     for (Int32 i = iFirstRepObjOfCurLine; i < iRepObjCount; i++)
                     {
                         RepObj ro = repObj_Get(i);
@@ -442,7 +443,7 @@ namespace Root.Reports
                     repObj.matrixD.rDY = rCurY - rOfsH * (1 - rAlignH);
                     repObj.rAlignV = rAlignV;
                     AddRepObj(repObj);
-                    rCurY = repObj.rPosTop;
+                    rCurY = repObj.rPosTop.Point;
                 }
             }
             else
@@ -459,9 +460,9 @@ namespace Root.Reports
                 if (iFirstRepObjOfCurLine < iRepObjCount)
                 {
                     RepObj ro = repObj_Get(iRepObjCount - 1);
-                    rUsedWidth = ro.rPosRight;
+                    rUsedWidth = ro.rPosRight.Point;
                     ro = repObj_Get(iFirstRepObjOfCurLine);
-                    rUsedWidth -= ro.rPosLeft;
+                    rUsedWidth -= ro.rPosLeft.Point;
                 }
                 rUsedWidth += rOfsH;
 
@@ -474,7 +475,7 @@ namespace Root.Reports
                         {
                             rLineFeed = repString.fontProp.rLineFeed;
                         }
-                        rCurY += repString.fontProp.rSize;
+                        rCurY += repString.fontProp.rSize.Point;
                         status = Status.OpenText;
                     }
                     if (tlmTextMode == TlmTextMode.EllipsisCharacter)
@@ -535,7 +536,7 @@ namespace Root.Reports
                 }
                 else
                 {
-                    Double rOfs = (repObj.rWidth + rOfsH) * rAlignH;
+                    Double rOfs = (repObj.rWidth.Point + rOfsH) * rAlignH;
                     for (Int32 i = iFirstRepObjOfCurLine; i < iRepObjCount; i++)
                     {
                         RepObj ro = repObj_Get(i);
@@ -545,7 +546,7 @@ namespace Root.Reports
                     repObj.rAlignH = rAlignH;
                     repObj.matrixD.rDY = rCurY + rOfsV;
                     AddRepObj(repObj);
-                    rCurX = repObj.rPosRight;
+                    rCurX = repObj.rPosRight.Point;
                 }
             }
         }
@@ -619,7 +620,7 @@ namespace Root.Reports
             if (iStartIndex < iRepObjCount)
             {
                 RepObj repObj = repObj_Get(iStartIndex);
-                rDelta = repObj.rPosTop - rIndentTop;
+                rDelta = repObj.rPosTop.Point - rIndentTop;
             }
 
             tlmCell_2.status = status;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Globalization;
 
 namespace Root.Reports
@@ -10,12 +11,12 @@ namespace Root.Reports
         public readonly FontProp fontProp;
 
         /// <summary>Text of the string object.</summary>
-        public String sText;
+        public string sText;
 
         /// <summary>Creates a new string object.</summary>
         /// <param name="fontProp">Font properties of the string object</param>
         /// <param name="sText">Text of the string object</param>
-        public RepString(FontProp fontProp, String sText)
+        public RepString(FontProp fontProp, string sText)
         {
             this.fontProp = fontProp.fontProp_Registered;
             this.sText = (sText == null) ? "" : sText;
@@ -27,72 +28,70 @@ namespace Root.Reports
         }
 
         /// <summary>Sets or gets the height of this report object.</summary>
-        public override Double rHeight
+        public override UnitModel rHeight
         {
             set { System.Diagnostics.Debug.Assert(false); }
             get
             {
-                Double rX = fontProp.rGetTextWidth(sText);
-                Double rY = fontProp.rSize;
-                Double r = Math.Abs(rX * matrixD.rRY + rY * matrixD.rSY);
-                return r;
+                var rX = fontProp.rGetTextWidth(sText);
+                var rY = fontProp.rSize.Point;
+                return new UnitModel() { Point = Math.Abs(rX * matrixD.rRY + rY * matrixD.rSY) };
             }
         }
 
         /// <summary>Sets or gets the width of this report object.</summary>
-        public override Double rWidth
+        public override UnitModel rWidth
         {
             set { System.Diagnostics.Debug.Assert(false); }
             get
             {
-                Double rX = fontProp.rGetTextWidth(sText);
-                Double rY = fontProp.rSize;
-                Double r = Math.Abs(rX * matrixD.rSX + rY * matrixD.rRY);
-                return r;
+                var rX = fontProp.rGetTextWidth(sText);
+                var rY = fontProp.rSize.Point;
+                return new UnitModel() { Point = Math.Abs(rX * matrixD.rSX + rY * matrixD.rRY) };
             }
         }
 
         /// <summary>Gets the position of the top side of this report object (points, 1/72 inch).</summary>
-        public override Double rPosTop
+        public override UnitModel rPosTop
         {
             get
             {
-                Double rW = fontProp.rGetTextWidth(sText);
-                Double rH = fontProp.rSize;
-                Double rX1 = -rW * rAlignH;
-                Double rX2 = rW * (1 - rAlignH);
-                Double rY1 = -rH * rAlignV;
-                Double rY2 = rH * (1 - rAlignV);
-                Double rMin = matrixD.rTransformY(rX1, rY1);
-                Double r = matrixD.rTransformY(rX1, rY2);
+                var rW = fontProp.rGetTextWidth(sText);
+                var rH = fontProp.rSize.Point;
+                var rX1 = -rW * rAlignH;
+                var rX2 = rW * (1 - rAlignH);
+                var rY1 = -rH * rAlignV;
+                var rY2 = rH * (1 - rAlignV);
+                var rMin = matrixD.rTransformY(rX1, rY1);
+                var r = matrixD.rTransformY(rX1, rY2);
                 rMin = Math.Min(rMin, r);
                 r = matrixD.rTransformY(rX2, rY1);
                 rMin = Math.Min(rMin, r);
                 r = matrixD.rTransformY(rX2, rY2);
                 rMin = Math.Min(rMin, r);
-                return rMin;
+                return new UnitModel() { Point = rMin };
             }
         }
 
         /// <summary>Gets the position of the bottom of this report object (points, 1/72 inch).</summary>
-        public override Double rPosBottom
+        public override UnitModel rPosBottom
         {
             get
             {
-                Double rW = fontProp.rGetTextWidth(sText);
-                Double rH = fontProp.rSize;
-                Double rX1 = -rW * rAlignH;
-                Double rX2 = rW * (1 - rAlignH);
-                Double rY1 = -rH * rAlignV;
-                Double rY2 = rH * (1 - rAlignV);
-                Double rMax = matrixD.rTransformY(rX1, rY1);
-                Double r = matrixD.rTransformY(rX1, rY2);
+                var rW = fontProp.rGetTextWidth(sText);
+                var rH = fontProp.rSize.Point;
+                var rX1 = -rW * rAlignH;
+                var rX2 = rW * (1 - rAlignH);
+                var rY1 = -rH * rAlignV;
+                var rY2 = rH * (1 - rAlignV);
+                var rMax = matrixD.rTransformY(rX1, rY1);
+                var r = matrixD.rTransformY(rX1, rY2);
                 rMax = Math.Max(rMax, r);
                 r = matrixD.rTransformY(rX2, rY1);
                 rMax = Math.Max(rMax, r);
                 r = matrixD.rTransformY(rX2, rY2);
                 rMax = Math.Max(rMax, r);
-                return rMax;
+                return new UnitModel() { Point = rMax };
             }
         }
 
@@ -107,7 +106,7 @@ namespace Root.Reports
         /// <param name="fontProp">Font properties of the Int32 object</param>
         /// <param name="iVal">Int32 value</param>
         /// <param name="sFormat">Provides the format information for the Int32 value (ms-help://MS.VSCC/MS.MSDNVS/cpguide/html/cpconcustomnumericformatstrings.htm)</param>
-        public RepInt32(FontProp fontProp, Int32 iVal, String sFormat) : base(fontProp, iVal.ToString(sFormat))
+        public RepInt32(FontProp fontProp, int iVal, string sFormat) : base(fontProp, iVal.ToString(sFormat))
         {
         }
 
@@ -116,14 +115,14 @@ namespace Root.Reports
         /// <param name="iVal">Int32 value</param>
         /// <param name="nfi">Provides the format information for the Int32 value (ms-help://MS.VSCC/MS.MSDNVS/cpref/html/frlrfSystemGlobalizationNumberFormatInfoClassTopic.htm)</param>
         //public RepInt32(FontProp fontProp, Int32 iVal, NumberFormatInfo nfi) : base(fontProp, iVal.ToString(nfi)) {
-        public RepInt32(FontProp fontProp, Int32 iVal, NumberFormatInfo nfi) : base(fontProp, String.Format(nfi, "{0:N}", iVal))
+        public RepInt32(FontProp fontProp, int iVal, NumberFormatInfo nfi) : base(fontProp, string.Format(nfi, "{0:N}", iVal))
         {
         }
 
         /// <summary>Creates a new Int32 object.</summary>
         /// <param name="fontProp">Font properties of the Int32 object</param>
         /// <param name="iVal">Int32 value</param>
-        public RepInt32(FontProp fontProp, Int32 iVal) : base(fontProp, iVal.ToString())
+        public RepInt32(FontProp fontProp, int iVal) : base(fontProp, iVal.ToString())
         {
         }
 
@@ -138,7 +137,7 @@ namespace Root.Reports
         /// <param name="fontProp">Font properties of the Real32 object</param>
         /// <param name="fVal">Real32 (Single) value</param>
         /// <param name="sFormat">Provides the format information for the Int32 value (ms-help://MS.VSCC/MS.MSDNVS/cpguide/html/cpconcustomnumericformatstrings.htm)</param>
-        public RepReal32(FontProp fontProp, Single fVal, String sFormat) : base(fontProp, fVal.ToString(sFormat))
+        public RepReal32(FontProp fontProp, float fVal, string sFormat) : base(fontProp, fVal.ToString(sFormat))
         {
         }
 
@@ -146,14 +145,14 @@ namespace Root.Reports
         /// <param name="fontProp">Font properties of the Real32 object</param>
         /// <param name="fVal">Real32 (Single) value</param>
         /// <param name="nfi">Provides the format information for the Int32 value (ms-help://MS.VSCC/MS.MSDNVS/cpref/html/frlrfSystemGlobalizationNumberFormatInfoClassTopic.htm)</param>
-        public RepReal32(FontProp fontProp, Single fVal, NumberFormatInfo nfi) : base(fontProp, String.Format(nfi, "{0:N}", fVal))
+        public RepReal32(FontProp fontProp, float fVal, NumberFormatInfo nfi) : base(fontProp, string.Format(nfi, "{0:N}", fVal))
         {
         }
 
         /// <summary>Creates a new RepReal32 object.</summary>
         /// <param name="fontProp">Font properties of the Real32 object</param>
         /// <param name="fVal">Real32 (Single) value</param>
-        public RepReal32(FontProp fontProp, Single fVal) : base(fontProp, fVal.ToString("0.00"))
+        public RepReal32(FontProp fontProp, float fVal) : base(fontProp, fVal.ToString("0.00"))
         {
         }
     }
@@ -167,7 +166,7 @@ namespace Root.Reports
         /// <param name="fontProp">Font properties of the Real64 object</param>
         /// <param name="rVal">Real64 value</param>
         /// <param name="sFormat">Provides the format information for the Int32 value (ms-help://MS.VSCC/MS.MSDNVS/cpguide/html/cpconcustomnumericformatstrings.htm)</param>
-        public RepReal64(FontProp fontProp, Double rVal, String sFormat) : base(fontProp, rVal.ToString(sFormat))
+        public RepReal64(FontProp fontProp, double rVal, string sFormat) : base(fontProp, rVal.ToString(sFormat))
         {
         }
 
@@ -176,14 +175,14 @@ namespace Root.Reports
         /// <param name="rVal">Real64 value</param>
         /// <param name="nfi">Provides the format information for the Int32 value (ms-help://MS.VSCC/MS.MSDNVS/cpref/html/frlrfSystemGlobalizationNumberFormatInfoClassTopic.htm)</param>
         //public RepReal64(FontProp fontProp, Double rVal, NumberFormatInfo nfi) : base(fontProp, rVal.ToString(nfi)) {
-        public RepReal64(FontProp fontProp, Double rVal, NumberFormatInfo nfi) : base(fontProp, String.Format(nfi, "{0:N}", rVal))
+        public RepReal64(FontProp fontProp, double rVal, NumberFormatInfo nfi) : base(fontProp, string.Format(nfi, "{0:N}", rVal))
         {
         }
 
         /// <summary>Creates a new RepReal64 object.</summary>
         /// <param name="fontProp">Font properties of the Real64 object</param>
         /// <param name="rVal">Real64 value</param>
-        public RepReal64(FontProp fontProp, Double rVal) : base(fontProp, rVal.ToString("0.00"))
+        public RepReal64(FontProp fontProp, double rVal) : base(fontProp, rVal.ToString("0.00"))
         {
         }
     }
@@ -197,7 +196,7 @@ namespace Root.Reports
         /// <param name="fontProp">Font properties of the DateTime object</param>
         /// <param name="dt_Val">DateTime value</param>
         /// <param name="sFormat">Provides the format information for the DataTime value (ms-help://MS.VSCC/MS.MSDNVS/cpref/html/frlrfSystemGlobalizationDateTimeFormatInfoClassTopic.htm)</param>
-        public RepDateTime(FontProp fontProp, DateTime dt_Val, String sFormat) : base(fontProp, dt_Val.ToString(sFormat))
+        public RepDateTime(FontProp fontProp, DateTime dt_Val, string sFormat) : base(fontProp, dt_Val.ToString(sFormat))
         {
         }
 
