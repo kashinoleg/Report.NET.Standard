@@ -24,7 +24,7 @@ install:
   - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
-  - dotnet sonarscanner begin /d:sonar.login="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /k:"kashinoleg_Report.NET.Standard" /o:"kashinoleg" /n:"Report.NET.Standard" /v:"1.0.1.$TRAVIS_BUILD_NUMBER" /d:sonar.links.homepage="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.ci="https://travis-ci.org/kashinoleg/Report.NET.Standard" /d:sonar.links.scm="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.issue="https://github.com/kashinoleg/Report.NET.Standard/issues" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*"
+  - dotnet sonarscanner begin /d:sonar.login="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /k:"kashinoleg_Report.NET.Standard" /o:"kashinoleg" /n:"Report.NET.Standard" /v:"1.0.2.$TRAVIS_BUILD_NUMBER" /d:sonar.links.homepage="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.ci="https://travis-ci.org/kashinoleg/Report.NET.Standard" /d:sonar.links.scm="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.issue="https://github.com/kashinoleg/Report.NET.Standard/issues" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*"
 
   - dotnet build Report.NET.sln -c Release
 # /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
