@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Report.NET.Standard.Base;
 
 namespace Root.Reports
 {
@@ -13,7 +14,7 @@ namespace Root.Reports
         /// <summary>
         /// 
         /// </summary>
-        public StaticContainer(Double rWidth, Double rHeight)
+        public StaticContainer(UnitModel rWidth, UnitModel rHeight)
         {
             this.rWidth = rWidth;
             this.rHeight = rHeight;
@@ -23,7 +24,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public new void Add(Double rX, Double rY, RepObj repObj)
+        public new void Add(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             //Added By TechnoGuru - jjborie@yahoo.fr - http://www.borie.org/
             //Here we handle image comosed of severals images
@@ -71,7 +72,7 @@ namespace Root.Reports
                                 {
                                     new Page(report);
                                     var di = new RepImage(stream, null, null);
-                                    report.page_Cur.Add(0, 0, di);
+                                    report.page_Cur.Add(new UnitModel(), new UnitModel(), di);
                                 }
                             }
                         }
@@ -82,34 +83,23 @@ namespace Root.Reports
             base.Add(rX, rY, repObj);
         }
 
-#if !WindowsCE
         //Added By TechnoGuru - jjborie@yahoo.fr - http://www.borie.org/
         /// <summary>
         /// Get encoding info for a mime type
         /// </summary>
         /// <param name="mimeType"></param>
         /// <returns></returns>
-        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        private static ImageCodecInfo GetEncoderInfo(string mimeType)
         {
-            int j;
-            ImageCodecInfo[] encoders;
-            encoders = ImageCodecInfo.GetImageEncoders();
-            for (j = 0; j < encoders.Length; ++j)
+            var encoders = ImageCodecInfo.GetImageEncoders();
+            for (var j = 0; j < encoders.Length; ++j)
             {
                 if (encoders[j].MimeType == mimeType)
+                {
                     return encoders[j];
+                }
             }
             return null;
-        }
-#endif
-
-        /// <summary>Adds a report object to the container (metric version).</summary>
-        /// <param name="rX">X-coordinate of the report object in millimeter</param>
-        /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        public void AddMM(Double rX, Double rY, RepObj repObj)
-        {
-            Add(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
         }
 
         /// <summary>Adds a report object to the container and sets the alignment.</summary>
@@ -118,72 +108,30 @@ namespace Root.Reports
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="rAlignV">Vertical alignment of the report object relative to [Y].</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public new void AddAligned(Double rX, Double rAlignH, Double rY, Double rAlignV, RepObj repObj)
+        public new void AddAligned(UnitModel rX, double rAlignH, UnitModel rY, double rAlignV, RepObj repObj)
         {
-            repObj.matrixD.rDX = rX;
+            repObj.matrixD.rDX = rX.Point;
             repObj.rAlignH = rAlignH;
-            repObj.matrixD.rDY = rY;
+            repObj.matrixD.rDY = rY.Point;
             repObj.rAlignV = rAlignV;
             Add(repObj);
-        }
-
-        /// <summary>Adds a report object to the container and sets the alignment (metric versоon).</summary>
-        /// <param name="rX">X-coordinate of the report objectt in millimeter</param>
-        /// <param name="rAlignH">Horizontal alignment of the report object relative to [X].</param>
-        /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
-        /// <param name="rAlignV">Vertical alignment of the report object relative to [Y].</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        public void AddAlignedMM(Double rX, Double rAlignH, Double rY, Double rAlignV, RepObj repObj)
-        {
-            AddAligned(RT.rPointFromMM(rX), rAlignH, RT.rPointFromMM(rY), rAlignV, repObj);
         }
 
         /// <summary>Adds a report object to the container, horizontally centered.</summary>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddCB(Double rY, RepObj repObj)
+        public void AddCB(UnitModel rY, RepObj repObj)
         {
             base.AddCB(rWidth / 2.0, rY, repObj);
-        }
-
-        /// <summary>Adds a report object to the container, horizontally centered (metric version).</summary>
-        /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        public void AddCB_MM(Double rY, RepObj repObj)
-        {
-            AddCB(RT.rPointFromMM(rY), repObj);
         }
 
         /// <summary>Adds a report object to the container, right justified.</summary>
         /// <param name="rX">X-coordinate of the report object</param>
         /// <param name="rY">Y-coordinate of the report object</param>
         /// <param name="repObj">Report object to add to the container</param>
-        public void AddRight(Double rX, Double rY, RepObj repObj)
+        public void AddRight(UnitModel rX, UnitModel rY, RepObj repObj)
         {
             AddAligned(rX, RepObj.rAlignRight, rY, RepObj.rAlignBottom, repObj);
-        }
-
-        /// <summary>Adds a report object to the container, right justified (metric version).</summary>
-        /// <param name="rX">X-coordinate of the report objectt in millimeter</param>
-        /// <param name="rY">Y-coordinate of the report objectt in millimeter</param>
-        /// <param name="repObj">Report object to add to the container</param>
-        public void AddRightMM(Double rX, Double rY, RepObj repObj)
-        {
-            AddRight(RT.rPointFromMM(rX), RT.rPointFromMM(rY), repObj);
-        }
-    }
-
-    //====================================================================================================x
-    /// <summary>
-    /// Summary description for StaticContainer.
-    /// </summary>
-    public class StaticContainerMM : StaticContainer
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public StaticContainerMM(Double rWidth, Double rHeight) : base(RT.rPointFromMM(rWidth), RT.rPointFromMM(rHeight))
-        {
         }
     }
 }

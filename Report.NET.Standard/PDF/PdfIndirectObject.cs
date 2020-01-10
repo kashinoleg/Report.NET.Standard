@@ -385,10 +385,10 @@ namespace Root.Reports
             Dictionary_End();
 
             Dictionary_Key("MediaBox"); ArrayStart();
-            Number(0); Space(); Number(0); Space(); Number(page.rWidth); Space(); Number(page.rHeight);
+            Number(0); Space(); Number(0); Space(); Number(page.rWidth.Point); Space(); Number(page.rHeight.Point);
             ArrayEnd();
             Dictionary_Key("CropBox"); ArrayStart();
-            Number(0); Space(); Number(0); Space(); Number(page.rWidth); Space(); Number(page.rHeight);
+            Number(0); Space(); Number(0); Space(); Number(page.rWidth.Point); Space(); Number(page.rHeight.Point);
             ArrayEnd();
             //Dictionary_Key("Rotate");  Number(0);  // !!!
             Dictionary_Key("Contents"); IndirectReference(pdfIndirectObject_PageContents);

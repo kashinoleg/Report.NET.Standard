@@ -117,7 +117,7 @@ namespace Root.Reports
             this.tlmBase = tlmBase;
             tlmCellEnumerator = new TlmCellEnumerator(this);
             aTlmCell = new ArrayTlmCell(tlmBase.list_TlmColumn.Count);
-            rPreferredHeight = tlmBase.tlmRowDef_Default.rPreferredHeight;
+            PreferredHeight = tlmBase.tlmRowDef_Default.PreferredHeight;
         }
 
         /// <summary>Creates a row definition object.</summary>

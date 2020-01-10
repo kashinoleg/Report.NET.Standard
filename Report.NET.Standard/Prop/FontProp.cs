@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Drawing;
 using System.Globalization;
 
@@ -26,7 +27,7 @@ namespace Root.Reports
         /// The size of the font can be specified in 1/72 inches, height of the letter "H".
         /// </remarks>
         /// <include file='Prop\FontProp.cs.xml' path='documentation/class[@name="FontProp.FontProp"]/*'/>
-        public FontProp(FontDef fontDef, Double rSize, Color color)
+        public FontProp(FontDef fontDef, UnitModel rSize, Color color)
         {
             this.fontDef = fontDef;
             this._rSizeInternal = rSize;
@@ -42,7 +43,7 @@ namespace Root.Reports
         /// The size of the font can be specified in 1/72 inches, height of the letter "H".
         /// </remarks>
         /// <include file='Prop\FontProp.cs.xml' path='documentation/class[@name="FontProp.FontProp1"]/*'/>
-        public FontProp(FontDef fontDef, Double rSize)
+        public FontProp(FontDef fontDef, UnitModel rSize)
           : this(fontDef, rSize, Color.Black)
         {
         }
@@ -174,7 +175,7 @@ namespace Root.Reports
             {
                 if (_fontProp_Registered == null)
                 {
-                    String sKey = _fontDef.sFontName + ";" + rSizePoint.ToString("0.###", CultureInfo.InvariantCulture) + ";"
+                    String sKey = _fontDef.sFontName + ";" + rSizePoint.Point.ToString("0.###", CultureInfo.InvariantCulture) + ";"
                       + _color.R + "-" + _color.G + "-" + _color.B + "-" + _color.A + ";"
                       + fontStyle.ToString("d") + ";" + _rAngle.ToString("0.###", CultureInfo.InvariantCulture) + ";"
                       + rLineFeed.ToString("0.###", CultureInfo.InvariantCulture);  // _rLineFeed could be NaN
@@ -225,7 +226,7 @@ namespace Root.Reports
             {
                 if (Double.IsNaN(_rLineFeed))
                 {
-                    _rLineFeed = rSize * 2.0;
+                    _rLineFeed = rSize.Point * 2.0;
                 }
                 return _rLineFeed;
             }
@@ -251,7 +252,7 @@ namespace Root.Reports
         /// for a FontProp or FontPropMM object: size of the letter "H" in points (1/72 inch)
         /// for a FontPropPoint object: size of the font in points
         /// </remarks>
-        internal Double _rSizeInternal;
+        internal UnitModel _rSizeInternal;
 
         /// <summary>Gets or sets the size of the font in 1/72 inches, height of the letter "H".</summary>
         /// <value>Size of the font in 1/72 inches, height of the letter "H"</value>
@@ -278,7 +279,7 @@ namespace Root.Reports
         /// }
         /// </code>
         /// </example>
-        public virtual Double rSize
+        public virtual UnitModel rSize
         {
             get { return _rSizeInternal; }
             set
@@ -288,21 +289,11 @@ namespace Root.Reports
             }
         }
 
-        /// <summary>Gets or sets the size of the font in millimeters.</summary>
-        /// <value>Size of the font in millimeters: height of the letter "H"</value>
-        /// <remarks>This property can be used to set the size of the font.</remarks>
-        /// <example>Font size sample in <see cref="FontProp.rSize"/></example>
-        public Double rSizeMM
-        {
-            get { return RT.rMMFromPoint(rSize); }
-            set { rSize = RT.rPointFromMM(value); }
-        }
-
         /// <summary>Gets or sets the size of the font in points.</summary>
         /// <value>Size of the font in points</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>
         /// <example>Font size sample in <see cref="FontProp.rSize"/></example>
-        public virtual Double rSizePoint
+        public virtual UnitModel rSizePoint
         {
             get { return _rSizeInternal / fontData.rGetFactor_EM_To_H(); }
             set { _rSizeInternal = value * fontData.rGetFactor_EM_To_H(); }
@@ -464,7 +455,7 @@ namespace Root.Reports
         /// </example>
         public String sGetTextLine(String sText, Double rWidthMax, ref Int32 iStart, TextSplitMode textSplitMode)
         {
-            return fontData.sGetTextLine(sText, rWidthMax * 1000.0 / rSizePoint, ref iStart, textSplitMode);
+            return fontData.sGetTextLine(sText, rWidthMax * 1000.0 / rSizePoint.Point, ref iStart, textSplitMode);
         }
 
         /// <summary>Gets a line of text with a maximal width from the specified string (metric version).</summary>
@@ -530,7 +521,7 @@ namespace Root.Reports
             {
                 throw new ArgumentNullException("sText", "text is required");
             }
-            Double rFontSizeMax = rSize;
+            Double rFontSizeMax = rSize.Point;
             FontProp fontProp_Test = new FontProp(fontDef, rSize);
             fontProp_Test.bBold = bBold;
 
@@ -544,12 +535,12 @@ namespace Root.Reports
                     rHeight += fontProp_Test.rLineFeed;
                     if (rHeight > rHeightMax)
                     {
-                        rFontSizeMax = fontProp_Test.rSize;
+                        rFontSizeMax = fontProp_Test.rSize.Point;
                         break;
                     }
                     if (iStart > sText.Length)
                     {
-                        rFontSizeMin = fontProp_Test.rSize;
+                        rFontSizeMin = fontProp_Test.rSize.Point;
                         break;
                     }
                 }
@@ -557,7 +548,7 @@ namespace Root.Reports
                 {
                     break;
                 }
-                fontProp_Test.rSize = (rFontSizeMax + rFontSizeMin) / 2.0;
+                fontProp_Test.rSize = new UnitModel() { Point = (rFontSizeMax + rFontSizeMin) / 2.0 };
                 fontProp_Test.rLineFeed = Double.NaN;
             }
             return fontProp_Test;
@@ -580,79 +571,6 @@ namespace Root.Reports
         }
         #endregion
     }
-
-    #region FontPropMM
-
-    #region
-    /// <summary>Defines the properties (i.e. format and style attributes) of a font with metric values.</summary>
-    /// <remarks>
-    /// Before a text object (e.g. <see cref="Root.Reports.RepString"/>) can be created,
-    /// a <see cref="Root.Reports.FontDef"/> and a <see cref="Root.Reports.FontProp"/> object must be defined.
-    /// </remarks>
-    /// <example>Font property sample:
-    /// <code>
-    /// using Root.Reports;
-    /// using System;
-    /// using System.Drawing;
-    /// 
-    /// public class FontPropSample : Report {
-    ///   public static void Main() {
-    ///     PdfReport&lt;FontPropSample&gt; pdfReport = new PdfReport&lt;FontPropSample&gt;();
-    ///     pdfReport.View("FontPropSample.pdf");
-    ///   }
-    ///
-    ///   protected override void Create() {
-    ///     FontDef fontDef = new FontDef(this, FontDef.StandardFont.Helvetica);
-    ///     <b>FontProp fontProp = new FontPropMM(fontDef, 15, Color.Red)</b>;
-    ///     fontProp.bBold = true;
-    ///     fontProp.bItalic = true;
-    ///     fontProp.bUnderline = true;
-    ///     new Page(this);
-    ///     page_Cur.AddCB_MM(80, new RepString(<b>fontProp</b>, "FontProp Sample"));
-    ///   }
-    /// }
-    /// </code>
-    /// </example>
-    #endregion
-    public class FontPropMM : FontProp
-    {
-        /// <overloads>
-        /// <summary>Creates a new font property object with metric values.</summary>
-        /// <remarks>
-        /// After a FontPropMM object has been created, the format and style attributes of the object can be changed.
-        /// The size of the font can be specified in millimeters, height of the letter "H".
-        /// </remarks>
-        /// </overloads>
-        /// 
-        /// <summary>Creates a new font property object with the specified size (in millimeters) and color.</summary>
-        /// <param name="fontDef">Font definition</param>
-        /// <param name="rSizeMM">Size of the font in millimeters, height of the letter "H".</param>
-        /// <param name="color">Color of the font</param>
-        /// <remarks>
-        /// After a FontPropMM object has been created, the format and style attributes of the object can be changed.
-        /// The size of the font can be specified in millimeters, height of the letter "H".
-        /// </remarks>
-        /// <example><see cref="FontPropMM">FontPropMM constructor sample</see></example>
-        public FontPropMM(FontDef fontDef, Double rSizeMM, Color color)
-          : base(fontDef, RT.rPointFromMM(rSizeMM), color)
-        {
-        }
-
-        /// <summary>Creates a new font property object with the specified size (in millimeters).</summary>
-        /// <param name="fontDef">Font definition</param>
-        /// <param name="rSizeMM">Size of the font in millimeters, height of the letter "H".</param>
-        /// <remarks>
-        /// The default color of the font is black.
-        /// After a FontProp object has been created, the format and style attributes of the object can be changed.
-        /// The size of the font can be specified in millimeters, height of the letter "H".
-        /// </remarks>
-        /// <example><see cref="FontPropMM">FontPropMM constructor sample</see></example>
-        public FontPropMM(FontDef fontDef, Double rSizeMM)
-          : this(fontDef, rSizeMM, Color.Black)
-        {
-        }
-    }
-    #endregion
 
     #region FontPropPoint
 
@@ -707,7 +625,7 @@ namespace Root.Reports
         /// The size of the font can be specified in points.
         /// </remarks>
         /// <example><see cref="FontPropPoint">FontPropPoint constructor sample</see></example>
-        public FontPropPoint(FontDef fontDef, Double rSizePoint, Color color)
+        public FontPropPoint(FontDef fontDef, UnitModel rSizePoint, Color color)
           : base(fontDef, rSizePoint, color)
         {
         }
@@ -721,7 +639,7 @@ namespace Root.Reports
         /// The size of the font can be specified in points.
         /// </remarks>
         /// <example><see cref="FontPropPoint">FontPropPoint constructor sample</see></example>
-        public FontPropPoint(FontDef fontDef, Double rSizePoint)
+        public FontPropPoint(FontDef fontDef, UnitModel rSizePoint)
           : this(fontDef, rSizePoint, Color.Black)
         {
         }
@@ -732,7 +650,7 @@ namespace Root.Reports
         /// <value>Size of the font in 1/72 inches, height of the letter "H"</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>
         /// <example><see cref="FontProp.rSize">Font size sample</see></example>
-        public override Double rSize
+        public override UnitModel rSize
         {
             get { return _rSizeInternal * fontData.rGetFactor_EM_To_H(); }
             set
@@ -746,7 +664,7 @@ namespace Root.Reports
         /// <value>Size of the font in points</value>
         /// <remarks>This property can be used to set the size of the font.</remarks>
         /// <example><see cref="FontProp.rSize">Font size sample</see></example>
-        public override Double rSizePoint
+        public override UnitModel rSizePoint
         {
             get { return _rSizeInternal; }
             set

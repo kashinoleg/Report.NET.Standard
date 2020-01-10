@@ -54,20 +54,20 @@ namespace Root.Reports
 
             if (repObj is RepString)
             {
-                RepString repString = (RepString)repObj;
-                FontProp fp = repString.fontProp;
-                String sText = repString.sText;
+                var repString = (RepString)repObj;
+                var fp = repString.fontProp;
+                var sText = repString.sText;
 
                 Int32 iLineStartIndex = 0;
                 Int32 iIndex = 0;
                 while (true)
                 {
-                    if (rY_Cur.Point > container_Cur.rHeight)
+                    if (rY_Cur.Point > container_Cur.rHeight.Point)
                     {
                         _container_Cur = null;
                         CreateNewContainer();
                     }
-                    Int32 iLineBreakIndex = 0;
+                    var iLineBreakIndex = 0;
                     Double rPosX = rX_Cur.Point;
                     Double rLineBreakPos = 0;
                     while (true)
@@ -78,9 +78,9 @@ namespace Root.Reports
                             rLineBreakPos = rPosX;
                             break;
                         }
-                        Char c = sText[iIndex];
+                        var c = sText[iIndex];
                         rPosX += fp.rGetTextWidth(Convert.ToString(c));
-                        if (rPosX >= container_Cur.rWidth)
+                        if (rPosX >= container_Cur.rWidth.Point)
                         {
                             if (iLineBreakIndex == 0)
                             {
@@ -110,12 +110,12 @@ namespace Root.Reports
 
                     if (iLineStartIndex == 0 && iIndex >= sText.Length)
                     {  // add entire object
-                        container_Cur.Add(rX_Cur.Point, rY_Cur.Point, repObj);
+                        container_Cur.Add(rX_Cur, rY_Cur, repObj);
                         rX_Cur.Point = rLineBreakPos;
                         break;
                     }
-                    String sLine = sText.Substring(iLineStartIndex, iLineBreakIndex - iLineStartIndex);
-                    container_Cur.Add(rX_Cur.Point, rY_Cur.Point, new RepString(fp, sLine));
+                    var sLine = sText.Substring(iLineStartIndex, iLineBreakIndex - iLineStartIndex);
+                    container_Cur.Add(rX_Cur, rY_Cur, new RepString(fp, sLine));
                     if (iIndex >= sText.Length)
                     {
                         rX_Cur.Point = rLineBreakPos;
@@ -129,7 +129,7 @@ namespace Root.Reports
             else
             {
                 Debug.Fail("Unknown object type");
-                container_Cur.Add(rX_Cur.Point, rY_Cur.Point, repObj);
+                container_Cur.Add(rX_Cur, rY_Cur, repObj);
             }
         }
 
@@ -137,50 +137,29 @@ namespace Root.Reports
         /// <param name="repString">Report object to add to the container</param>
         public void AddNew(RepString repString)
         {
-            NewLine(repString.fontProp.rLineFeed);
+            NewLine(new UnitModel() { Point = repString.fontProp.rLineFeed });
             Add(repString);
         }
 
         /// <summary>Makes a new line.</summary>
         /// <param name="rLineFeed">Line feed</param>
-        public void NewLine(Double rLineFeed)
+        public void NewLine(UnitModel rLineFeed)
         {
             rX_Cur = new UnitModel();
-            if (rY_Cur.Point + rLineFeed > container_Cur.rHeight)
+            if (rY_Cur.Point + rLineFeed.Point > container_Cur.rHeight.Point)
             {
                 _container_Cur = null;
                 CreateNewContainer();
             }
-            rY_Cur.Point += rLineFeed;
-        }
-
-        /// <summary>Makes a new line (metric version).</summary>
-        /// <param name="rLineFeedMM">Line feed in millimeters</param>
-        public void NewLineMM(Double rLineFeedMM)
-        {
-            NewLine(RT.rPointFromMM(rLineFeedMM));
+            rY_Cur.Point += rLineFeed.Point;
         }
 
         #region Container
         /// <summary>Default height of the container (points, 1/72 inch)</summary>
-        public Double rContainerHeight = Double.NaN;
-
-        /// <summary>Default height of the table (mm)</summary>
-        public Double rContainerHeightMM
-        {
-            get { return RT.rMMFromPoint(rContainerHeight); }
-            set { rContainerHeight = RT.rPointFromMM(value); }
-        }
+        public UnitModel rContainerHeight { get; set; }
 
         /// <summary>Default width of the container (points, 1/72 inch)</summary>
-        public Double rContainerWidth = Double.NaN;
-
-        /// <summary>Width of the table (mm)</summary>
-        public Double rContainerWidthMM
-        {
-            get { return RT.rMMFromPoint(rContainerWidth); }
-            set { rContainerWidth = RT.rPointFromMM(value); }
-        }
+        public UnitModel rContainerWidth { get; set; }
 
         private Container _container_Cur;
         /// <summary>Current container</summary>
@@ -242,7 +221,7 @@ namespace Root.Reports
         /// <param name="rX">X-coordinate of the new container (points, 1/72 inch)</param>
         /// <param name="rY">Y-coordinate of the new container (points, 1/72 inch)</param>
         /// <exception cref="ReportException">The layout manager status is not 'Init'</exception>
-        public Container container_Create(Container container_Parent, Double rX, Double rY)
+        public Container container_Create(Container container_Parent, UnitModel rX, UnitModel rY)
         {
             //      if (status != Status.Init && status != Status.Closed) {
             //        throw new ReportException("The layout manager must be in initialization mode or it must be closed; cannot create a new container.");

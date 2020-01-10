@@ -15,8 +15,8 @@ namespace Root.Reports
         public RepLine(PenProp penProp, UnitModel x, UnitModel y)
         {
             this.penProp = penProp.penProp_Registered;
-            this.rWidth = x.Point;
-            this.rHeight = y.Point;
+            this.rWidth = x;
+            this.rHeight = y;
             oRepObjX = penProp.report.formatter.oCreate_RepLine();
         }
     }

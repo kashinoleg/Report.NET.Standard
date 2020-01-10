@@ -20,8 +20,8 @@ namespace Root.Reports
         public RepImage(Stream stream, UnitModel rWidth, UnitModel rHeight)
         {
             this.stream = stream;
-            this.rWidth = rWidth != null ? rWidth.Point : double.NaN;
-            this.rHeight = rHeight != null ? rHeight.Point : double.NaN;
+            this.rWidth = rWidth ?? null;
+            this.rHeight = rHeight ?? null;
         }
 
         /// <summary>This method will be called after the report object has been added to the container.</summary>
@@ -40,21 +40,21 @@ namespace Root.Reports
             imageData.stream.Position = 0;
             using (Image image = Image.FromStream(imageData.stream))
             {
-                if (double.IsNaN(rWidth))
+                if (rWidth == null)
                 {
-                    if (double.IsNaN(rHeight))
+                    if (rHeight == null)
                     {
-                        rWidth = image.Width / image.HorizontalResolution * 72;
-                        rHeight = image.Height / image.VerticalResolution * 72; ;
+                        rWidth = new UnitModel() { Point = image.Width / image.HorizontalResolution * 72 };
+                        rHeight = new UnitModel() { Point = image.Height / image.VerticalResolution * 72 };
                     }
                     else
                     {
-                        rWidth = image.Width * rHeight / image.Height;
+                        rWidth = new UnitModel() { Point = image.Width * rHeight.Point / image.Height };
                     }
                 }
-                else if (double.IsNaN(rHeight))
+                else if (rHeight == null)
                 {
-                    rHeight = image.Height * rWidth / image.Width;
+                    rHeight = new UnitModel() { Point = image.Height * rWidth.Point / image.Width };
                 }
             }
         }

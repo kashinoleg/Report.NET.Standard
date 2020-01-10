@@ -13,15 +13,15 @@ namespace Report.NET.Core.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            ReportBase report = new ReportBase(new PdfFormatter());
-            FontDef fd = new FontDef(report, Standard.Fonts.StandardFontEnum.Helvetica);
-            FontProp fp = new FontPropMM(fd, 25);
-            Page page = new Page(report);
+            var report = new ReportBase(new PdfFormatter());
+            var fd = new FontDef(report, Standard.Fonts.StandardFontEnum.Helvetica);
+            var fp = new FontProp(fd, new UnitModel() { MM = 25 });
+            var page = new Page(report);
 
-            page.AddCB_MM(80, new RepString(fp, "Hello World!"));
+            page.AddCB(new UnitModel() { MM = 80 }, new RepString(fp, "Hello World!"));
 
-            PenProp pp = new PenProp(report, 10);
-            page.AddCB_MM(100, new RepLine(pp, new UnitModel() { MM = 0 }, new UnitModel() { MM = 30 }));
+            var pp = new PenProp(report, new UnitModel() { Point = 10 });
+            page.AddCB(new UnitModel() { MM = 100 }, new RepLine(pp, new UnitModel() { MM = 0 }, new UnitModel() { MM = 30 }));
 
             report.Save("HelloWorld.pdf");
         }
@@ -29,65 +29,65 @@ namespace Report.NET.Core.Tests
         [TestMethod]
         public void TestMethod2()
         {
-            ReportBase report = new ReportBase(new PdfFormatter());
-            FontDef fd = new FontDef(report, Standard.Fonts.StandardFontEnum.Helvetica);
-            FontProp fp = new FontPropMM(fd, 2.1);
-            FontProp fp_Title = new FontPropMM(fd, 18);
+            var report = new ReportBase(new PdfFormatter());
+            var fd = new FontDef(report, Standard.Fonts.StandardFontEnum.Helvetica);
+            var fp = new FontProp(fd, new UnitModel() { MM = 2.1 });
+            var fp_Title = new FontProp(fd, new UnitModel() { MM = 18 });
             fp_Title.bBold = true;
-            BrushProp bp = new BrushProp(report, Color.LightGray);
-            PenProp pp = new PenProp(report, 0.2, Color.FromArgb(235, 235, 235));
+            var bp = new BrushProp(report, Color.LightGray);
+            var pp = new PenProp(report, new UnitModel() { Point = 0.2 }, Color.FromArgb(235, 235, 235));
 
             var page = new Page(report);
             double rY = 40;
-            page.AddCB_MM(rY, new RepString(fp_Title, "Image Sample"));
-            fp_Title.rSizeMM = 4;
+            page.AddCB(new UnitModel() { MM = rY }, new RepString(fp_Title, "Image Sample"));
+            fp_Title.rSize = new UnitModel() { MM = 4 };
             var stream = File.Open("Image/Sample.jpg", FileMode.Open, FileAccess.Read, FileShare.Read);
             //System.IO.Stream stream = GetType().Assembly.GetManifestResourceStream("Report.NetCore.Tests.Image.Sample.jpg");
             Assert.IsNotNull(stream);
-            page.AddMM(20, 90, new RepImage(stream, new UnitModel() { MM = 40 }, null));
-            page.AddMM(20, 95, new RepString(fp, "W = 40mm, H = auto."));
-            page.AddMM(67, 90, new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 20 }));
-            page.AddMM(67, 95, new RepString(fp, "W = 40mm, H = 20mm"));
-            page.AddMM(114, 90, new RepImage(stream, null, new UnitModel() { MM = 30 }));
-            page.AddMM(114, 95, new RepString(fp, "W = auto., H = 30mm"));
-            page.AddMM(161, 90, new RepImage(stream, new UnitModel() { MM = 30 }, new UnitModel() { MM = 30 }));
-            page.AddMM(161, 95, new RepString(fp, "W = 30mm, H = 30mm"));
+            page.Add(new UnitModel() { MM = 20 }, new UnitModel() { MM = 90 }, new RepImage(stream, new UnitModel() { MM = 40 }, null));
+            page.Add(new UnitModel() { MM = 20 }, new UnitModel() { MM = 95 }, new RepString(fp, "W = 40mm, H = auto."));
+            page.Add(new UnitModel() { MM = 67 }, new UnitModel() { MM = 90 }, new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 20 }));
+            page.Add(new UnitModel() { MM = 67 }, new UnitModel() { MM = 95 }, new RepString(fp, "W = 40mm, H = 20mm"));
+            page.Add(new UnitModel() { MM = 114 }, new UnitModel() { MM = 90 }, new RepImage(stream, null, new UnitModel() { MM = 30 }));
+            page.Add(new UnitModel() { MM = 114 }, new UnitModel() { MM = 95 }, new RepString(fp, "W = auto., H = 30mm"));
+            page.Add(new UnitModel() { MM = 161 }, new UnitModel() { MM = 90 }, new RepImage(stream, new UnitModel() { MM = 30 }, new UnitModel() { MM = 30 }));
+            page.Add(new UnitModel() { MM = 161 }, new UnitModel() { MM = 95 }, new RepString(fp, "W = 30mm, H = 30mm"));
             rY += 150;
 
             // adjust the size of a bounding rectangle
             RepRect dr = new RepRect(bp, new UnitModel() { MM = 80 }, new UnitModel() { MM = 60 });
-            page.AddMM(20, rY, dr);
+            page.Add(new UnitModel() { MM = 20 }, new UnitModel() { MM = rY }, dr);
             RepImage di = new RepImage(stream, new UnitModel() { MM = 70 }, null);
-            page.AddMM(25, rY - 5, di);
-            dr.rHeightMM = di.rHeightMM + 10;
+            page.Add(new UnitModel() { MM = 25 }, new UnitModel() { MM = rY - 5 }, di);
+            dr.rHeight = new UnitModel() { MM = di.rHeight.MM + 10 };
 
             // rotated image
             di = new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 30 });
             di.RotateTransform(-15);
-            page.AddMM(120, rY - 33, di);
+            page.Add(new UnitModel() { MM = 120 }, new UnitModel() { MM = rY - 33 }, di);
 
             // rotated image with rectangle
-            StaticContainer sc = new StaticContainer(RT.rPointFromMM(45), RT.rPointFromMM(35));
-            page.AddMM(145, rY - 35, sc);
+            StaticContainer sc = new StaticContainer(new UnitModel() { MM = 45 }, new UnitModel() { MM = 35 });
+            page.Add(new UnitModel() { MM = 145 }, new UnitModel() { MM = rY - 35 }, sc);
             sc.RotateTransform(15);
-            sc.AddMM(0, 35, new RepRect(bp, new UnitModel() { MM = 45 }, new UnitModel() { MM = 35 }));
-            sc.AddMM(1.25, 33.75, new RepLine(pp, new UnitModel() { MM = 42.5 }, new UnitModel() { MM = 0 }));
-            sc.AddMM(1.25, 1.25, new RepLine(pp, new UnitModel() { MM = 42.5 }, new UnitModel() { MM = 0 }));
-            sc.AddAlignedMM(22.5, RepObj.rAlignCenter, 17.5, RepObj.rAlignCenter, new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 30 }));
+            sc.Add(new UnitModel() { MM = 0 }, new UnitModel() { MM = 35 }, new RepRect(bp, new UnitModel() { MM = 45 }, new UnitModel() { MM = 35 }));
+            sc.Add(new UnitModel() { MM = 1.25 }, new UnitModel() { MM = 33.75 }, new RepLine(pp, new UnitModel() { MM = 42.5 }, new UnitModel() { MM = 0 }));
+            sc.Add(new UnitModel() { MM = 1.25 }, new UnitModel() { MM = 1.25 }, new RepLine(pp, new UnitModel() { MM = 42.5 }, new UnitModel() { MM = 0 }));
+            sc.AddAligned(new UnitModel() { MM = 22.5 }, RepObj.rAlignCenter, new UnitModel() { MM = 17.5 }, RepObj.rAlignCenter, new RepImage(stream, new UnitModel() { MM = 40 }, new UnitModel() { MM = 30 }));
             rY += 30;
 
             // alignment sample
-            page.AddMM(20, rY, new RepString(fp_Title, "Alignment"));
+            page.Add(new UnitModel() { MM = 20 }, new UnitModel() { MM = rY }, new RepString(fp_Title, "Alignment"));
             rY += 18;
             int rX = 100;
             double rD = 20;
             bp.color = Color.DarkSalmon;
-            page.AddMM(rX, rY + rD, new RepRect(bp, new UnitModel() { MM = rD }, new UnitModel() { MM = rD }));
-            page.AddAlignedMM(rX, RepObj.rAlignRight, rY, RepObj.rAlignBottom, new RepImage(stream, new UnitModel() { MM = 20 }, null));
-            page.AddAlignedMM(rX, RepObj.rAlignRight, rY + rD, RepObj.rAlignTop, new RepImage(stream, new UnitModel() { MM = 20 }, null));
-            page.AddMM(rX + rD, rY, new RepImage(stream, new UnitModel() { MM = 20 }, null));  // default
-            page.AddAlignedMM(rX + rD, RepObj.rAlignLeft, rY + rD, RepObj.rAlignTop, new RepImage(stream, new UnitModel() { MM = 20 }, null));
-            page.AddAlignedMM(rX + rD / 2, RepObj.rAlignCenter, rY + rD / 2, RepObj.rAlignCenter, new RepImage(stream, new UnitModel() { MM = 10 }, null));
+            page.Add(new UnitModel() { MM = rX }, new UnitModel() { MM = rY + rD }, new RepRect(bp, new UnitModel() { MM = rD }, new UnitModel() { MM = rD }));
+            page.AddAligned(new UnitModel() { MM = rX }, RepObj.rAlignRight, new UnitModel() { MM = rY }, RepObj.rAlignBottom, new RepImage(stream, new UnitModel() { MM = 20 }, null));
+            page.AddAligned(new UnitModel() { MM = rX }, RepObj.rAlignRight, new UnitModel() { MM = rY + rD }, RepObj.rAlignTop, new RepImage(stream, new UnitModel() { MM = 20 }, null));
+            page.Add(new UnitModel() { MM = rX + rD }, new UnitModel() { MM = rY }, new RepImage(stream, new UnitModel() { MM = 20 }, null));  // default
+            page.AddAligned(new UnitModel() { MM = rX + rD }, RepObj.rAlignLeft, new UnitModel() { MM = rY + rD }, RepObj.rAlignTop, new RepImage(stream, new UnitModel() { MM = 20 }, null));
+            page.AddAligned(new UnitModel() { MM = rX + rD / 2 }, RepObj.rAlignCenter, new UnitModel() { MM = rY + rD / 2 }, RepObj.rAlignCenter, new RepImage(stream, new UnitModel() { MM = 10 }, null));
             //*/
             report.Save("ImageSample.pdf");
         }
@@ -121,13 +121,13 @@ namespace Report.NET.Core.Tests
             Assert.IsNotNull(fd.aFontData[(int)FontStyle.Italic]);
             Assert.IsNotNull(fd.aFontData[(int)(FontStyle.Bold | FontStyle.Italic)]);
 
-            FontProp fp = new FontPropMM(fd, 25);
-            Page page = new Page(report);
+            var fp = new FontProp(fd, new UnitModel() { MM = 25 });
+            var page = new Page(report);
 
-            page.AddCB_MM(80, new RepString(fp, "Hello World!"));
+            page.AddCB(new UnitModel() { MM = 80 }, new RepString(fp, "Hello World!"));
 
-            PenProp pp = new PenProp(report, 10);
-            page.AddCB_MM(100, new RepLine(pp, new UnitModel() { MM = 0 }, new UnitModel() { MM = 30 }));
+            var pp = new PenProp(report, new UnitModel() { MM = 1 });
+            page.AddCB(new UnitModel() { MM = 100 }, new RepLine(pp, new UnitModel() { MM = 0 }, new UnitModel() { MM = 30 }));
 
             report.Save("HelloWorld.pdf");
         }

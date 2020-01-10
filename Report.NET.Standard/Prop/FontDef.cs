@@ -1,7 +1,6 @@
 ﻿using Report.NET.Standard.Fonts;
 using System;
 using System.Drawing;
-using System.IO;
 
 namespace Root.Reports
 {
@@ -49,8 +48,6 @@ namespace Root.Reports
         /// <remarks>If there is no font data object with the specified style, <see langword="null"/> will be returned.</remarks>
         internal FontData this[FontStyle fontStyle] => aFontData[(int)fontStyle];
         #endregion
-
-
 
         #region Conctructors
         /// <summary>Creates a new font definition.</summary>

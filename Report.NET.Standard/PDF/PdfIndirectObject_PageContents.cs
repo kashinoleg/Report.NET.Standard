@@ -105,12 +105,12 @@ namespace Root.Reports
             Write_rg(fontProp.color);
             FontData fontData = fontProp.fontData;
             PdfIndirectObject_Font pdfIndirectObject_Font = (PdfIndirectObject_Font)fontData.oFontDataX;
-            String sFont_New = pdfIndirectObject_Font.iObjectNumber + " " + RT.sPdfDim(fontProp.rSizePoint);
+            String sFont_New = pdfIndirectObject_Font.iObjectNumber + " " + RT.sPdfDim(fontProp.rSizePoint.Point);
             if (sFont_Cur != sFont_New)
             {
                 Name("F" + pdfIndirectObject_Font.iObjectNumber);
                 Space();
-                Number(fontProp.rSizePoint);
+                Number(fontProp.rSizePoint.Point);
                 Command("Tf");
                 sFont_Cur = sFont_New;
             }
@@ -157,7 +157,7 @@ namespace Root.Reports
         {
             Number(rX);
             Space();
-            Number(page.rHeight - rY);
+            Number(page.rHeight.Point - rY);
         }
 
         /// <summary>Applies the geometric transformation represented by the matrix to the point and writes the absolute coordinates to the buffer.</summary>
@@ -186,10 +186,10 @@ namespace Root.Reports
                 bColor_RG = true;
                 color_RG = penProp.color;
             }
-            if (rPenWidth_Cur != penProp.rWidth)
+            if (rPenWidth_Cur != penProp.rWidth.Point)
             {
-                WriteLine(RT.sPdfDim(penProp.rWidth) + " w");
-                rPenWidth_Cur = penProp.rWidth;
+                WriteLine(RT.sPdfDim(penProp.rWidth.Point) + " w");
+                rPenWidth_Cur = penProp.rWidth.Point;
             }
             if (rPatternOn != penProp.rPatternOn || rPatternOff != penProp.rPatternOff)
             {

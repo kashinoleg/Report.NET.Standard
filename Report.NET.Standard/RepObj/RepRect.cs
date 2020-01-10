@@ -26,8 +26,8 @@ namespace Root.Reports
             {
                 this.brushProp = brushProp.brushProp_Registered;
             }
-            this.rWidth = width.Point;
-            this.rHeight = height.Point;
+            this.rWidth = width;
+            this.rHeight = height;
             if (penProp == null)
             {
                 oRepObjX = brushProp.report.formatter.oCreate_RepRect();

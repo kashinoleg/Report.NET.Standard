@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Report.NET.Standard.Base;
+using System;
 using System.Diagnostics;
 
 namespace Root.Reports
@@ -66,10 +67,10 @@ namespace Root.Reports
         {
             PdfIndirectObject_PageContents p = e.pdfIndirectObject_PageContents;
             RepImage repImage = (RepImage)e.repObj;
-            Double rOfsX = repImage.rWidth * repImage.rAlignH;
-            Double rOfsY = repImage.rHeight * (1 - repImage.rAlignV);
-            e.matrixD.Multiply(new MatrixD(1, 0, 0, 1, -rOfsX, rOfsY));
-            e.matrixD.Scale(repImage.rWidth, repImage.rHeight);
+            var rOfsX = repImage.rWidth * repImage.rAlignH;
+            var rOfsY = repImage.rHeight * (1 - repImage.rAlignV);
+            e.matrixD.Multiply(new MatrixD(1, 0, 0, 1, -rOfsX.Point, rOfsY.Point));
+            e.matrixD.Scale(repImage.rWidth.Point, repImage.rHeight.Point);
             p.Command("q");
             p.Write_Matrix(e.matrixD); p.Command("cm");
             PdfIndirectObject_ImageJpeg pdfIndirectObject_ImageJpeg = (PdfIndirectObject_ImageJpeg)repImage.imageData.oImageResourceX;
@@ -95,17 +96,17 @@ namespace Root.Reports
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
         {
-            PdfIndirectObject_PageContents p = e.pdfIndirectObject_PageContents;
-            RepLine repLine = (RepLine)e.repObj;
-            Double rOfsX = repLine.rWidth * repLine.rAlignH;
-            Double rOfsY = repLine.rHeight * repLine.rAlignV;
+            var p = e.pdfIndirectObject_PageContents;
+            var repLine = (RepLine)e.repObj;
+            var rOfsX = repLine.rWidth.Point * repLine.rAlignH;
+            var rOfsY = repLine.rHeight.Point * repLine.rAlignV;
             e.matrixD.Multiply(1, 0, 0, 1, -rOfsX, -rOfsY);
-            if (repLine.penProp.rWidth > 0f)
+            if (repLine.penProp.rWidth.Point > 0f)
             {
                 p.Write_Pen(repLine.penProp);
                 p.Write_Point(e.matrixD.rDX, e.matrixD.rDY);
                 p.Command("m");
-                p.Write_Point(e.matrixD, repLine.rWidth, repLine.rHeight);
+                p.Write_Point(e.matrixD, repLine.rWidth.Point, repLine.rHeight.Point);
                 p.Command("l");
                 p.Command("S");
             }
@@ -131,12 +132,12 @@ namespace Root.Reports
         {
             PdfIndirectObject_PageContents p = e.pdfIndirectObject_PageContents;
             RepArcBase repArcBase = (RepArcBase)e.repObj;
-            Double rOfsX = repArcBase.rWidth * (-repArcBase.rAlignH + 0.5);
-            Double rOfsY = repArcBase.rHeight * (1 - repArcBase.rAlignV - 0.5);
+            var rOfsX = repArcBase.rWidth.Point * (-repArcBase.rAlignH + 0.5);
+            var rOfsY = repArcBase.rHeight.Point * (1 - repArcBase.rAlignV - 0.5);
             e.matrixD.Multiply(new MatrixD(1, 0, 0, 1, rOfsX, rOfsY));
 
             String sDrawCommand = null;
-            if (repArcBase._penProp != null && repArcBase._penProp.rWidth != 0.0)
+            if (repArcBase._penProp != null && repArcBase._penProp.rWidth.Point != 0.0)
             {
                 p.Write_Pen(repArcBase._penProp);
                 if (repArcBase._brushProp != null)
@@ -159,10 +160,10 @@ namespace Root.Reports
                 return;
             }
 
-            Double rA = repArcBase.rWidth / 2;
-            Double rA2 = rA * rA;
-            Double rB = repArcBase.rHeight / 2;
-            Double rB2 = rB * rB;
+            var rA = repArcBase.rWidth.Point / 2;
+            var rA2 = rA * rA;
+            var rB = repArcBase.rHeight.Point / 2;
+            var rB2 = rB * rB;
 
             // start point: P0
             Double rAngle0 = RT.rRadianFromDegree(repArcBase._rStartAngle);
@@ -261,14 +262,14 @@ namespace Root.Reports
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
         {
-            PdfIndirectObject_PageContents p = e.pdfIndirectObject_PageContents;
-            RepRect repRect = (RepRect)e.repObj;
-            Double rOfsX = repRect.rWidth * repRect.rAlignH;
-            Double rOfsY = repRect.rHeight * (1 - repRect.rAlignV);
+            var p = e.pdfIndirectObject_PageContents;
+            var repRect = (RepRect)e.repObj;
+            var rOfsX = repRect.rWidth.Point * repRect.rAlignH;
+            var rOfsY = repRect.rHeight.Point * (1 - repRect.rAlignV);
             e.matrixD.Multiply(1, 0, 0, 1, -rOfsX, rOfsY);
             if (repRect.penProp != null)
             {
-                if (repRect.penProp.rWidth > 0f)
+                if (repRect.penProp.rWidth.Point > 0f)
                 {
                     p.Write_Pen(repRect.penProp);
                 }
@@ -287,14 +288,14 @@ namespace Root.Reports
                 p.Command("q");
                 p.Write_Matrix(e.matrixD);
                 p.Command("cm");
-                p.Write_Point(0, 0); p.Space(); p.Number(repRect.rWidth); p.Space(); p.Number(repRect.rHeight); p.Space();
+                p.Write_Point(0, 0); p.Space(); p.Number(repRect.rWidth.Point); p.Space(); p.Number(repRect.rHeight.Point); p.Space();
                 p.Command("re");
                 p.Command(repRect.penProp == null ? "f" : (repRect.brushProp == null ? "S" : "B"));
                 p.Command("Q");
             }
             else
             {
-                p.Write_Point(e.matrixD.rDX, e.matrixD.rDY); p.Space(); p.Number(repRect.rWidth); p.Space(); p.Number(repRect.rHeight);
+                p.Write_Point(e.matrixD.rDX, e.matrixD.rDY); p.Space(); p.Number(repRect.rWidth.Point); p.Space(); p.Number(repRect.rHeight.Point);
                 p.Command("re");
                 p.Command(repRect.penProp == null ? "f" : (repRect.brushProp == null ? "S" : "B"));
             }
@@ -318,11 +319,11 @@ namespace Root.Reports
         /// <param name="e">Environment data</param>
         public void Write(PdfIndirectObject_PageContents.Environment e)
         {
-            PdfIndirectObject_PageContents p = e.pdfIndirectObject_PageContents;
-            RepString repString = (RepString)e.repObj;
-            Double rWidth = repString.fontProp.rGetTextWidth(repString.sText);
-            Double rOfsX = rWidth * repString.rAlignH;
-            Double rOfsY = repString.fontProp.rSize * (1 - repString.rAlignV);
+            var p = e.pdfIndirectObject_PageContents;
+            var repString = (RepString)e.repObj;
+            var rWidth = repString.fontProp.rGetTextWidth(repString.sText);
+            var rOfsX = rWidth * repString.rAlignH;
+            var rOfsY = repString.fontProp.rSize.Point * (1 - repString.rAlignV);
             e.matrixD.Multiply(new MatrixD(1, 0, 0, 1, -rOfsX, rOfsY));
 
             p.Command("BT");
@@ -343,11 +344,11 @@ namespace Root.Reports
 
             if (repString.fontProp.bUnderline)
             {
-                Type1FontData type1FontData = (Type1FontData)repString.fontProp.fontData;
-                Double rScaleFactor = repString.fontProp.rSizePoint;
-                PenProp pp = new PenProp(e.report, rScaleFactor * type1FontData.fUnderlineThickness / 1000, repString.fontProp.color);
+                var type1FontData = (Type1FontData)repString.fontProp.fontData;
+                var rScaleFactor = repString.fontProp.rSizePoint.Point;
+                var pp = new PenProp(e.report, new UnitModel() { Point = rScaleFactor * type1FontData.fUnderlineThickness / 1000 }, repString.fontProp.color);
                 p.Write_Pen(pp);
-                Double rD = rScaleFactor * type1FontData.fUnderlinePosition / 1000;
+                var rD = rScaleFactor * type1FontData.fUnderlinePosition / 1000;
                 p.Write_Point(e.matrixD, 0, -rD);
                 p.Command("m");
                 p.Write_Point(e.matrixD, rWidth, -rD);

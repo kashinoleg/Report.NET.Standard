@@ -24,7 +24,9 @@
 
         public static UnitModel operator *(UnitModel a, double m) => new UnitModel() { MM = a.MM * m };
         public static UnitModel operator /(UnitModel a, double m) => new UnitModel() { MM = a.MM / m };
-        public static UnitModel operator +(UnitModel a, double m) => new UnitModel() { MM = a.MM + m };
-        public static UnitModel operator -(UnitModel a, double m) => new UnitModel() { MM = a.MM - m };
+        public static UnitModel operator *(UnitModel a, UnitModel m) => new UnitModel() { MM = a.MM * m.MM };
+        public static UnitModel operator /(UnitModel a, UnitModel m) => new UnitModel() { MM = a.MM / m.MM };
+        public static UnitModel operator +(UnitModel a, UnitModel m) => new UnitModel() { MM = a.MM + m.MM };
+        public static UnitModel operator -(UnitModel a, UnitModel m) => new UnitModel() { MM = a.MM - m.MM };
     }
 }

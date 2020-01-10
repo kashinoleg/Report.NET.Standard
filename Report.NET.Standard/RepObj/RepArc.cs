@@ -49,8 +49,8 @@ namespace Root.Reports
             {
                 this._brushProp = brushProp.brushProp_Registered;
             }
-            this.rWidth = rWidth.Point;
-            this.rHeight = rHeight.Point;
+            this.rWidth = rWidth;
+            this.rHeight = rHeight;
             this._rStartAngle = rStartAngle;
             this._rSweepAngle = rSweepAngle;
 
@@ -83,8 +83,8 @@ namespace Root.Reports
             const double rPi1_2 = Math.PI / 2.0;
             const double rPi3_2 = Math.PI / 2.0 * 3.0;
             rAngle -= Math.Floor(rAngle / 2.0 / Math.PI) * 2.0 * Math.PI;
-            double rA = rWidth / 2.0;
-            double rB = rHeight / 2.0;
+            double rA = rWidth.Point / 2.0;
+            double rB = rHeight.Point / 2.0;
 
             if (RT.bEquals(rAngle, rPi1_2, 0.0001))
             {
