@@ -42,7 +42,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"kashinoleg_Report.NET.Standard" /o:"kashinoleg" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /n:"Report.NET.Standard" /v:"1.0.2.$TRAVIS_BUILD_NUMBER" /d:sonar.links.homepage="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.ci="https://github.com/kashinoleg/Report.NET.Standard/actions" /d:sonar.links.scm="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.issue="https://github.com/kashinoleg/Report.NET.Standard/issues" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"kashinoleg_Report.NET.Standard" /o:"kashinoleg" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /n:"Report.NET.Standard" /v:"1.0.2.$GITHUB_RUN_NUMBER" /d:sonar.links.homepage="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.ci="https://github.com/kashinoleg/Report.NET.Standard/actions" /d:sonar.links.scm="https://github.com/kashinoleg/Report.NET.Standard" /d:sonar.links.issue="https://github.com/kashinoleg/Report.NET.Standard/issues" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*"
 
           dotnet build Report.NET.sln -c Release
 
